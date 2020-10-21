@@ -7,8 +7,10 @@ import {
   InnerWrapper,
   HeadingWrapper,
   H2,
+  SubHeadingDiv,
   FormWrapper,
   QuotesWrapper,
+  QuoteHeading,
   P,
   GetStartedWrapper,
   MessagePara,
@@ -18,6 +20,7 @@ import {
 } from "./styles";
 import WinnerIcon from "../images/winner.svg";
 import { loadQuotes, openModal } from "../actions";
+import Header from "../components/Header";
 
 function HomePage({ loadQuote, quote, OpenModal, isOpen, ...props }) {
   useEffect(() => {
@@ -31,35 +34,25 @@ function HomePage({ loadQuote, quote, OpenModal, isOpen, ...props }) {
   return (
     <HomeWrapper>
       {isOpen && <Modals />}
-
-      <InnerWrapper>
-        <HeadingWrapper>
-          <ReactSVG src={WinnerIcon} />
-          <H2>Goal Store !</H2>
-        </HeadingWrapper>
-      </InnerWrapper>
+      <Header />
+      <H2>Create and store your Goals </H2>
+      <SubHeadingDiv>
+        <P>
+          This application is created to nullify the use of sticky-paper for
+          writing out some deadlines,tasks,notes,etc.. and allow us to create
+          and store them on the web. Thus we are reducing the use of papers!!!!!
+        </P>
+      </SubHeadingDiv>
       <FormWrapper>
         <QuotesWrapper>
-          <H2 headingType="quote">Quote of the Day!</H2>
-          <P>{quote.quote.quoteText}</P>
+          <QuoteHeading>Quote of the Moment!!!</QuoteHeading>
+          <P quote>{quote.quote.quoteText}</P>
           <P>
-            By <span>{quote.quote.quoteAuthor}</span>
+            -- <span>{quote.quote.quoteAuthor}</span>
           </P>
         </QuotesWrapper>
         <GetStartedWrapper>
-          <MessagePara>
-            What are you waiting for ? Just start creating your{" "}
-            <span>GOALS !</span>
-          </MessagePara>
           <CreateButton onClick={clickHandler}>Start Now</CreateButton>
-          <MessagePara>
-            It would be great if you click on any one of the below buttons !
-          </MessagePara>
-          <ButtonsDiv>
-            <SignInSignupButton>Sign In</SignInSignupButton>
-            OR
-            <SignInSignupButton onClick={OpenModal}>Sign Up</SignInSignupButton>
-          </ButtonsDiv>
         </GetStartedWrapper>
       </FormWrapper>
     </HomeWrapper>

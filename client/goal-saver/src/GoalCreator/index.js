@@ -10,6 +10,7 @@ import {
   ProceedButton,
 } from "./styles";
 import { H2 } from "../Homepage/styles";
+import Header from "../components/Header";
 import Slide from "react-reveal/Slide";
 
 function GoalCreator() {
@@ -29,24 +30,27 @@ function GoalCreator() {
     setState((prevState) => ({ ...prevState, [name]: value }));
   };
   return (
-    <GoalWrapper>
-      <InputWrapper>
-        <H2 headingType="quote">Hmm, Let's get started !</H2>
-        <InputField
-          type="text"
-          name="name"
-          value={name}
-          onChange={onChangeHandler}
-          placeholder="Type your goal"
-        />
-      </InputWrapper>
-      <Example>e.g: To become a software developer</Example>
-      <ButtonDiv>
-        <ProceedButton onClick={onClickHandler}>
-          <ReactSVG src={Arrow} />
-        </ProceedButton>
-      </ButtonDiv>
-    </GoalWrapper>
+    <>
+      <Header />
+      <GoalWrapper>
+        <InputWrapper>
+          <H2 headingType="quote">Hmm, Let's get started !</H2>
+          <InputField
+            type="text"
+            name="name"
+            value={name}
+            onChange={onChangeHandler}
+            placeholder="Type your goal"
+          />
+        </InputWrapper>
+        <Example>e.g: To become a software developer</Example>
+        <ButtonDiv>
+          <ProceedButton onClick={onClickHandler}>
+            <ReactSVG src={Arrow} />
+          </ProceedButton>
+        </ButtonDiv>
+      </GoalWrapper>
+    </>
 
     // <Slide right>
     //   <div>
