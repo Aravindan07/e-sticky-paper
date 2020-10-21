@@ -23,7 +23,7 @@ export const HeadingWrapper = styled.div`
 export const H2 = styled.h1`
   margin: 40px auto 20px auto;
   letter-spacing: 1.6px;
-  color: #ba1200;
+  color: #861657;
   /* font-size: 28px; */
   letter-spacing: 0.6px;
   line-height: 50px;
@@ -101,14 +101,17 @@ export const CreateButton = styled.div`
   border: none;
   width: 130px;
   padding: 7px 11px 7px 14px;
-  border-radius: 10px;
-  background: #ffa51d;
+  border-radius: 5px;
+  background: #496ddb;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 18px;
   height: 40px;
   margin: 20px 0px;
   cursor: pointer;
+  color: #fff;
+  letter-spacing: 1px;
+  text-align: center;
   :focus,
   :hover {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);

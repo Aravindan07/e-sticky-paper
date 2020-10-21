@@ -52,7 +52,8 @@ function HomePage({ loadQuote, quote, OpenModal, isOpen, ...props }) {
           </P>
         </QuotesWrapper>
         <GetStartedWrapper>
-          <CreateButton onClick={clickHandler}>Start Now</CreateButton>
+          <P>Try it now.It's free!!!</P>
+          <CreateButton onClick={clickHandler}>Try Now</CreateButton>
         </GetStartedWrapper>
       </FormWrapper>
     </HomeWrapper>

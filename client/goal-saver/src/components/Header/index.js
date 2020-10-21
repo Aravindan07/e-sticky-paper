@@ -18,7 +18,7 @@ function Header({ OpenModal }) {
       <InnerWrap>
         <LogoDiv>
           <ReactSVG src={GoalLogo} />
-          sticky-goal
+          sticky-goals
         </LogoDiv>
         <AccountWrap>
           <SignInSignUpWrap>
