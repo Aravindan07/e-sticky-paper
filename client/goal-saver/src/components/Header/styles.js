@@ -18,6 +18,7 @@ export const LogoDiv = styled.div`
   font-size: 18px;
   letter-spacing: 1.2px;
   text-transform: uppercase;
+  cursor: pointer;
   svg {
     width: 50px;
     height: 50px;

@@ -23,9 +23,9 @@ import { loadQuotes, openModal } from "../actions";
 import Header from "../components/Header";
 
 function HomePage({ loadQuote, quote, OpenModal, isOpen, ...props }) {
-  useEffect(() => {
-    loadQuote();
-  }, [loadQuote]);
+  // useEffect(() => {
+  //   loadQuote();
+  // }, [loadQuote]);
 
   const clickHandler = () => {
     props.history.push("/user/2kjs322ujsisd38273/create-goal");
@@ -46,10 +46,10 @@ function HomePage({ loadQuote, quote, OpenModal, isOpen, ...props }) {
       <FormWrapper>
         <QuotesWrapper>
           <QuoteHeading>Quote of the Moment!!!</QuoteHeading>
-          <P quote>{quote.quote.quoteText}</P>
+          {/* <P quote>{quote.quote.quoteText}</P>
           <P>
             -- <span>{quote.quote.quoteAuthor}</span>
-          </P>
+          </P> */}
         </QuotesWrapper>
         <GetStartedWrapper>
           <P>Try it now.It's free!!!</P>

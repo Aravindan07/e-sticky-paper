@@ -12,7 +12,11 @@ import {
 } from "./styles";
 import { openModal } from "../../actions";
 
-function Header({ OpenModal }) {
+function Header({ Open }) {
+  const OpenModalType = (modalType, data = {}) => {
+    console.log(modalType, data);
+    return Open(modalType, data);
+  };
   return (
     <>
       <InnerWrap>
@@ -22,11 +26,11 @@ function Header({ OpenModal }) {
         </LogoDiv>
         <AccountWrap>
           <SignInSignUpWrap>
-            <Button>Sign In</Button>
+            <Button onClick={() => OpenModalType("signin")}>Sign In</Button>
             {/* <ReactSVG src={AccountIcon} /> */}
           </SignInSignUpWrap>
           <SignInSignUpWrap>
-            <Button onClick={OpenModal}>Register</Button>
+            <Button onClick={() => OpenModalType("signup")}>Register</Button>
             {/* <ReactSVG src={AccountIcon} /> */}
           </SignInSignUpWrap>
         </AccountWrap>
@@ -36,7 +40,7 @@ function Header({ OpenModal }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  OpenModal: () => dispatch(openModal()),
+  Open: (modalType, data) => dispatch(openModal(modalType, data)),
 });
 
 export default connect(null, mapDispatchToProps)(Header);

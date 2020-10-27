@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { connectRouter } from "connected-react-router";
 import LoadQuoteReducer from "./quoteReducer";
-import SignupReducer from "./signupReducer";
+import AuthenticationReducer from "./authenticationReducer";
 import ModalReducer from "./modalReducer";
 import messageReducer from "./messageReducer";
 
@@ -10,7 +10,7 @@ const rootReducer = (history) =>
     router: connectRouter(history),
     modal: ModalReducer,
     quote: LoadQuoteReducer,
-    signup: SignupReducer,
+    authentication: AuthenticationReducer,
     message: messageReducer,
   });
 

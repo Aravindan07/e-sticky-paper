@@ -6,7 +6,7 @@ import {
   clearError,
   closeModal,
   ErrorMessage,
-  SignUpSuccess,
+  SignInSuccess,
   SuccessMessage,
 } from "../actions";
 
@@ -36,10 +36,10 @@ const config = {
   },
 };
 
-function* signupSaga({ name, email, password }) {
-  const body = JSON.stringify({ name, email, password });
+function* signinSaga({ email, password }) {
+  const body = JSON.stringify({ email, password });
   const apiCall = () => {
-    return Axios.post("/api/users", body, config)
+    return Axios.post("/api/users/login", body, config)
       .then((response) => {
         console.log(response.data);
         return response.data;
@@ -54,7 +54,7 @@ function* signupSaga({ name, email, password }) {
   try {
     const result = yield call(apiCall);
     if (result.status) {
-      yield put(SignUpSuccess(result));
+      yield put(SignInSuccess(result));
       yield put(SuccessMessage(result.message));
       yield put(clearError());
       yield put(closeModal());
@@ -70,6 +70,6 @@ function* signupSaga({ name, email, password }) {
   }
 }
 
-export default function* watchSignup() {
-  yield takeLatest(SIGN_UP, signupSaga);
+export default function* watchSignIn() {
+  yield takeLatest(SIGN_UP, signinSaga);
 }

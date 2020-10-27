@@ -3,6 +3,8 @@ import {
   SET_QUOTE,
   SIGN_UP,
   SIGN_UP_SUCCESS,
+  SIGN_IN,
+  SIGN_IN_SUCCESS,
   ERROR_MESSAGE,
   CLOSE_MODAL,
   OPEN_MODAL,
@@ -10,9 +12,11 @@ import {
   CLEAR_ERROR,
 } from "../constants";
 
-export const openModal = () => {
+export const openModal = (modalType, data) => {
   return {
     type: OPEN_MODAL,
+    modalType,
+    data,
   };
 };
 
@@ -48,6 +52,18 @@ export const SignUpSuccess = (payload) => {
   return { type: SIGN_UP_SUCCESS, payload };
 };
 
+export const signIn = (email, password) => {
+  return {
+    type: SIGN_IN,
+    email,
+    password,
+  };
+};
+
+export const SignInSuccess = (payload) => {
+  return { type: SIGN_IN_SUCCESS, payload };
+};
+
 export const clearError = () => {
   return {
     type: CLEAR_ERROR,
@@ -55,11 +71,9 @@ export const clearError = () => {
 };
 
 export const SuccessMessage = (message) => {
-  console.log("I am inside success");
   return { type: SUCCESS_MESSAGE, message };
 };
 
 export const ErrorMessage = (message) => {
-  console.log("I am inside");
   return { type: ERROR_MESSAGE, message };
 };
