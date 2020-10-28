@@ -10,9 +10,9 @@ import {
   SignInSignUpWrap,
   Button,
 } from "./styles";
-import { openModal } from "../../actions";
+import { openModal, logout } from "../../actions";
 
-function Header({ Open }) {
+function Header({ Open, Logout }) {
   const OpenModalType = (modalType, data = {}) => {
     console.log(modalType, data);
     return Open(modalType, data);
@@ -26,6 +26,10 @@ function Header({ Open }) {
         </LogoDiv>
         <AccountWrap>
           <SignInSignUpWrap>
+            <SignInSignUpWrap>
+              <Button onClick={() => OpenModalType("logout")}>Logout</Button>
+              {/* <ReactSVG src={AccountIcon} /> */}
+            </SignInSignUpWrap>
             <Button onClick={() => OpenModalType("signin")}>Sign In</Button>
             {/* <ReactSVG src={AccountIcon} /> */}
           </SignInSignUpWrap>
@@ -41,6 +45,7 @@ function Header({ Open }) {
 
 const mapDispatchToProps = (dispatch) => ({
   Open: (modalType, data) => dispatch(openModal(modalType, data)),
+  Logout: () => dispatch(logout()),
 });
 
 export default connect(null, mapDispatchToProps)(Header);

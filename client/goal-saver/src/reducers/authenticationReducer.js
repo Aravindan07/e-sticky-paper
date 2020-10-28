@@ -1,4 +1,4 @@
-import { SIGN_IN_SUCCESS, SIGN_UP_SUCCESS } from "../constants";
+import { LOGOUT, SIGN_IN_SUCCESS, SIGN_UP_SUCCESS } from "../constants";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -25,6 +25,15 @@ const AuthenticationReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
         isAuthenticated: true,
+        isLoading: false,
+      };
+    case LOGOUT:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        token: null,
+        user: null,
+        isAuthenticated: false,
         isLoading: false,
       };
     default:

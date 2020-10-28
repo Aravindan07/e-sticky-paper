@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { openModal, closeModal, signUp } from "../../../actions";
 import { Heading, Wrap, Input, ButtonsDiv, Button } from "../styles";
+import Loader from "../../Loader";
 
-function SignupModal({ signupUser, closeModal, data }) {
+function SignupModal({ signupUser, closeModal, isLoading }) {
   const initialState = {
     name: "",
     email: "",
@@ -24,6 +25,7 @@ function SignupModal({ signupUser, closeModal, data }) {
 
   return (
     <>
+      {isLoading && <Loader />}
       <Heading>Sign Up Now!</Heading>
       <Wrap>
         <Input
@@ -61,10 +63,14 @@ function SignupModal({ signupUser, closeModal, data }) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  isLoading: state.authentication.isLoading,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   closeModal: () => dispatch(closeModal()),
   signupUser: (name, email, password) =>
     dispatch(signUp(name, email, password)),
 });
 
-export default connect(null, mapDispatchToProps)(SignupModal);
+export default connect(mapStateToProps, mapDispatchToProps)(SignupModal);

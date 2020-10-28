@@ -6,6 +6,7 @@ export const SIGN_UP = "SIGN_UP";
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";
+export const LOGOUT = "LOGOUT";
 export const ERROR = "ERROR";
 export const ERROR_MESSAGE = "ERROR_MESSAGE";
 export const SUCCESS_MESSAGE = "SUCCESS_MESSAGE";

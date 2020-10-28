@@ -10,6 +10,7 @@ import {
   OPEN_MODAL,
   SUCCESS_MESSAGE,
   CLEAR_ERROR,
+  LOGOUT,
 } from "../constants";
 
 export const openModal = (modalType, data) => {
@@ -62,6 +63,12 @@ export const signIn = (email, password) => {
 
 export const SignInSuccess = (payload) => {
   return { type: SIGN_IN_SUCCESS, payload };
+};
+
+export const logout = () => {
+  return {
+    type: LOGOUT,
+  };
 };
 
 export const clearError = () => {

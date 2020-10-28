@@ -42,7 +42,8 @@ export const ButtonsDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin: ${(props) =>
+    props.divType === "logout" ? "40px auto auto auto" : "20px 0px 0px 0px"};
   span {
     color: #aa3b64;
     font-weight: 600;

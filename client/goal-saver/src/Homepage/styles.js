@@ -67,14 +67,13 @@ export const QuoteHeading = styled.div`
 export const P = styled.p`
   color: #13262f;
   letter-spacing: 1px;
-  /* margin: 0px; */
   margin: ${(props) => (props.quote ? "0px 0px 10px 0px" : "0px")};
   font-size: 20px;
   line-height: 32px;
   span {
-    /* font-weight: bold; */
+    font-weight: ${(props) => (props.divType === "logout" ? "bold" : "unset")};
     margin-top: 10px;
-    color: #020887;
+    color: ${(props) => (props.divType === "logout" ? "#13262f" : "#020887")};
   }
 `;
 

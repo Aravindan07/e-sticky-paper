@@ -33,7 +33,6 @@ function HomePage({ loadQuote, quote, OpenModal, isOpen, ...props }) {
 
   return (
     <HomeWrapper>
-      {isOpen && <Modals />}
       <Header />
       <H2>Create and store your Goals </H2>
       <SubHeadingDiv>

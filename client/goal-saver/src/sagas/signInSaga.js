@@ -1,7 +1,7 @@
 import { call, takeLatest, put } from "redux-saga/effects";
 import { push } from "connected-react-router";
 import Axios from "axios";
-import { SIGN_UP } from "../constants";
+import { SIGN_IN } from "../constants";
 import {
   clearError,
   closeModal,
@@ -61,8 +61,10 @@ function* signinSaga({ email, password }) {
       yield put(push(`/user/${result.user.id}/create-goal`));
       return;
     }
-    yield put(ErrorMessage(result.response.data.message));
+    console.log(result);
+    console.log("test");
     console.log(result.response.data.message);
+    yield put(ErrorMessage(result.response.message));
     yield put(clearError());
     return;
   } catch (error) {
@@ -71,5 +73,5 @@ function* signinSaga({ email, password }) {
 }
 
 export default function* watchSignIn() {
-  yield takeLatest(SIGN_UP, signinSaga);
+  yield takeLatest(SIGN_IN, signinSaga);
 }

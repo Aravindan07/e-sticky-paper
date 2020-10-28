@@ -8,6 +8,7 @@ import { compose } from "redux";
 import { useRef } from "react";
 import SignupModal from "./Signup";
 import SignInModal from "./Signin";
+import LogoutModal from "./Logout";
 import PropTypes from "prop-types";
 
 toast.configure();
@@ -15,6 +16,7 @@ toast.configure();
 const ModalList = {
   signup: SignupModal,
   signin: SignInModal,
+  logout: LogoutModal,
 };
 
 function Modals({
@@ -26,7 +28,9 @@ function Modals({
   successMsg,
   isAuthenticated,
 }) {
-  Modal.setAppElement("#root");
+  useEffect(() => {
+    Modal.setAppElement("body");
+  });
 
   const [errorMessage, setErrorMsg] = useState(null);
   const [successMessage, setSuccessMsg] = useState(null);
@@ -63,11 +67,19 @@ function Modals({
   }, [errorMsg, successMsg, errorMessage, successMessage]);
 
   const overlay = {
-    backgroundColor: "rgba(0,0,0,1)",
+    backgroundColor: "rgba(0,0,0,0.8)",
   };
   const content = {
     width: "50%",
     height: "70%",
+    margin: "auto",
+    borderRadius: "10px",
+    padding: "30px 20px 20px 20px",
+  };
+
+  const logoutContent = {
+    width: "40%",
+    height: "200px",
     margin: "auto",
     borderRadius: "10px",
     padding: "30px 20px 20px 20px",
@@ -82,14 +94,10 @@ function Modals({
         onRequestClose={closeModal}
         style={{
           overlay: overlay,
-          content: content,
+          content: modalType === "logout" ? logoutContent : content,
         }}
       >
-        {isOpen && (
-          <div>
-            <ModalToShow data={data} />
-          </div>
-        )}
+        {isOpen && <ModalToShow data={data} />}
       </Modal>
     </>
   );
