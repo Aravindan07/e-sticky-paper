@@ -1,7 +1,6 @@
 import React from "react";
 import { ReactSVG } from "react-svg";
 import { connect } from "react-redux";
-import AccountIcon from "../../icons/account.svg";
 import GoalLogo from "../../icons/goal-logo.svg";
 import {
   InnerWrap,
@@ -10,9 +9,9 @@ import {
   SignInSignUpWrap,
   Button,
 } from "./styles";
-import { openModal, logout } from "../../actions";
+import { openModal } from "../../actions";
 
-function Header({ Open, Logout }) {
+function Header({ Open, isAuthenticated }) {
   const OpenModalType = (modalType, data = {}) => {
     console.log(modalType, data);
     return Open(modalType, data);
@@ -25,27 +24,37 @@ function Header({ Open, Logout }) {
           sticky-goals
         </LogoDiv>
         <AccountWrap>
-          <SignInSignUpWrap>
+          {isAuthenticated ? (
             <SignInSignUpWrap>
               <Button onClick={() => OpenModalType("logout")}>Logout</Button>
               {/* <ReactSVG src={AccountIcon} /> */}
             </SignInSignUpWrap>
-            <Button onClick={() => OpenModalType("signin")}>Sign In</Button>
-            {/* <ReactSVG src={AccountIcon} /> */}
-          </SignInSignUpWrap>
-          <SignInSignUpWrap>
-            <Button onClick={() => OpenModalType("signup")}>Register</Button>
-            {/* <ReactSVG src={AccountIcon} /> */}
-          </SignInSignUpWrap>
+          ) : (
+            <>
+              <SignInSignUpWrap>
+                <Button onClick={() => OpenModalType("signin")}>Sign In</Button>
+                {/* <ReactSVG src={AccountIcon} /> */}
+              </SignInSignUpWrap>
+              <SignInSignUpWrap>
+                <Button onClick={() => OpenModalType("signup")}>
+                  Register
+                </Button>
+                {/* <ReactSVG src={AccountIcon} /> */}
+              </SignInSignUpWrap>
+            </>
+          )}
         </AccountWrap>
       </InnerWrap>
     </>
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  Open: (modalType, data) => dispatch(openModal(modalType, data)),
-  Logout: () => dispatch(logout()),
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.authentication.isAuthenticated,
 });
 
-export default connect(null, mapDispatchToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  Open: (modalType, data) => dispatch(openModal(modalType, data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { closeModal, signIn } from "../../../actions";
 import { Heading, Wrap, Input, ButtonsDiv, Button } from "../styles";
+import { toast } from "react-toastify";
 
-function SigninModal({ signinUser, closeModal }) {
+toast.configure();
+
+function SigninModal({ signinUser, closeModal, errorMessage, successMessage }) {
   const initialState = {
     email: "",
     password: "",
@@ -23,6 +26,17 @@ function SigninModal({ signinUser, closeModal }) {
 
   return (
     <>
+      {errorMessage &&
+        toast.error(errorMessage, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: false,
+        })}
+      {successMessage &&
+        toast.success(successMessage, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 4000,
+          hideProgressBar: true,
+        })}
       <Heading>Sign In</Heading>
       <Wrap>
         <Input
@@ -52,9 +66,14 @@ function SigninModal({ signinUser, closeModal }) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  errorMessage: state.message.error,
+  successMessage: state.message.success,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   closeModal: () => dispatch(closeModal()),
   signinUser: (email, password) => dispatch(signIn(email, password)),
 });
 
-export default connect(null, mapDispatchToProps)(SigninModal);
+export default connect(mapStateToProps, mapDispatchToProps)(SigninModal);

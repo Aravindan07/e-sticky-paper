@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { openModal, closeModal, signUp } from "../../../actions";
+import { closeModal, signUp } from "../../../actions";
 import { Heading, Wrap, Input, ButtonsDiv, Button } from "../styles";
 import Loader from "../../Loader";
+import { toast } from "react-toastify";
 
-function SignupModal({ signupUser, closeModal, isLoading }) {
+function SignupModal({
+  signupUser,
+  closeModal,
+  isLoading,
+  errorMessage,
+  successMessage,
+}) {
   const initialState = {
     name: "",
     email: "",
@@ -26,6 +33,17 @@ function SignupModal({ signupUser, closeModal, isLoading }) {
   return (
     <>
       {isLoading && <Loader />}
+      {errorMessage &&
+        toast.error(errorMessage, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: false,
+        })}
+      {successMessage &&
+        toast.success(successMessage, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 4000,
+          hideProgressBar: true,
+        })}
       <Heading>Sign Up Now!</Heading>
       <Wrap>
         <Input
@@ -65,6 +83,8 @@ function SignupModal({ signupUser, closeModal, isLoading }) {
 
 const mapStateToProps = (state) => ({
   isLoading: state.authentication.isLoading,
+  errorMessage: state.message.error,
+  successMessage: state.message.success,
 });
 
 const mapDispatchToProps = (dispatch) => ({

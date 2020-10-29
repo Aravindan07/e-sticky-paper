@@ -61,10 +61,8 @@ function* signinSaga({ email, password }) {
       yield put(push(`/user/${result.user.id}/create-goal`));
       return;
     }
-    console.log(result);
-    console.log("test");
     console.log(result.response.data.message);
-    yield put(ErrorMessage(result.response.message));
+    yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;
   } catch (error) {

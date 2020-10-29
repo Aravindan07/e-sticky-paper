@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo } from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
-import { clearError, closeModal, signUp } from "../../actions";
+import { clearError, closeModal } from "../../actions";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { compose } from "redux";
@@ -10,6 +10,7 @@ import SignupModal from "./Signup";
 import SignInModal from "./Signin";
 import LogoutModal from "./Logout";
 import PropTypes from "prop-types";
+// import Notification from "../toastNotifications";
 
 toast.configure();
 
@@ -26,46 +27,58 @@ function Modals({
   closeModal,
   errorMsg,
   successMsg,
-  isAuthenticated,
+  // isAuthenticated,
 }) {
+  console.log("message");
+
   useEffect(() => {
-    Modal.setAppElement("body");
+    Modal.setAppElement("#root");
   });
 
-  const [errorMessage, setErrorMsg] = useState(null);
-  const [successMessage, setSuccessMsg] = useState(null);
-  const didMount = useRef(false);
-  const errMessage = useRef(errorMsg);
-  const SucMessage = useRef(successMsg);
+  // const [errorMessage, setErrorMsg] = useState(null);
+  // const [successMessage, setSuccessMsg] = useState(null);
+  // const didMount = useRef(false);
+  // const errMessage = useRef(errorMsg);
+  // const SucMessage = useRef(successMsg);
 
-  useEffect(() => {
-    if (didMount.current) {
-      if (errMessage.current !== errorMsg) {
-        errMessage.current = errorMsg;
-        setErrorMsg(errorMsg);
-        toast.error(errorMessage, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: false,
-        });
-        return;
-      }
-      if (SucMessage.current !== successMsg) {
-        SucMessage.current = successMsg;
-        setSuccessMsg(successMsg);
-        toast.success(successMessage, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 4000,
-          hideProgressBar: true,
-        });
-        return;
-      }
-      setErrorMsg(null);
-      return setSuccessMsg(null);
-    } else {
-      didMount.current = true;
-    }
-  }, [errorMsg, successMsg, errorMessage, successMessage]);
+  // useEffect(() => {
+  //   if (didMount.current) {
+  //     if (errMessage.current !== errorMsg) {
+  //       errMessage.current = errorMsg;
+  //       setErrorMsg(errorMsg);
+  //       toast.error(errorMessage, {
+  //         position: toast.POSITION.TOP_CENTER,
+  //         autoClose: false,
+  //       });
+  //       Notification(errorMessage);
+  //       return;
+  //     }
+  //     if (SucMessage.current !== successMsg) {
+  //       SucMessage.current = successMsg;
+  //       setSuccessMsg(successMsg);
+  //       toast.success(successMessage, {
+  //         position: toast.POSITION.TOP_CENTER,
+  //         autoClose: 4000,
+  //         hideProgressBar: true,
+  //       });
+  //       Notification(successMessage);
+  //       return;
+  //     }
+  //     setErrorMsg(null);
+  //     return setSuccessMsg(null);
+  //   } else {
+  //     didMount.current = true;
+  //   }
+  // }, [errorMsg, successMsg, errorMessage, successMessage]);
 
+  // useEffect(() => {
+  //   if (errorMessage) {
+  //     return Notification(errorMessage);
+  //   }
+  //   if (successMessage) {
+  //     return Notification(successMessage);
+  //   }
+  // }, [errorMessage, successMessage]);
   const overlay = {
     backgroundColor: "rgba(0,0,0,0.8)",
   };
@@ -85,10 +98,27 @@ function Modals({
     padding: "30px 20px 20px 20px",
   };
 
+  // if (errorMessage || successMessage) {
+  //   return Notification(errorMessage || successMessage);
+  // }
+
   const ModalToShow = ModalList[modalType];
 
   return (
     <>
+      {errorMsg &&
+        toast.error(errorMsg, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: false,
+        })}
+      {successMsg &&
+        toast.success(successMsg, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 4000,
+          hideProgressBar: true,
+        }) &&
+        console.log("inside message")}
+      {console.log("inside")}
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}

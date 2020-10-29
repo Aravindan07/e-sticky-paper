@@ -5,8 +5,8 @@ import { clearError, closeModal, SuccessMessage } from "../actions";
 
 function* logoutSaga() {
   yield put(SuccessMessage("User logged out successfully"));
-  yield put(clearError());
   yield put(closeModal());
+  // yield put(clearError());
   yield put(push(`/`));
   return;
 }

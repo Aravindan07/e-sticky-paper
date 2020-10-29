@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const HomeWrapper = styled.div`
   position: fixed;
@@ -85,16 +85,6 @@ export const GetStartedWrapper = styled.div`
   align-items: center;
 `;
 
-export const MessagePara = styled.div`
-  margin: 20px 0px;
-  font-size: 20px;
-  font-weight: 600;
-  color: #191a35;
-  span {
-    color: #191a35;
-  }
-`;
-
 export const CreateButton = styled.div`
   outline: none;
   border: none;
@@ -115,41 +105,5 @@ export const CreateButton = styled.div`
   :hover {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
     transform: scale(1.05);
-  }
-`;
-
-export const AnchorTag = styled.div`
-  color: blue;
-  text-decoration-line: underline;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-`;
-
-export const ButtonsDiv = styled.div`
-  width: 90%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  color: #191a35;
-`;
-
-export const SignInSignupButton = styled.button`
-  outline: none;
-  border: none;
-  width: 130px;
-  padding: 7px 15px;
-  color: #ffffff;
-  background: #2e31be;
-  text-transform: uppercase;
-  height: 40px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  font-size: 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  :hover {
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-    transform: scale(1.03);
   }
 `;

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { ReactSVG } from "react-svg";
 import { connect } from "react-redux";
-import Modals from "../components/Modals";
+import { toast } from "react-toastify";
 import {
   HomeWrapper,
-  InnerWrapper,
-  HeadingWrapper,
   H2,
   SubHeadingDiv,
   FormWrapper,
@@ -13,26 +10,48 @@ import {
   QuoteHeading,
   P,
   GetStartedWrapper,
-  MessagePara,
   CreateButton,
-  ButtonsDiv,
-  SignInSignupButton,
 } from "./styles";
-import WinnerIcon from "../images/winner.svg";
 import { loadQuotes, openModal } from "../actions";
 import Header from "../components/Header";
+import { push } from "connected-react-router";
 
-function HomePage({ loadQuote, quote, OpenModal, isOpen, ...props }) {
+toast.configure();
+
+function HomePage({
+  loadQuote,
+  quote,
+  OpenModal,
+  isOpen,
+  isAuthenticated,
+  id,
+  successMessage,
+}) {
   // useEffect(() => {
   //   loadQuote();
   // }, [loadQuote]);
 
-  const clickHandler = () => {
-    props.history.push("/user/2kjs322ujsisd38273/create-goal");
+  const openModalType = (modalType, data = {}) => {
+    return OpenModal(modalType, data);
   };
+  const clickHandler = () => {
+    console.log(id);
+    if (isAuthenticated) {
+      return push(`user/${id}/create-goal`);
+    }
+    openModalType("signin");
+  };
+  console.log("message");
 
   return (
     <HomeWrapper>
+      {successMessage &&
+        !isAuthenticated &&
+        toast.success(successMessage, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 4000,
+          hideProgressBar: true,
+        })}
       <Header />
       <H2>Create and store your Goals </H2>
       <SubHeadingDiv>
@@ -52,7 +71,7 @@ function HomePage({ loadQuote, quote, OpenModal, isOpen, ...props }) {
         </QuotesWrapper>
         <GetStartedWrapper>
           <P>Try it now.It's free!!!</P>
-          <CreateButton onClick={clickHandler}>Try Now</CreateButton>
+          <CreateButton onClick={() => clickHandler()}>Try Now</CreateButton>
         </GetStartedWrapper>
       </FormWrapper>
     </HomeWrapper>
@@ -62,11 +81,15 @@ function HomePage({ loadQuote, quote, OpenModal, isOpen, ...props }) {
 const mapStateToProps = (state) => ({
   quote: state.quote,
   isOpen: state.modal.isOpen,
+  isAuthenticated: state.authentication.isAuthenticated,
+  id: state.authentication.isAuthenticated && state.authentication.user.id,
+  errorMessage: state.message.error,
+  successMessage: state.message.success,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadQuote: () => dispatch(loadQuotes()),
-  OpenModal: () => dispatch(openModal()),
+  OpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

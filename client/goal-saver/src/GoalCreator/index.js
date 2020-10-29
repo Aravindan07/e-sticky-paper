@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
+import { connect } from "react-redux";
 import Arrow from "../images/arrow.svg";
 import {
   GoalWrapper,
@@ -11,9 +12,10 @@ import {
 } from "./styles";
 import { H2 } from "../Homepage/styles";
 import Header from "../components/Header";
-import Slide from "react-reveal/Slide";
+// import Slide from "react-reveal/Slide";
+import { toast } from "react-toastify";
 
-function GoalCreator() {
+function GoalCreator({ successMessage }) {
   const initialState = {
     name: "",
   };
@@ -29,8 +31,15 @@ function GoalCreator() {
     let value = event.target.value;
     setState((prevState) => ({ ...prevState, [name]: value }));
   };
+  console.log("message");
   return (
     <>
+      {successMessage &&
+        toast.info(successMessage, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 4000,
+          hideProgressBar: true,
+        })}
       <Header />
       <GoalWrapper>
         <InputWrapper>
@@ -60,4 +69,9 @@ function GoalCreator() {
   );
 }
 
-export default GoalCreator;
+const mapStateToProps = (state) => ({
+  errorMessage: state.message.error,
+  successMessage: state.message.success,
+});
+
+export default connect(mapStateToProps, null)(GoalCreator);

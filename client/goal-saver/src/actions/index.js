@@ -78,9 +78,11 @@ export const clearError = () => {
 };
 
 export const SuccessMessage = (message) => {
+  console.log(message);
   return { type: SUCCESS_MESSAGE, message };
 };
 
 export const ErrorMessage = (message) => {
+  console.log(message);
   return { type: ERROR_MESSAGE, message };
 };
