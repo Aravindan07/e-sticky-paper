@@ -4,18 +4,11 @@ import { closeModal, logout } from "../../../actions";
 import { P } from "../../../Homepage/styles";
 import { ButtonsDiv } from "../../Modals/styles";
 import { Button } from "../../Modals/styles";
-import { toast } from "react-toastify";
 
-function LogoutModal({ close, Logout, errorMessage, successMessage }) {
+function LogoutModal({ close, Logout }) {
   console.log("message");
   return (
     <>
-      {successMessage &&
-        toast.success(successMessage, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 4000,
-          hideProgressBar: true,
-        })}
       <P style={{ textAlign: "center" }} divType="logout">
         Are you sure you want to <span>logout?</span>
       </P>

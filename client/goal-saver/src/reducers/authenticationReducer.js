@@ -1,4 +1,10 @@
-import { LOGOUT, SIGN_IN_SUCCESS, SIGN_UP_SUCCESS } from "../constants";
+import {
+  LOGOUT,
+  SIGN_IN_SUCCESS,
+  SIGN_UP_SUCCESS,
+  LOAD_USER,
+  LOADED_USER,
+} from "../constants";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -9,6 +15,19 @@ const initialState = {
 
 const AuthenticationReducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOAD_USER:
+      console.log(action);
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case LOADED_USER:
+      return {
+        ...state,
+        ...action.payload,
+        isLoading: false,
+        isAuthenticated: true,
+      };
     case SIGN_UP_SUCCESS:
       console.log(action);
       localStorage.setItem("token", action.payload.token);

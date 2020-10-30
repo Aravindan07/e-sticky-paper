@@ -6,14 +6,15 @@ import {
   InnerWrap,
   LogoDiv,
   AccountWrap,
+  AccountName,
   SignInSignUpWrap,
   Button,
 } from "./styles";
 import { openModal } from "../../actions";
+import AccountIcon from "../../icons/account.svg";
 
-function Header({ Open, isAuthenticated }) {
+function Header({ Open, isAuthenticated, userName }) {
   const OpenModalType = (modalType, data = {}) => {
-    console.log(modalType, data);
     return Open(modalType, data);
   };
   return (
@@ -24,10 +25,15 @@ function Header({ Open, isAuthenticated }) {
           sticky-goals
         </LogoDiv>
         <AccountWrap>
+          {userName && (
+            <AccountName style={{ color: "#ffffff" }}>
+              Welcome <span>{userName}</span>
+              <ReactSVG src={AccountIcon} />
+            </AccountName>
+          )}
           {isAuthenticated ? (
             <SignInSignUpWrap>
               <Button onClick={() => OpenModalType("logout")}>Logout</Button>
-              {/* <ReactSVG src={AccountIcon} /> */}
             </SignInSignUpWrap>
           ) : (
             <>
@@ -51,6 +57,8 @@ function Header({ Open, isAuthenticated }) {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.authentication.isAuthenticated,
+  userName:
+    state.authentication.isAuthenticated && state.authentication.user.name,
 });
 
 const mapDispatchToProps = (dispatch) => ({

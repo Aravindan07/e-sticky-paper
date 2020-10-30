@@ -8,6 +8,7 @@ export const GoalWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #f9dc5c;
 `;
 
 export const InputWrapper = styled.div`

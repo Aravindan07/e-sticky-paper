@@ -12,10 +12,8 @@ import {
 } from "./styles";
 import { H2 } from "../Homepage/styles";
 import Header from "../components/Header";
-// import Slide from "react-reveal/Slide";
-import { toast } from "react-toastify";
 
-function GoalCreator({ successMessage }) {
+function GoalCreator() {
   const initialState = {
     name: "",
   };
@@ -31,19 +29,13 @@ function GoalCreator({ successMessage }) {
     let value = event.target.value;
     setState((prevState) => ({ ...prevState, [name]: value }));
   };
-  console.log("message");
+
   return (
     <>
-      {successMessage &&
-        toast.info(successMessage, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 4000,
-          hideProgressBar: true,
-        })}
       <Header />
       <GoalWrapper>
         <InputWrapper>
-          <H2 headingType="quote">Hmm, Let's get started !</H2>
+          <H2 headingType="goal">Hmm, Let's get started !</H2>
           <InputField
             type="text"
             name="name"
@@ -60,12 +52,6 @@ function GoalCreator({ successMessage }) {
         </ButtonDiv>
       </GoalWrapper>
     </>
-
-    // <Slide right>
-    //   <div>
-    //     <h2>Welcome Folks to my app</h2>
-    //   </div>
-    // </Slide>
   );
 }
 

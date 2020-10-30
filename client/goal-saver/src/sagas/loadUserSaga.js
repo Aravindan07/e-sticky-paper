@@ -1,19 +1,21 @@
 import { call, takeLatest, put } from "redux-saga/effects";
-import { push } from "connected-react-router";
+// import { push } from "connected-react-router";
 import Axios from "axios";
-import { SIGN_IN } from "../constants";
+import { LOAD_USER } from "../constants";
 import {
   clearError,
   closeModal,
   ErrorMessage,
-  SignInSuccess,
+  loadedUser,
+  logout,
   SuccessMessage,
 } from "../actions";
 
-export const TokenConfig = (getState) => {
+export const TokenConfig = () => {
   //Get token from localStorage
 
-  const token = getState().authentication.token;
+  const token = localStorage.getItem("token");
+  // const token = getState().authentication.token;
 
   //Headers
   const config = {
@@ -30,18 +32,10 @@ export const TokenConfig = (getState) => {
   return config;
 };
 
-const config = {
-  headers: {
-    "Content-type": "application/json",
-  },
-};
-
-function* signinSaga({ email, password }) {
-  const body = JSON.stringify({ email, password });
+function* loadUserSaga() {
   const apiCall = () => {
-    return Axios.post("/api/users/login", body, config)
+    return Axios.get("/api/users/user/", TokenConfig())
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -54,15 +48,15 @@ function* signinSaga({ email, password }) {
   try {
     const result = yield call(apiCall);
     if (result.status) {
-      yield put(SignInSuccess(result));
+      yield put(loadedUser(result));
       yield put(SuccessMessage(result.message));
       yield put(clearError());
       yield put(closeModal());
-      yield put(push(`/user/${result.user.id}/create-goal`));
+      // yield put(push(`/user/${result.user.id}/create-goal`));
       return;
     }
-    console.log(result.response.data.message);
     yield put(ErrorMessage(result.response.data.message));
+    yield put(logout());
     yield put(clearError());
     return;
   } catch (error) {
@@ -70,6 +64,6 @@ function* signinSaga({ email, password }) {
   }
 }
 
-export default function* watchSignIn() {
-  yield takeLatest(SIGN_IN, signinSaga);
+export default function* watchLoadUser() {
+  yield takeLatest(LOAD_USER, loadUserSaga);
 }

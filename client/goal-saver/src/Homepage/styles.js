@@ -9,22 +9,13 @@ export const HomeWrapper = styled.div`
   background: #f9dc5c;
 `;
 
-export const HeadingWrapper = styled.div`
-  width: 100%;
-  height: 250px;
-  color: #ffffff;
-  /* svg {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 5px;
-  } */
-`;
-
 export const H2 = styled.h1`
-  margin: 40px auto 20px auto;
+  margin: ${(props) =>
+    props.headingType === "goal"
+      ? "auto auto 20px auto"
+      : "40px auto 20px auto"};
   letter-spacing: 1.6px;
   color: #861657;
-  /* font-size: 28px; */
   letter-spacing: 0.6px;
   line-height: 50px;
 `;

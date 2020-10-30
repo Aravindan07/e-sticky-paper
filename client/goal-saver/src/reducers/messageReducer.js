@@ -8,14 +8,12 @@ const initialState = {
 const messageReducer = (state = initialState, action) => {
   switch (action.type) {
     case ERROR_MESSAGE:
-      console.log(action);
       return {
         ...state,
         error: action.message,
         success: null,
       };
     case SUCCESS_MESSAGE:
-      console.log("success");
       return {
         ...state,
         success: action.message,

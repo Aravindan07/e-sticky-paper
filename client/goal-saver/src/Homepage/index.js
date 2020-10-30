@@ -14,7 +14,6 @@ import {
 } from "./styles";
 import { loadQuotes, openModal } from "../actions";
 import Header from "../components/Header";
-import { push } from "connected-react-router";
 
 toast.configure();
 
@@ -25,7 +24,7 @@ function HomePage({
   isOpen,
   isAuthenticated,
   id,
-  successMessage,
+  ...props
 }) {
   // useEffect(() => {
   //   loadQuote();
@@ -35,23 +34,14 @@ function HomePage({
     return OpenModal(modalType, data);
   };
   const clickHandler = () => {
-    console.log(id);
     if (isAuthenticated) {
-      return push(`user/${id}/create-goal`);
+      return props.history.push(`user/${id}/create-goal`);
     }
     openModalType("signin");
   };
-  console.log("message");
 
   return (
     <HomeWrapper>
-      {successMessage &&
-        !isAuthenticated &&
-        toast.success(successMessage, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 4000,
-          hideProgressBar: true,
-        })}
       <Header />
       <H2>Create and store your Goals </H2>
       <SubHeadingDiv>
@@ -83,8 +73,8 @@ const mapStateToProps = (state) => ({
   isOpen: state.modal.isOpen,
   isAuthenticated: state.authentication.isAuthenticated,
   id: state.authentication.isAuthenticated && state.authentication.user.id,
-  errorMessage: state.message.error,
-  successMessage: state.message.success,
+  // errorMessage: state.message.error,
+  // successMessage: state.message.success,
 });
 
 const mapDispatchToProps = (dispatch) => ({

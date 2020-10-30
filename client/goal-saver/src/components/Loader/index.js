@@ -1,25 +1,26 @@
 import React from "react";
-import { css } from "@emotion/core";
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+// import { css } from "@emotion/core";
+// import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import { connect } from "react-redux";
-import { LoaderWrap } from "./styles";
+import "./style.css";
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`;
+// const override = css`
+//   display: block;
+//   margin: 0 auto;
+//   border-color: red;
+// `;
 
 function Loader({ isLoading }) {
   return (
-    <LoaderWrap>
-      <ClimbingBoxLoader
-        css={override}
-        // size={150}
-        color={"#123abc"}
-        loading={isLoading}
-      />
-    </LoaderWrap>
+    <>
+      {isLoading && (
+        <div className="loader-wrapper">
+          <div className="lds-circle">
+            <div></div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

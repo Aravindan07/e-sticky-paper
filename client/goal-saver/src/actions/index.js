@@ -1,6 +1,8 @@
 import {
   LOAD_QUOTE,
   SET_QUOTE,
+  LOAD_USER,
+  LOADED_USER,
   SIGN_UP,
   SIGN_UP_SUCCESS,
   SIGN_IN,
@@ -36,6 +38,19 @@ export const loadQuotes = () => {
 export const setQuotes = (payload) => {
   return {
     type: SET_QUOTE,
+    payload,
+  };
+};
+
+export const loadUser = () => {
+  return {
+    type: LOAD_USER,
+  };
+};
+
+export const loadedUser = (payload) => {
+  return {
+    type: LOADED_USER,
     payload,
   };
 };
@@ -78,11 +93,9 @@ export const clearError = () => {
 };
 
 export const SuccessMessage = (message) => {
-  console.log(message);
   return { type: SUCCESS_MESSAGE, message };
 };
 
 export const ErrorMessage = (message) => {
-  console.log(message);
   return { type: ERROR_MESSAGE, message };
 };

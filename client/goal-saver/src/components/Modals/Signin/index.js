@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { closeModal, signIn } from "../../../actions";
 import { Heading, Wrap, Input, ButtonsDiv, Button } from "../styles";
-import { toast } from "react-toastify";
-
-toast.configure();
 
 function SigninModal({ signinUser, closeModal, errorMessage, successMessage }) {
   const initialState = {
@@ -26,17 +23,6 @@ function SigninModal({ signinUser, closeModal, errorMessage, successMessage }) {
 
   return (
     <>
-      {errorMessage &&
-        toast.error(errorMessage, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: false,
-        })}
-      {successMessage &&
-        toast.success(successMessage, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 4000,
-          hideProgressBar: true,
-        })}
       <Heading>Sign In</Heading>
       <Wrap>
         <Input

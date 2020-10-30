@@ -3,15 +3,8 @@ import { connect } from "react-redux";
 import { closeModal, signUp } from "../../../actions";
 import { Heading, Wrap, Input, ButtonsDiv, Button } from "../styles";
 import Loader from "../../Loader";
-import { toast } from "react-toastify";
 
-function SignupModal({
-  signupUser,
-  closeModal,
-  isLoading,
-  errorMessage,
-  successMessage,
-}) {
+function SignupModal({ signupUser, closeModal, isLoading }) {
   const initialState = {
     name: "",
     email: "",
@@ -33,17 +26,6 @@ function SignupModal({
   return (
     <>
       {isLoading && <Loader />}
-      {errorMessage &&
-        toast.error(errorMessage, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: false,
-        })}
-      {successMessage &&
-        toast.success(successMessage, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 4000,
-          hideProgressBar: true,
-        })}
       <Heading>Sign Up Now!</Heading>
       <Wrap>
         <Input

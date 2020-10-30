@@ -30,7 +30,7 @@ router.post("/", (req, res, next) => {
       jwt.sign(
         { id: user._id },
         jwtSecretKey,
-        { expiresIn: "1h" },
+        { expiresIn: "2h" },
         (err, token) => {
           if (err) {
             throw new Error(err);

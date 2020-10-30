@@ -32,6 +32,28 @@ export const AccountWrap = styled.div`
   font-weight: 600;
   letter-spacing: 1.2px;
   text-transform: uppercase;
+  align-items: center;
+`;
+
+export const AccountName = styled.div`
+  color: #f4fffd;
+  font-size: 16px;
+  letter-spacing: 0.6px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  span {
+    color: #f9dc5c;
+    margin-left: 10px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  svg {
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #f9dc5c;
+  }
 `;
 
 export const SignInSignUpWrap = styled.div`
