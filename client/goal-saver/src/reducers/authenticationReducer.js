@@ -16,7 +16,6 @@ const initialState = {
 const AuthenticationReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_USER:
-      console.log(action);
       return {
         ...state,
         isLoading: true,
@@ -29,7 +28,6 @@ const AuthenticationReducer = (state = initialState, action) => {
         isAuthenticated: true,
       };
     case SIGN_UP_SUCCESS:
-      console.log(action);
       localStorage.setItem("token", action.payload.token);
       return {
         ...state,
@@ -38,7 +36,6 @@ const AuthenticationReducer = (state = initialState, action) => {
         isLoading: false,
       };
     case SIGN_IN_SUCCESS:
-      console.log(action);
       localStorage.setItem("token", action.payload.token);
       return {
         ...state,

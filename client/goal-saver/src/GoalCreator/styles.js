@@ -20,12 +20,17 @@ export const InputWrapper = styled.div`
   align-items: center;
 `;
 
+export const ExampleAndInputDiv = styled.div`
+  display: block;
+`;
+
 export const InputField = styled.input`
-  width: 375px;
+  width: 400px;
   height: 50px;
   outline: none;
-  border: 2px solid #d2d2d2;
-  border-radius: 5px;
+  border: none;
+  /* border-bottom: 2px solid #16a59c; */
+  /* border-radius: 5px; */
   font-size: 18px;
   font-weight: 600;
   padding: 10px;
@@ -34,16 +39,13 @@ export const InputField = styled.input`
   margin: 15px 0px 10px 0px;
   &:focus,
   :active {
-    background: #ffffff;
-    border: 2px solid #b47984;
+    border-bottom: 2px solid #16a59c;
   }
 `;
 
 export const Example = styled.p`
-  color: #5f9ea0;
+  color: #011936;
   margin: 0px 0px 50px 0px;
-  position: relative;
-  left: -35px;
 `;
 
 export const ButtonDiv = styled.div`
@@ -58,7 +60,7 @@ export const ProceedButton = styled.button`
   border: none;
   border-radius: 100%;
   padding: 5px 8px;
-  background: #429772;
+  background: #496ddb;
   cursor: pointer;
   &:hover {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);

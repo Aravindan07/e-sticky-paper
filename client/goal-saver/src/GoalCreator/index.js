@@ -5,6 +5,7 @@ import Arrow from "../images/arrow.svg";
 import {
   GoalWrapper,
   InputWrapper,
+  ExampleAndInputDiv,
   InputField,
   Example,
   ButtonDiv,
@@ -13,7 +14,7 @@ import {
 import { H2 } from "../Homepage/styles";
 import Header from "../components/Header";
 
-function GoalCreator() {
+function GoalCreator(props) {
   const initialState = {
     name: "",
   };
@@ -21,7 +22,7 @@ function GoalCreator() {
   const [{ name }, setState] = useState(initialState);
 
   const onClickHandler = () => {
-    setStep(step + 1);
+    props.history.push("goals");
   };
 
   const onChangeHandler = (event) => {
@@ -35,16 +36,18 @@ function GoalCreator() {
       <Header />
       <GoalWrapper>
         <InputWrapper>
-          <H2 headingType="goal">Hmm, Let's get started !</H2>
-          <InputField
-            type="text"
-            name="name"
-            value={name}
-            onChange={onChangeHandler}
-            placeholder="Type your goal"
-          />
+          <H2>Let's get started !</H2>
+          <ExampleAndInputDiv>
+            <InputField
+              type="text"
+              name="name"
+              value={name}
+              onChange={onChangeHandler}
+              placeholder="Type your main goal"
+            />
+            <Example>e.g: To learn react</Example>
+          </ExampleAndInputDiv>
         </InputWrapper>
-        <Example>e.g: To become a software developer</Example>
         <ButtonDiv>
           <ProceedButton onClick={onClickHandler}>
             <ReactSVG src={Arrow} />
