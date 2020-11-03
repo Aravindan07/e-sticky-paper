@@ -13,8 +13,9 @@ import {
 } from "./styles";
 import { H2 } from "../Homepage/styles";
 import Header from "../components/Header";
+import { createGoal } from "../actions";
 
-function GoalCreator(props) {
+function GoalCreator({ userId, createGoal, ...props }) {
   const initialState = {
     name: "",
   };
@@ -23,6 +24,7 @@ function GoalCreator(props) {
 
   const onClickHandler = () => {
     props.history.push("goals");
+    return createGoal(userId, name);
   };
 
   const onChangeHandler = (event) => {
@@ -61,6 +63,11 @@ function GoalCreator(props) {
 const mapStateToProps = (state) => ({
   errorMessage: state.message.error,
   successMessage: state.message.success,
+  userId: state.authentication.user.id,
 });
 
-export default connect(mapStateToProps, null)(GoalCreator);
+const mapDispatchToProps = (dispatch) => ({
+  createGoal: (userId, name) => dispatch(createGoal(userId, name)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoalCreator);

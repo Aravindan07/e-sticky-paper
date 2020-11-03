@@ -26,9 +26,9 @@ function HomePage({
   id,
   ...props
 }) {
-  useEffect(() => {
-    loadQuote();
-  }, [loadQuote]);
+  // useEffect(() => {
+  //   loadQuote();
+  // }, [loadQuote]);
 
   const openModalType = (modalType, data = {}) => {
     return OpenModal(modalType, data);
@@ -54,9 +54,13 @@ function HomePage({
       <FormWrapper>
         <QuotesWrapper>
           <QuoteHeading>Quote of the Moment!!!</QuoteHeading>
-          <P quote>{quote.quote.quoteText}</P>
+          {/* <P quote>{quote.quote.quoteText}</P>
           <P>
             -- <span>{quote.quote.quoteAuthor}</span>
+          </P> */}
+          <P>We are working on quotes</P>
+          <P>
+            -- <span>Developer</span>
           </P>
         </QuotesWrapper>
         <GetStartedWrapper>

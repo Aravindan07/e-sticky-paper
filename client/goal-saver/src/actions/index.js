@@ -13,6 +13,7 @@ import {
   SUCCESS_MESSAGE,
   CLEAR_ERROR,
   LOGOUT,
+  CREATE_GOAL,
 } from "../constants";
 
 export const openModal = (modalType, data) => {
@@ -98,4 +99,12 @@ export const SuccessMessage = (message) => {
 
 export const ErrorMessage = (message) => {
   return { type: ERROR_MESSAGE, message };
+};
+
+export const createGoal = (userId, goalName) => {
+  return {
+    type: CREATE_GOAL,
+    userId,
+    goalName,
+  };
 };

@@ -9,6 +9,9 @@ const auth = require("../../middleware/auth");
 //User model
 const User = require("../../models/user");
 
+// Goal model
+const Goal = require("../../models/goals");
+
 router.post("/", (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -34,6 +37,7 @@ router.post("/", (req, res, next) => {
         name,
         email,
         password,
+        goals: "",
       });
 
       //Creating salt and hash
@@ -63,6 +67,7 @@ router.post("/", (req, res, next) => {
                     id: user._id,
                     name: user.name,
                     email: user.email,
+                    goals: Goal,
                   },
                 });
               }
@@ -77,12 +82,21 @@ router.post("/", (req, res, next) => {
 // Get user data
 
 router.get("/user", auth, (req, res, next) => {
+  let goals;
+  Goal.find({}).then((result) => {
+    goals = result.goalName;
+  });
   User.findById(req.user.id)
     .select("-password -createdDate -__v")
     .then((user) => {
       return res.json({
         status: 200,
-        user: { id: user._id, name: user.name, email: user.email },
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          goals: goals,
+        },
       });
     })
     .catch((err) => {

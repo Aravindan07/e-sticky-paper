@@ -16,15 +16,13 @@ import { push } from "connected-react-router";
 import { useHistory } from "react-router-dom";
 // import
 
-function Header({ Open, isAuthenticated, userName, ...props }) {
+function Header({ Open, isAuthenticated, userName }) {
   let history = useHistory();
-  console.log(props);
   const OpenModalType = (modalType, data = {}) => {
     return Open(modalType, data);
   };
 
   const clickHandler = () => {
-    console.log("Inside header logo");
     return history.push("/");
   };
   return (
