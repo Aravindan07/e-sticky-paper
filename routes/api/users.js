@@ -67,7 +67,7 @@ router.post("/", (req, res, next) => {
                     id: user._id,
                     name: user.name,
                     email: user.email,
-                    goals: Goal,
+                    goals: user.goals,
                   },
                 });
               }
@@ -82,10 +82,6 @@ router.post("/", (req, res, next) => {
 // Get user data
 
 router.get("/user", auth, (req, res, next) => {
-  let goals;
-  Goal.find({}).then((result) => {
-    goals = result.goalName;
-  });
   User.findById(req.user.id)
     .select("-password -createdDate -__v")
     .then((user) => {
@@ -95,7 +91,7 @@ router.get("/user", auth, (req, res, next) => {
           id: user._id,
           name: user.name,
           email: user.email,
-          goals: goals,
+          goals: user.goals,
         },
       });
     })

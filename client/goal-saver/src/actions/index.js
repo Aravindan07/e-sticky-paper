@@ -14,6 +14,7 @@ import {
   CLEAR_ERROR,
   LOGOUT,
   CREATE_GOAL,
+  GOAL_SUCCESS,
 } from "../constants";
 
 export const openModal = (modalType, data) => {
@@ -106,5 +107,12 @@ export const createGoal = (userId, goalName) => {
     type: CREATE_GOAL,
     userId,
     goalName,
+  };
+};
+
+export const goalSuccess = (payload) => {
+  return {
+    type: GOAL_SUCCESS,
+    payload,
   };
 };

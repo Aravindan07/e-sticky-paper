@@ -2,27 +2,21 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
 
+//User model
+const User = require("../../models/user");
 //Goal Model
-const Goal = require("../../models/goals");
+// const Goal = require("../../models/goals");
 
 router.post("/", auth, (req, res, next) => {
-  const { goalName, children } = req.body;
-  const newGoal = new Goal({
-    goalName,
-    children,
-  });
-  newGoal
-    .save()
-    .then((goal) => {
-      return res.json({
-        status: 201,
-        message: "You saved a goal",
-        goalName: goal.goalName,
-        children: goal.children,
-      });
+  const { userId, goalName, children } = req.body;
+  User.findById(userId)
+    .then((user) => {
+      user.goals = goalName;
+      user.save();
+      return res.json({ status: 201, goals: user.goals });
     })
     .catch((err) => {
-      return res.json({ error: err });
+      res.json({ error: err });
     });
 });
 

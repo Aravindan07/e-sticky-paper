@@ -1,14 +1,20 @@
 import React from "react";
 import Header from "../components/Header";
-import { Wrapper } from "./styles";
+import { connect } from "react-redux";
+import { Wrapper, InnerWrapper } from "./styles";
 
-function Goals() {
+function Goals({ userGoals }) {
   return (
     <>
       <Header />
-      <Wrapper></Wrapper>
+      <Wrapper>
+        <InnerWrapper>{userGoals}</InnerWrapper>
+      </Wrapper>
     </>
   );
 }
 
-export default Goals;
+const mapStateToProps = (state) => ({
+  userGoals: state.authentication.user.goals,
+});
+export default connect(mapStateToProps, null)(Goals);

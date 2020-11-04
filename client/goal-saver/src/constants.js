@@ -14,3 +14,4 @@ export const ERROR_MESSAGE = "ERROR_MESSAGE";
 export const SUCCESS_MESSAGE = "SUCCESS_MESSAGE";
 export const CLEAR_ERROR = "CLEAR_ERROR";
 export const CREATE_GOAL = "CREATE_GOAL";
+export const GOAL_SUCCESS = "GOAL_SUCCESS";

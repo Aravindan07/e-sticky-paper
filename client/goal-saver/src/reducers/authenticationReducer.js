@@ -4,6 +4,7 @@ import {
   SIGN_UP_SUCCESS,
   LOAD_USER,
   LOADED_USER,
+  GOAL_SUCCESS,
 } from "../constants";
 
 const initialState = {
@@ -42,6 +43,14 @@ const AuthenticationReducer = (state = initialState, action) => {
         ...action.payload,
         isAuthenticated: true,
         isLoading: false,
+      };
+    case GOAL_SUCCESS:
+      state.user.goals = action.payload.goals;
+      console.log(state);
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: true,
       };
     case LOGOUT:
       localStorage.removeItem("token");

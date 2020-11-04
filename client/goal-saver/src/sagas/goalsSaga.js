@@ -6,6 +6,7 @@ import {
   clearError,
   closeModal,
   ErrorMessage,
+  goalSuccess,
   SignInSuccess,
   SuccessMessage,
 } from "../actions";
@@ -38,7 +39,11 @@ export const TokenConfig = () => {
 // };
 
 function* createGoalSaga(action) {
-  const body = JSON.stringify({ goalName: action.goalName });
+  const body = JSON.stringify({
+    userId: action.userId,
+    goalName: action.goalName,
+  });
+  console.log(body);
   const apiCall = () => {
     return Axios.post(`/api/users/${action.userId}/goal`, body, TokenConfig())
       .then((response) => {
@@ -55,11 +60,7 @@ function* createGoalSaga(action) {
   try {
     const result = yield call(apiCall);
     if (result.status) {
-      // yield put(SignInSuccess(result));
-      // yield put(SuccessMessage(result.message));
-      // yield put(clearError());
-      // yield put(closeModal());
-      // yield put(push(`/user/${result.user.id}/create-goal`));
+      yield put(goalSuccess(result));
       console.log(result);
       return;
     }
