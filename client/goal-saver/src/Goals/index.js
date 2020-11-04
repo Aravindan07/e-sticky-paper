@@ -1,14 +1,26 @@
 import React from "react";
 import Header from "../components/Header";
 import { connect } from "react-redux";
-import { Wrapper, InnerWrapper } from "./styles";
+import { Wrapper, InnerWrapper, GoalName } from "./styles";
+import { openModal } from "../actions";
+// import { Button } from "../components/Header/styles";
 
-function Goals({ userGoals }) {
+function Goals({ userGoals, Open }) {
+  const openModalType = (modalType, data = {}) => {
+    return Open(modalType, data);
+  };
   return (
     <>
       <Header />
       <Wrapper>
-        <InnerWrapper>{userGoals}</InnerWrapper>
+        <InnerWrapper>
+          <GoalName>
+            {userGoals}
+            <button onClick={() => openModalType("input")}>
+              Add a sub-goal
+            </button>
+          </GoalName>
+        </InnerWrapper>
       </Wrapper>
     </>
   );
@@ -17,4 +29,8 @@ function Goals({ userGoals }) {
 const mapStateToProps = (state) => ({
   userGoals: state.authentication.user.goals,
 });
-export default connect(mapStateToProps, null)(Goals);
+
+const mapDispatchToProps = (dispatch) => ({
+  Open: (modalType, data) => dispatch(openModal(modalType, data)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Goals);

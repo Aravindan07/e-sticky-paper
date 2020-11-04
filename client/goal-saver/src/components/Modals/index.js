@@ -9,6 +9,7 @@ import { useRef } from "react";
 import SignupModal from "./Signup";
 import SignInModal from "./Signin";
 import LogoutModal from "./Logout";
+import InputModal from "./InputModal";
 import PropTypes from "prop-types";
 // import Notification from "../toastNotifications";
 
@@ -18,6 +19,7 @@ const ModalList = {
   signup: SignupModal,
   signin: SignInModal,
   logout: LogoutModal,
+  input: InputModal,
 };
 
 function Modals({
@@ -103,7 +105,7 @@ function Modals({
         onRequestClose={closeModal}
         style={{
           overlay: overlay,
-          content: modalType === "logout" ? logoutContent : content,
+          content: modalType === "logout" || "input" ? logoutContent : content,
         }}
       >
         {isOpen && <ModalToShow data={data} />}
