@@ -102,11 +102,12 @@ export const ErrorMessage = (message) => {
   return { type: ERROR_MESSAGE, message };
 };
 
-export const createGoal = (userId, goalName) => {
+export const createGoal = (userId, goalName, children) => {
   return {
     type: CREATE_GOAL,
     userId,
     goalName,
+    children,
   };
 };
 

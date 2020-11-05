@@ -42,6 +42,7 @@ function* createGoalSaga(action) {
   const body = JSON.stringify({
     userId: action.userId,
     goalName: action.goalName,
+    children: action.children,
   });
   console.log(body);
   const apiCall = () => {
@@ -62,6 +63,7 @@ function* createGoalSaga(action) {
     if (result.status) {
       yield put(goalSuccess(result));
       console.log(result);
+      yield put(closeModal());
       return;
     }
     // console.log(result.response.data.message);

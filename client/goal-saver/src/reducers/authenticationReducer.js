@@ -46,7 +46,7 @@ const AuthenticationReducer = (state = initialState, action) => {
       };
     case GOAL_SUCCESS:
       state.user.goals = action.payload.goals;
-      console.log(state);
+      console.log(state.user.goals);
       return {
         ...state,
         isLoading: false,

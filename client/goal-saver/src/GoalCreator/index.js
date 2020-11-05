@@ -24,7 +24,7 @@ function GoalCreator({ userId, createGoal, ...props }) {
 
   const onClickHandler = () => {
     props.history.push("goals");
-    return createGoal(userId, name);
+    return createGoal(userId, name, "");
   };
 
   const onChangeHandler = (event) => {
@@ -67,7 +67,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createGoal: (userId, name) => dispatch(createGoal(userId, name)),
+  createGoal: (userId, name, children) =>
+    dispatch(createGoal(userId, name, children)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalCreator);

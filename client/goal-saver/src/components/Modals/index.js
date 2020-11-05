@@ -105,7 +105,10 @@ function Modals({
         onRequestClose={closeModal}
         style={{
           overlay: overlay,
-          content: modalType === "logout" || "input" ? logoutContent : content,
+          content:
+            modalType === "logout" || modalType === "input"
+              ? logoutContent
+              : content,
         }}
       >
         {isOpen && <ModalToShow data={data} />}

@@ -15,7 +15,9 @@ function Goals({ userGoals, Open }) {
       <Wrapper>
         <InnerWrapper>
           <GoalName>
-            {userGoals}
+            {/* {userGoals[1].goalName}
+            {userGoals[1].children} */}
+            Working on it!
             <button onClick={() => openModalType("input")}>
               Add a sub-goal
             </button>
