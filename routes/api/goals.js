@@ -8,33 +8,81 @@ const User = require("../../models/user");
 // const Goal = require("../../models/goals");
 
 router.post("/", auth, (req, res, next) => {
-  const { userId, goalName, child } = req.body;
-  User.findById(userId)
-    .then((user) => {
-      if (user.goals.length > 0) {
-        console.log("Not in an Empty Goal");
-        for (let dataObj in user.goals) {
-          if (dataObj.goalName === goalName) {
-            console.log(dataObj.goalName);
-            dataObj.children = [...dataObj.children, child];
-          }
-          user.goals = [...dataObj];
-        }
-        user.save();
-        return res.json({ status: 201, goals: user.goals });
+  const { userId, goalName, children } = req.body;
+  console.log(userId, goalName, children);
+  // User.findById(userId)
+  //   .then((user) => {
+  //     let newChildren;
+  //     const saveChild = () => {
+  //       user.goals.forEach((goal) => {
+  //         if (goal.goalName === goalName) {
+  //           console.log(goal);
+  //           newChildren = goal.children.push(children);
+  //         }
+  //       });
+  //       return newChildren;
+  //     };
+  //     console.log(user);
+  //     if (user.goals.length > 0) {
+  //       console.log("Not empty array");
+  //       User.updateOne(
+  //         { "user._id": userId, "user.goals.goalName": goalName },
+  //         {
+  //           $push: {
+  //             "goals.$.children": saveChild(),
+  //           },
+  //         }
+  //       )
+  //         .exec()
+  //         .then((result) => {
+  //           console.log(result);
+  //           return res.json({ status: 201, goals: user.goals });
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           return res.json({ error: err });
+  //         });
+  //       return;
+  //     }
+  //     console.log("Inside Empty Goal");
+  //     let goalObj = {
+  //       goalName: goalName,
+  //       children: [],
+  //     };
+  //     user.goals.push(goalObj);
+  //     user
+  //       .save()
+  //       .then((result) => {
+  //         console.log("unexpected");
+  //         return res.json({ status: 201, goals: result.goals });
+  //       })
+  //       .catch((err) => {
+  //         return res.json({ error: err });
+  //       });
+  //   })
+  //   .catch((err) => {
+  //     console.log("Inside 2");
+  //     res.json({ error: err });
+  //   });
+  goalObj = {
+    goalName: goalName,
+    children: [...children],
+  };
+  User.findOneAndUpdate(
+    { _id: userId },
+    { $push: { goals: goalObj } },
+    function (error, success) {
+      if (error) {
+        console.log(error);
+        res.json({ message: "success" });
+        return;
+      } else {
+        console.log(success);
+        res.json({ message: "error" });
+        return;
       }
-      console.log("Inside Empty Goal");
-      let goalObj = {
-        goalName: goalName,
-        children: [],
-      };
-      user.goals.push(goalObj);
-      user.save();
-      return res.json({ status: 201, goals: user.goals });
-    })
-    .catch((err) => {
-      res.json({ error: err });
-    });
+    }
+  );
 });
 
 // router.post("/sub-goal", auth, (req, res, next) => {

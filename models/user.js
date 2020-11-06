@@ -13,7 +13,7 @@ const userSchema = new Schema({
   },
   password: { type: String, required: true },
   createdDate: { type: Date, default: Date.now() },
-  goals: { type: Array },
+  goals: [{ goalName: String, children: Array }],
 });
 
 module.exports = mongoose.model("User", userSchema);
