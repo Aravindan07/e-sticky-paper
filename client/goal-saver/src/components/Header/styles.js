@@ -63,7 +63,7 @@ export const SignInSignUpWrap = styled.div`
   cursor: pointer;
 `;
 
-export const Button = styled.button`
+export const HeaderButton = styled.button`
   background: #496ddb;
   outline: none;
   border: none;

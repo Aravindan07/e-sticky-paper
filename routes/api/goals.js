@@ -10,7 +10,7 @@ router.put("/", auth, (req, res, next) => {
   const { userId, goalName, children } = req.body;
   User.findById(userId)
     .then((user) => {
-      if (user.goals.length > 0) {
+      if (children) {
         user.goals.forEach((userObj) => {
           if (userObj.goalName === goalName) {
             userObj.children.push(children);
@@ -35,7 +35,7 @@ router.put("/", auth, (req, res, next) => {
         user
           .save()
           .then((result) => {
-            return res.json({ status: 201, goals: user.goals });
+            return res.json({ status: 201, goals: result.goals });
           })
           .catch((error) => {
             console.log("Error outside all the if statements");

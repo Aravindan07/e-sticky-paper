@@ -8,7 +8,7 @@ import {
   AccountWrap,
   AccountName,
   SignInSignUpWrap,
-  Button,
+  HeaderButton,
 } from "./styles";
 import { openModal } from "../../actions";
 import AccountIcon from "../../icons/account.svg";
@@ -41,18 +41,22 @@ function Header({ Open, isAuthenticated, userName }) {
           )}
           {isAuthenticated ? (
             <SignInSignUpWrap>
-              <Button onClick={() => OpenModalType("logout")}>Logout</Button>
+              <HeaderButton onClick={() => OpenModalType("logout")}>
+                Logout
+              </HeaderButton>
             </SignInSignUpWrap>
           ) : (
             <>
               <SignInSignUpWrap>
-                <Button onClick={() => OpenModalType("signin")}>Sign In</Button>
+                <HeaderButton onClick={() => OpenModalType("signin")}>
+                  Sign In
+                </HeaderButton>
                 {/* <ReactSVG src={AccountIcon} /> */}
               </SignInSignUpWrap>
               <SignInSignUpWrap>
-                <Button onClick={() => OpenModalType("signup")}>
+                <HeaderButton onClick={() => OpenModalType("signup")}>
                   Register
-                </Button>
+                </HeaderButton>
                 {/* <ReactSVG src={AccountIcon} /> */}
               </SignInSignUpWrap>
             </>

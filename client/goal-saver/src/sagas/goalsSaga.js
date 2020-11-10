@@ -39,6 +39,9 @@ export const TokenConfig = () => {
 // };
 
 function* createGoalSaga(action) {
+  if (action.goalName === "") {
+    return yield put(ErrorMessage("Please enter all fields"));
+  }
   const body = JSON.stringify({
     userId: action.userId,
     goalName: action.goalName,
@@ -46,7 +49,7 @@ function* createGoalSaga(action) {
   });
   console.log(body);
   const apiCall = () => {
-    return Axios.post(`/api/users/${action.userId}/goal`, body, TokenConfig())
+    return Axios.put(`/api/users/${action.userId}/goal`, body, TokenConfig())
       .then((response) => {
         console.log(response.data);
         return response.data;

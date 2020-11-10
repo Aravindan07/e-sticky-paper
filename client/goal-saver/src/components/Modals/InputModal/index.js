@@ -1,41 +1,63 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { createGoal } from "../../../actions";
-import { Button } from "../../Header/styles";
+import { closeModal, createGoal } from "../../../actions";
+import { HeaderButton } from "../../Header/styles";
+import { ButtonsDiv } from "../styles";
 import { Input } from "../styles";
+import { P } from "../../../Homepage/styles";
+import styled from "styled-components";
 
-function InputModal({ userId, name, createGoal }) {
-  const [subGoal, setSubGoal] = useState("");
+const InputModalWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+function InputModal({ userId, createGoal, closeModal, user, data }) {
+  const [goal, setGoal] = useState("");
 
   const onChangeHandler = (event) => {
-    setSubGoal(event.target.value);
+    setGoal(event.target.value);
   };
 
   const createGoalMethod = () => {
-    return createGoal(userId, name, subGoal);
+    if (data === "subGoalInput") {
+      return createGoal(userId, goal, "");
+    }
+    return createGoal(userId, data.goalName, goal);
   };
   return (
-    <>
-      Please Enter a SubGoal
+    <InputModalWrap>
+      <P>
+        {data === "subGoalInput"
+          ? "Please Enter a Sub-Goal"
+          : "Please Enter a Child Goal"}
+      </P>
       <Input
         type="text"
-        value={subGoal}
+        value={goal}
         onChange={onChangeHandler}
-        placeholder="Enter a sub-goal"
+        placeholder={
+          data === "subGoalInput" ? "Enter a sub-goal" : "Enter a child goal"
+        }
       />
-      <Button onClick={createGoalMethod}>Add Goal</Button>
-    </>
+      <ButtonsDiv divType="input">
+        <span onClick={closeModal}>CANCEL</span>
+        <HeaderButton onClick={createGoalMethod}>Add Goal</HeaderButton>
+      </ButtonsDiv>
+    </InputModalWrap>
   );
 }
 
 const mapStateToProps = (state) => ({
   userId: state.authentication.user.id,
-  name: state.authentication.user.goals[0].goalName,
+  user: state.authentication.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   createGoal: (userId, name, children) =>
     dispatch(createGoal(userId, name, children)),
+  closeModal: () => dispatch(closeModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputModal);

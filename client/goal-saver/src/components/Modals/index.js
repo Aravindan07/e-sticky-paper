@@ -93,7 +93,7 @@ function Modals({
     height: "200px",
     margin: "auto",
     borderRadius: "10px",
-    padding: "30px 20px 20px 20px",
+    padding: "20px",
   };
 
   const ModalToShow = ModalList[modalType];

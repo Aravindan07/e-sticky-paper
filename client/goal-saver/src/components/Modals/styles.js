@@ -42,8 +42,7 @@ export const ButtonsDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: ${(props) =>
-    props.divType === "logout" ? "40px auto auto auto" : "20px 0px 0px 0px"};
+  margin: ${setMargin};
   span {
     color: #aa3b64;
     font-weight: 600;
@@ -55,7 +54,16 @@ export const ButtonsDiv = styled.div`
     transform: scale(1.03);
   }
 `;
-
+function setMargin(props) {
+  if (props.divType === "logout") {
+    return "40px auto auto auto";
+  }
+  if (props.divType === "input") {
+    return "0px 0px 0px 0px";
+  } else {
+    return "20px 0px 0px 0px";
+  }
+}
 export const Button = styled.button`
   background: ${(props) =>
     props.btnType === "cancel" ? "#aa3b64" : "#0e7c65 "};
