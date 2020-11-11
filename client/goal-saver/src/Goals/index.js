@@ -12,12 +12,11 @@ import {
   GoalWrapper,
   GoalName,
   Children,
-  ButtonCenterDiv,
 } from "./styles";
 import { closeModal, openModal } from "../actions";
 // import { Button } from "../components/Header/styles";
 
-function Goals({ userGoals, Open, closeModal }) {
+function Goals({ userGoals, Open }) {
   const openModalType = (modalType, data = {}) => {
     return Open(modalType, data);
   };
@@ -29,7 +28,7 @@ function Goals({ userGoals, Open, closeModal }) {
           <Button onClick={() => openModalType("input", "subGoalInput")}>
             Add a Sub-Goal
           </Button>
-          <HeaderButton>Create New Goal</HeaderButton>
+          <HeaderButton>Create a Fresh Goal</HeaderButton>
         </SubButtonDiv>
         <InnerWrapper>
           {userGoals.map((goal) => {
@@ -49,7 +48,6 @@ function Goals({ userGoals, Open, closeModal }) {
             );
           })}
         </InnerWrapper>
-        <ButtonCenterDiv></ButtonCenterDiv>
       </Wrapper>
     </>
   );
@@ -61,6 +59,5 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   Open: (modalType, data) => dispatch(openModal(modalType, data)),
-  closeModal: () => dispatch(closeModal()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Goals);

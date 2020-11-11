@@ -9,12 +9,14 @@ export const Wrapper = styled.div`
 
 export const SubButtonDiv = styled.div`
   text-align: center;
-  margin: 10px 0px;
+  margin: 10px 0px 30px 0px;
+  display: flex;
+  justify-content: space-evenly;
 `;
 
 export const InnerWrapper = styled.div`
   max-width: 70%;
-  max-height: 60%;
+  max-height: 70%;
   margin: 15px auto 25px auto;
   display: flex;
   justify-content: space-evenly;
