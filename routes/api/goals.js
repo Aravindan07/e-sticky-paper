@@ -79,12 +79,29 @@ router.put("/:goalId/delete", (req, res, next) => {
 });
 
 router.put("/:goalId/child/delete", (req, res, next) => {
-  const { userId, goalId, chidName } = req.body;
+  const { userId, goalId, childName } = req.body;
   User.findById(userId).then((user) => {
-    let modifiedChild = user.goals.children.filter((el) => {
-      console.log(el);
+    let findedGoal = user.goals.find((el) => {
+      return String(el._id) === String(goalId);
+    });
+    console.log(findedGoal);
+    let modifiedChild = findedGoal.children.filter((el) => {
       return el !== childName;
     });
+    findedGoal.children = modifiedChild;
+    user
+      .save()
+      .then((result) => {
+        return res.json({
+          status: 200,
+          message: "Goal deleted successfully",
+          goals: result.goals,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        return res.json({ error: error });
+      });
   });
 });
 

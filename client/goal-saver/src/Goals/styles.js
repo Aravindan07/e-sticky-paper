@@ -15,7 +15,7 @@ export const SubButtonDiv = styled.div`
 `;
 
 export const InnerWrapper = styled.div`
-  max-width: 70%;
+  max-width: 80%;
   max-height: 70%;
   margin: 15px auto 25px auto;
   display: flex;
@@ -40,20 +40,39 @@ export const GoalName = styled.div`
   word-wrap: break-word;
   svg {
     margin-left: 10px;
-    /* margin-top: 5px; */
+    width: 25px;
+    height: 25px;
     cursor: pointer;
     color: #011936;
     :hover {
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
-      transform: scale(1.01);
+      transform: scale(1.1);
     }
   }
 `;
 
 export const Children = styled.div`
-  display: block;
-  margin-left: 20px;
-  margin: 4px 0px 4px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 214px;
+  min-height: 25px;
+  margin: 10px 0px 10px 20px;
+`;
+
+export const IconsDiv = styled.div`
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  margin-left: ${(props) => (props.divType === "heading" ? "20px" : "0px")};
+  svg {
+    cursor: pointer;
+    margin-left: 5px;
+    :hover {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+      transform: scale(1.1);
+    }
+  }
 `;
 
 export const ButtonCenterDiv = styled.div`

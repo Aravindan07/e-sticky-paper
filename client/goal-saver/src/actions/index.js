@@ -15,6 +15,8 @@ import {
   LOGOUT,
   CREATE_GOAL,
   GOAL_SUCCESS,
+  DELETE_GOAL,
+  DELETE_CHILD_GOAL,
 } from "../constants";
 
 export const openModal = (modalType, data) => {
@@ -111,6 +113,22 @@ export const createGoal = (userId, goalName, children) => {
   };
 };
 
+export const deleteGoal = (userId, goalId) => {
+  return {
+    type: DELETE_GOAL,
+    userId,
+    goalId,
+  };
+};
+
+export const deleteChildGoal = (userId, goalId, childName) => {
+  return {
+    type: DELETE_CHILD_GOAL,
+    userId,
+    goalId,
+    childName,
+  };
+};
 export const goalSuccess = (payload) => {
   return {
     type: GOAL_SUCCESS,
