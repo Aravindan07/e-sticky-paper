@@ -14,7 +14,11 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   createdDate: { type: Date, default: Date.now() },
   goals: [
-    { _id: mongoose.Schema.Types.ObjectId, goalName: String, children: Array },
+    {
+      _id: mongoose.Schema.Types.ObjectId,
+      goalName: String,
+      children: [{ checked: { type: Boolean, default: false }, child: String }],
+    },
   ],
 });
 

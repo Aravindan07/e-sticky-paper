@@ -33,7 +33,8 @@ export const GoalWrapper = styled.div`
 
 export const GoalName = styled.div`
   font-size: 20px;
-  font-weight: 600;
+  font-weight: bold;
+  letter-spacing: 1px;
   display: flex;
   align-items: center;
   width: 214px;
@@ -43,10 +44,16 @@ export const GoalName = styled.div`
     width: 25px;
     height: 25px;
     cursor: pointer;
-    color: #011936;
+    color: #ba181b;
     :hover {
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
       transform: scale(1.1);
+    }
+  }
+  .addIcon {
+    svg {
+      color: #011936;
+      margin-left: 10px;
     }
   }
 `;
@@ -58,6 +65,22 @@ export const Children = styled.div`
   width: 214px;
   min-height: 25px;
   margin: 10px 0px 10px 20px;
+  svg {
+    color: #007745;
+  }
+  .deleteChild {
+    svg {
+      color: #ba181b;
+    }
+  }
+`;
+
+export const ChildName = styled.div`
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
+  text-decoration-style: double;
 `;
 
 export const IconsDiv = styled.div`

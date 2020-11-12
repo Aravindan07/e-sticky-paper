@@ -17,6 +17,7 @@ import {
   GOAL_SUCCESS,
   DELETE_GOAL,
   DELETE_CHILD_GOAL,
+  MARK_CHECKED,
 } from "../constants";
 
 export const openModal = (modalType, data) => {
@@ -104,12 +105,14 @@ export const ErrorMessage = (message) => {
   return { type: ERROR_MESSAGE, message };
 };
 
-export const createGoal = (userId, goalName, children) => {
+export const createGoal = (userId, goalName, child) => {
   return {
     type: CREATE_GOAL,
     userId,
     goalName,
-    children,
+    children: {
+      child: child,
+    },
   };
 };
 
@@ -129,6 +132,16 @@ export const deleteChildGoal = (userId, goalId, childName) => {
     childName,
   };
 };
+
+export const markChecked = (userId, goalId, childId) => {
+  return {
+    type: MARK_CHECKED,
+    userId,
+    goalId,
+    childId,
+  };
+};
+
 export const goalSuccess = (payload) => {
   return {
     type: GOAL_SUCCESS,

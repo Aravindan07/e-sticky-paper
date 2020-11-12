@@ -22,7 +22,7 @@ function InputModal({ userId, createGoal, closeModal, user, data }) {
 
   const createGoalMethod = () => {
     if (data === "subGoalInput") {
-      return createGoal(userId, goal, "");
+      return createGoal(userId, goal, null);
     }
     return createGoal(userId, data.goalName, goal);
   };
@@ -55,8 +55,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createGoal: (userId, name, children) =>
-    dispatch(createGoal(userId, name, children)),
+  createGoal: (userId, name, child) =>
+    dispatch(createGoal(userId, name, child)),
   closeModal: () => dispatch(closeModal()),
 });
 

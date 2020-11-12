@@ -58,17 +58,17 @@ function Modals({
       if (SucMessage.current !== successMsg) {
         SucMessage.current = successMsg;
         setSuccessMsg(successMsg);
-        if (modalType === "logout" || modalType === "") {
+        if (modalType === "logout") {
           toast.info(successMsg, {
             position: toast.POSITION.TOP_CENTER,
-            autoClose: 3000,
+            autoClose: 2000,
             hideProgressBar: true,
           });
           return;
         }
         toast.success(successMsg, {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 4000,
+          autoClose: 2000,
           hideProgressBar: true,
         });
         return;

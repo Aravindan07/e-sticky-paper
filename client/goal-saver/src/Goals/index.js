@@ -3,10 +3,10 @@ import Header from "../components/Header";
 import { connect } from "react-redux";
 import { ReactSVG } from "react-svg";
 import AddIcon from "../icons/add-icon.svg";
-import DeleteIcon from "../icons/delete-icon.svg";
-import DeleteIcon2 from "../icons/delete-icon2.svg";
+import ChildDeleteIcon from "../icons/child-delete.svg";
 import TrashIcon from "../icons/trash.svg";
 import CompleteIcon from "../icons/completed-icon.svg";
+import CancelIcon from "../icons/cancel-icon.svg";
 import { Button } from "../components/Modals/styles";
 import { HeaderButton } from "../components/Header/styles";
 import {
@@ -16,12 +16,16 @@ import {
   GoalWrapper,
   GoalName,
   Children,
+  ChildName,
   IconsDiv,
 } from "./styles";
-import { closeModal, openModal } from "../actions";
-// import { Button } from "../components/Header/styles";
+import { markChecked, openModal } from "../actions";
 
-function Goals({ userGoals, Open }) {
+function Goals({ userGoals, userId, MarkGoal, Open }) {
+  const markCompleted = (userId, goalId, childId) => {
+    return MarkGoal(userId, goalId, childId);
+  };
+
   const openModalType = (modalType, data = {}) => {
     return Open(modalType, data);
   };
@@ -43,31 +47,55 @@ function Goals({ userGoals, Open }) {
                   {goal.goalName}
                   <IconsDiv divType="heading">
                     <ReactSVG
-                      src={AddIcon}
-                      onClick={() => openModalType("input", goal)}
-                    />
-                    <ReactSVG
                       src={TrashIcon}
                       onClick={() => openModalType("message", goal)}
+                    />
+                    <ReactSVG
+                      className="addIcon"
+                      src={AddIcon}
+                      onClick={() => openModalType("input", goal)}
                     />
                   </IconsDiv>
                 </GoalName>
                 {goal.children.map((child) => (
-                  <Children key={child}>
-                    {child}
+                  <Children key={child._id} id={child._id}>
+                    <ChildName completed={child.checked}>
+                      {child.child}
+                    </ChildName>
                     <IconsDiv>
-                      <ReactSVG
-                        src={DeleteIcon2}
-                        onClick={() =>
-                          openModalType("delete_child", {
-                            type: "delete_child",
-                            _id: goal._id,
-                            child: child,
-                            name: goal.goalName,
-                          })
-                        }
-                      />
-                      <ReactSVG src={CompleteIcon} />
+                      {child.checked ? (
+                        <>
+                          <ReactSVG
+                            className="deleteChild"
+                            src={CancelIcon}
+                            onClick={() =>
+                              markCompleted(userId, goal._id, child._id)
+                            }
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <ReactSVG
+                            className="deleteChild"
+                            src={ChildDeleteIcon}
+                            onClick={() =>
+                              openModalType("delete_child", {
+                                type: "delete_child",
+                                _id: goal._id,
+                                child: child.child,
+                                name: goal.goalName,
+                              })
+                            }
+                          />
+                          <ReactSVG
+                            id={child._id}
+                            src={CompleteIcon}
+                            onClick={() =>
+                              markCompleted(userId, goal._id, child._id)
+                            }
+                          />
+                        </>
+                      )}
                     </IconsDiv>
                   </Children>
                 ))}
@@ -82,9 +110,12 @@ function Goals({ userGoals, Open }) {
 
 const mapStateToProps = (state) => ({
   userGoals: state.authentication.user.goals,
+  userId: state.authentication.user.id,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   Open: (modalType, data) => dispatch(openModal(modalType, data)),
+  MarkGoal: (userId, goalId, childId) =>
+    dispatch(markChecked(userId, goalId, childId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Goals);

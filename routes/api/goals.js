@@ -11,7 +11,7 @@ router.put("/", auth, (req, res, next) => {
   const { userId, goalName, children } = req.body;
   User.findById(userId)
     .then((user) => {
-      if (children) {
+      if (children.child) {
         user.goals.forEach((userObj) => {
           if (userObj.goalName === goalName) {
             userObj.children.push(children);
@@ -80,29 +80,64 @@ router.put("/:goalId/delete", (req, res, next) => {
 
 router.put("/:goalId/child/delete", (req, res, next) => {
   const { userId, goalId, childName } = req.body;
-  User.findById(userId).then((user) => {
-    let findedGoal = user.goals.find((el) => {
-      return String(el._id) === String(goalId);
-    });
-    console.log(findedGoal);
-    let modifiedChild = findedGoal.children.filter((el) => {
-      return el !== childName;
-    });
-    findedGoal.children = modifiedChild;
-    user
-      .save()
-      .then((result) => {
-        return res.json({
-          status: 200,
-          message: "Goal deleted successfully",
-          goals: result.goals,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        return res.json({ error: error });
+  User.findById(userId)
+    .then((user) => {
+      let findedGoal = user.goals.find((el) => {
+        return String(el._id) === String(goalId);
       });
-  });
+      let modifiedChild = findedGoal.children.filter((el) => {
+        return el.child !== childName;
+      });
+      findedGoal.children = modifiedChild;
+      user
+        .save()
+        .then((result) => {
+          return res.json({
+            status: 200,
+            message: "Goal deleted successfully",
+            goals: result.goals,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          return res.json({ error: error });
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+      return res.json({ error: error });
+    });
+});
+
+router.put("/:goalId/:childId/mark", (req, res, next) => {
+  const { userId, goalId, childId } = req.body;
+  User.findById(userId)
+    .then((user) => {
+      let findedGoal = user.goals.find((el) => {
+        return String(el._id) === String(goalId);
+      });
+      let modifiedChild = findedGoal.children.find((el) => {
+        return String(el._id) === String(childId);
+      });
+      modifiedChild.checked = !modifiedChild.checked;
+      user
+        .save()
+        .then((result) => {
+          return res.json({
+            status: 200,
+            message: "Goal checked successfully",
+            goals: result.goals,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          return res.json({ error: error });
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+      return res.json({ error: error });
+    });
 });
 
 module.exports = router;

@@ -16,4 +16,5 @@ export const CLEAR_ERROR = "CLEAR_ERROR";
 export const CREATE_GOAL = "CREATE_GOAL";
 export const DELETE_GOAL = "DELETE_GOAL";
 export const DELETE_CHILD_GOAL = "DELETE_CHILD_GOAL";
+export const MARK_CHECKED = "MARK_CHECKED";
 export const GOAL_SUCCESS = "GOAL_SUCCESS";

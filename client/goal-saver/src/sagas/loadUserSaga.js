@@ -55,10 +55,7 @@ function* loadUserSaga() {
       // yield put(push(`/user/${result.user.id}/create-goal`));
       return;
     }
-    yield put(
-      // ErrorMessage(result.response.data.message) ||
-      ErrorMessage("User not found")
-    );
+    yield put(ErrorMessage(result.response.data.message));
     yield put(logout());
     yield put(clearError());
     return;
