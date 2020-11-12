@@ -19,9 +19,18 @@ import {
   IconsDiv,
 } from "./styles";
 import { closeModal, openModal } from "../actions";
+import { useState } from "react";
 // import { Button } from "../components/Header/styles";
 
 function Goals({ userGoals, Open }) {
+  const [goalCompleted, setCompleted] = useState(false);
+
+  const markCompleted = (child) => {
+    if (child) {
+      return setCompleted(true);
+    }
+  };
+
   const openModalType = (modalType, data = {}) => {
     return Open(modalType, data);
   };
@@ -43,20 +52,22 @@ function Goals({ userGoals, Open }) {
                   {goal.goalName}
                   <IconsDiv divType="heading">
                     <ReactSVG
-                      src={AddIcon}
-                      onClick={() => openModalType("input", goal)}
-                    />
-                    <ReactSVG
                       src={TrashIcon}
                       onClick={() => openModalType("message", goal)}
+                    />
+                    <ReactSVG
+                      className="addIcon"
+                      src={AddIcon}
+                      onClick={() => openModalType("input", goal)}
                     />
                   </IconsDiv>
                 </GoalName>
                 {goal.children.map((child) => (
-                  <Children key={child}>
+                  <Children key={child} id={child} completed={goalCompleted}>
                     {child}
                     <IconsDiv>
                       <ReactSVG
+                        className="deleteChild"
                         src={DeleteIcon2}
                         onClick={() =>
                           openModalType("delete_child", {
@@ -67,7 +78,10 @@ function Goals({ userGoals, Open }) {
                           })
                         }
                       />
-                      <ReactSVG src={CompleteIcon} />
+                      <ReactSVG
+                        src={CompleteIcon}
+                        onClick={() => markCompleted(child)}
+                      />
                     </IconsDiv>
                   </Children>
                 ))}
