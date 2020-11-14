@@ -58,7 +58,7 @@ function* signupSaga({ name, email, password }) {
       yield put(SuccessMessage(result.message));
       yield put(clearError());
       yield put(closeModal());
-      yield put(push(`/user/${result.user.id}/create-goal`));
+      yield put(push(`/user/${result.user.id}/goals`));
       return;
     }
     yield put(ErrorMessage(result.response.data.message));

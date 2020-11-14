@@ -19,7 +19,6 @@ function GoalCreator({ userId, createGoal, ...props }) {
   const initialState = {
     name: "",
   };
-  const [step, setStep] = useState(1);
   const [{ name }, setState] = useState(initialState);
 
   const onClickHandler = () => {

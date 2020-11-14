@@ -58,7 +58,7 @@ function* signinSaga({ email, password }) {
       yield put(SuccessMessage(result.message));
       yield put(clearError());
       yield put(closeModal());
-      yield put(push(`/user/${result.user.id}/create-goal`));
+      yield put(push(`/user/${result.user.id}/goals`));
       return;
     }
     console.log(result.response.data.message);

@@ -11,6 +11,7 @@ import SignInModal from "./Signin";
 import LogoutModal from "./Logout";
 import InputModal from "./InputModal";
 import MessageModal from "./Message";
+import SaveModal from "./SaveModal";
 import PropTypes from "prop-types";
 // import Notification from "../toastNotifications";
 
@@ -23,6 +24,7 @@ const ModalList = {
   input: InputModal,
   message: MessageModal,
   delete_child: MessageModal,
+  save: SaveModal,
 };
 
 function Modals({
@@ -109,12 +111,9 @@ function Modals({
         style={{
           overlay: overlay,
           content:
-            modalType === "logout" ||
-            modalType === "input" ||
-            modalType === "message" ||
-            modalType === "delete_child"
-              ? logoutContent
-              : content,
+            modalType === "signin" || modalType === "signup"
+              ? content
+              : logoutContent,
         }}
       >
         {isOpen && <ModalToShow data={data} />}

@@ -40,7 +40,7 @@ function App({ loadUser, isAuthenticated }) {
       <Modals />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/user/:userId/create-goal" component={GoalCreator} />
+        {/* <Route exact path="/user/:userId/create-goal" component={GoalCreator} /> */}
         <Route exact path="/user/:userId/goals" component={Goals} />
       </Switch>
     </AppWrapper>
