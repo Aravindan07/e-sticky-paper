@@ -9,15 +9,22 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
   },
   password: { type: String, required: true },
   createdDate: { type: Date, default: Date.now() },
   goals: [
     {
       _id: mongoose.Schema.Types.ObjectId,
-      goalName: String,
-      children: [{ checked: { type: Boolean, default: false }, child: String }],
+      mainGoalName: { type: String, required: true },
+      userGoals: [
+        {
+          _id: mongoose.Schema.Types.ObjectId,
+          goalName: String,
+          children: [
+            { checked: { type: Boolean, default: false }, child: String },
+          ],
+        },
+      ],
     },
   ],
 });

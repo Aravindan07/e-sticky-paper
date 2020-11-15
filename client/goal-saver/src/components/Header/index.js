@@ -12,7 +12,7 @@ import {
   HeaderButton,
   Dropdown,
   DropdownContent,
-  Anchor,
+  Content,
 } from "./styles";
 import { openModal } from "../../actions";
 import AccountIcon from "../../icons/account.svg";
@@ -31,21 +31,6 @@ function Header({ Open, isAuthenticated, userName }) {
     return history.push("/");
   };
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
-
-  const setValue = () => {
-    console.log(selectedOption);
-    // setSelectedOption(selectedOption);
-  };
-
-  const showSettings = (event) => {
-    event.preventDefault();
-  };
-
   return (
     <>
       <InnerWrap>
@@ -62,22 +47,18 @@ function Header({ Open, isAuthenticated, userName }) {
                   <span>{userName}</span>
                   <ReactSVG src={AccountIcon} />
                   <DropdownContent>
-                    <Anchor href="#">Home</Anchor>
-                    <Anchor href="#">My Goals</Anchor>
-                    <Anchor href="#">Create Goal</Anchor>
-                    <Anchor href="#">Logout</Anchor>
+                    <Content onClick={clickHandler}>Home</Content>
+                    <Content>Create Goal</Content>
+                    <Content>My Goals</Content>
+                    <Content onClick={() => OpenModalType("logout")}>
+                      Logout
+                    </Content>
                   </DropdownContent>
                 </Dropdown>
               </AccountName>
             </>
           )}
-          {isAuthenticated ? (
-            <SignInSignUpWrap>
-              {/* <HeaderButton onClick={() => OpenModalType("logout")}>
-                Logout
-              </HeaderButton> */}
-            </SignInSignUpWrap>
-          ) : (
+          {!isAuthenticated && (
             <>
               <SignInSignUpWrap>
                 <HeaderButton onClick={() => OpenModalType("signin")}>

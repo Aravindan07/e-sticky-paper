@@ -5,14 +5,14 @@ const mongoose = require("mongoose");
 
 //User model
 const User = require("../../models/user");
-const user = require("../../models/user");
 
 router.put("/", auth, (req, res, next) => {
   const { userId, goalName, children } = req.body;
   User.findById(userId)
     .then((user) => {
       if (children.child) {
-        user.goals.forEach((userObj) => {
+        console.log("In the child part");
+        user.goals[0].userGoals.forEach((userObj) => {
           if (userObj.goalName === goalName) {
             userObj.children.push(children);
             user
@@ -29,9 +29,16 @@ router.put("/", auth, (req, res, next) => {
       } else {
         let goalData = {
           _id: new mongoose.Types.ObjectId(),
-          goalName: goalName,
-          children: [],
+          mainGoalName: goalName,
+          userGoals: [
+            {
+              _id: new mongoose.Types.ObjectId(),
+              goalName: goalName,
+              children: [],
+            },
+          ],
         };
+        console.log("In the else section");
         user.goals.push(goalData);
         user
           .save()

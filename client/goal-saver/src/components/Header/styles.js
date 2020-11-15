@@ -101,11 +101,12 @@ export const Dropdown = styled.div`
   }
 `;
 
-export const Anchor = styled.a`
+export const Content = styled.div`
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  cursor: pointer;
   :hover {
     background-color: #ddd;
   }
