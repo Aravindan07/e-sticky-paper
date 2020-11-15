@@ -36,7 +36,7 @@ function Goals({ userGoals, userId, MarkGoal, Open }) {
       <Wrapper>
         <SubButtonDiv>
           <Button onClick={() => openModalType("input", "subGoalInput")}>
-            Add a Sub-Goal
+            Add a Goal
           </Button>
           <HeaderButton onClick={() => openModalType("save")}>
             Create a Fresh Goal

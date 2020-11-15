@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
 import { connect } from "react-redux";
 import GoalLogo from "../../icons/goal-logo.svg";
+import "./styles.css";
 import {
   InnerWrap,
   LogoDiv,
@@ -9,14 +10,18 @@ import {
   AccountName,
   SignInSignUpWrap,
   HeaderButton,
+  Dropdown,
+  DropdownContent,
+  Anchor,
 } from "./styles";
 import { openModal } from "../../actions";
 import AccountIcon from "../../icons/account.svg";
 import { push } from "connected-react-router";
 import { useHistory } from "react-router-dom";
-// import
 
 function Header({ Open, isAuthenticated, userName }) {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
   let history = useHistory();
   const OpenModalType = (modalType, data = {}) => {
     return Open(modalType, data);
@@ -25,6 +30,22 @@ function Header({ Open, isAuthenticated, userName }) {
   const clickHandler = () => {
     return history.push("/");
   };
+
+  const options = [
+    { value: "chocolate", label: "Chocolate" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "vanilla", label: "Vanilla" },
+  ];
+
+  const setValue = () => {
+    console.log(selectedOption);
+    // setSelectedOption(selectedOption);
+  };
+
+  const showSettings = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <InnerWrap>
@@ -34,16 +55,27 @@ function Header({ Open, isAuthenticated, userName }) {
         </LogoDiv>
         <AccountWrap>
           {userName && (
-            <AccountName style={{ color: "#ffffff" }}>
-              Welcome <span>{userName}</span>
-              <ReactSVG src={AccountIcon} />
-            </AccountName>
+            <>
+              <AccountName style={{ color: "#ffffff" }}>
+                Welcome
+                <Dropdown>
+                  <span>{userName}</span>
+                  <ReactSVG src={AccountIcon} />
+                  <DropdownContent>
+                    <Anchor href="#">Home</Anchor>
+                    <Anchor href="#">My Goals</Anchor>
+                    <Anchor href="#">Create Goal</Anchor>
+                    <Anchor href="#">Logout</Anchor>
+                  </DropdownContent>
+                </Dropdown>
+              </AccountName>
+            </>
           )}
           {isAuthenticated ? (
             <SignInSignUpWrap>
-              <HeaderButton onClick={() => OpenModalType("logout")}>
+              {/* <HeaderButton onClick={() => OpenModalType("logout")}>
                 Logout
-              </HeaderButton>
+              </HeaderButton> */}
             </SignInSignUpWrap>
           ) : (
             <>
@@ -51,13 +83,11 @@ function Header({ Open, isAuthenticated, userName }) {
                 <HeaderButton onClick={() => OpenModalType("signin")}>
                   Sign In
                 </HeaderButton>
-                {/* <ReactSVG src={AccountIcon} /> */}
               </SignInSignUpWrap>
               <SignInSignUpWrap>
                 <HeaderButton onClick={() => OpenModalType("signup")}>
                   Register
                 </HeaderButton>
-                {/* <ReactSVG src={AccountIcon} /> */}
               </SignInSignUpWrap>
             </>
           )}
