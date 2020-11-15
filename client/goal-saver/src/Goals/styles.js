@@ -65,6 +65,7 @@ export const Children = styled.div`
   width: 214px;
   min-height: 25px;
   margin: 10px 0px 10px 20px;
+  text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
   svg {
     color: #007745;
   }

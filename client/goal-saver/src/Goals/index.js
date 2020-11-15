@@ -19,6 +19,7 @@ import {
   ChildName,
   IconsDiv,
 } from "./styles";
+
 import { markChecked, openModal } from "../actions";
 
 function Goals({ userGoals, userId, MarkGoal, Open }) {
