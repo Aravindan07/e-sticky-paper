@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { closeModal, createGoal } from "../../../actions";
+import { closeModal, createChildGoal, createGoal } from "../../../actions";
 import { HeaderButton } from "../../Header/styles";
 import { ButtonsDiv } from "../styles";
 import { Input } from "../styles";
@@ -13,7 +13,15 @@ const InputModalWrap = styled.div`
   align-items: center;
 `;
 
-function InputModal({ userId, createGoal, closeModal, user, data }) {
+function InputModal({
+  userId,
+  createGoal,
+  closeModal,
+  user,
+  data,
+  createChildGoal,
+}) {
+  console.log(data);
   const [goal, setGoal] = useState("");
 
   const onChangeHandler = (event) => {
@@ -21,15 +29,17 @@ function InputModal({ userId, createGoal, closeModal, user, data }) {
   };
 
   const createGoalMethod = () => {
-    if (data === "subGoalInput") {
-      return createGoal(userId, goal, null);
+    if (data.type === "subGoalInput") {
+      //userId,goalName,goalId
+      return createGoal(userId, goal, data.goalId);
     }
-    return createGoal(userId, data.goalName, goal);
+    console.log(userId, data.goalId, data.goal._id, goal);
+    return createChildGoal(userId, data.goalId, data.goal._id, goal);
   };
   return (
     <InputModalWrap>
       <P>
-        {data === "subGoalInput"
+        {data.type === "subGoalInput"
           ? "Please Enter a Sub-Goal"
           : "Please Enter a Child Goal"}
       </P>
@@ -38,7 +48,9 @@ function InputModal({ userId, createGoal, closeModal, user, data }) {
         value={goal}
         onChange={onChangeHandler}
         placeholder={
-          data === "subGoalInput" ? "Enter a sub-goal" : "Enter a child goal"
+          data.type === "subGoalInput"
+            ? "Enter a sub-goal"
+            : "Enter a child goal"
         }
       />
       <ButtonsDiv divType="input">
@@ -55,8 +67,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createGoal: (userId, name, child) =>
-    dispatch(createGoal(userId, name, child)),
+  createGoal: (userId, name, goalId) =>
+    dispatch(createGoal(userId, name, goalId)),
+  createChildGoal: (userId, goalId, subGoalId, child) =>
+    dispatch(createChildGoal(userId, goalId, subGoalId, child)),
   closeModal: () => dispatch(closeModal()),
 });
 

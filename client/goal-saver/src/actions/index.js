@@ -19,6 +19,7 @@ import {
   DELETE_GOAL,
   DELETE_CHILD_GOAL,
   MARK_CHECKED,
+  CREATE_CHILD_GOAL,
 } from "../constants";
 
 export const openModal = (modalType, data) => {
@@ -114,11 +115,21 @@ export const addMainGoalName = (userId, goalName) => {
   };
 };
 
-export const createGoal = (userId, goalName, child) => {
+export const createGoal = (userId, goalName, goalId) => {
   return {
     type: CREATE_GOAL,
     userId,
     goalName,
+    goalId,
+  };
+};
+
+export const createChildGoal = (userId, goalId, subGoalId, child) => {
+  return {
+    type: CREATE_CHILD_GOAL,
+    userId,
+    goalId,
+    subGoalId,
     children: {
       child: child,
     },
@@ -133,20 +144,22 @@ export const deleteGoal = (userId, goalId) => {
   };
 };
 
-export const deleteChildGoal = (userId, goalId, childName) => {
+export const deleteChildGoal = (userId, goalId, subGoalId, childId) => {
   return {
     type: DELETE_CHILD_GOAL,
     userId,
     goalId,
-    childName,
+    subGoalId,
+    childId,
   };
 };
 
-export const markChecked = (userId, goalId, childId) => {
+export const markChecked = (userId, goalId, subGoalId, childId) => {
   return {
     type: MARK_CHECKED,
     userId,
     goalId,
+    subGoalId,
     childId,
   };
 };

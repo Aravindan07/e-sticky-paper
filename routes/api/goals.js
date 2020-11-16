@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 //User model
 const User = require("../../models/user");
 
+// Add a main goal name
 router.put("/goal-name", (req, res, next) => {
   const { userId, goalName } = req.body;
   User.findById(userId)
@@ -26,6 +27,7 @@ router.put("/goal-name", (req, res, next) => {
     });
 });
 
+//Add a sub-goal
 router.put("/:goalId/add-sub-goal", auth, (req, res, next) => {
   const { userId, goalName, goalId } = req.body;
   User.findById(userId)
@@ -55,6 +57,7 @@ router.put("/:goalId/add-sub-goal", auth, (req, res, next) => {
     });
 });
 
+//Add a child-goal
 router.put("/:goalId/:subGoalId/add-child-goal", (req, res, next) => {
   const { userId, goalId, subGoalId, children } = req.body;
   User.findById(userId)
@@ -84,6 +87,7 @@ router.put("/:goalId/:subGoalId/add-child-goal", (req, res, next) => {
     });
 });
 
+//Delete a sub-goal
 router.put("/:goalId/delete", (req, res, next) => {
   const { userId, goalId } = req.body;
   console.log(userId, goalId);
@@ -113,6 +117,7 @@ router.put("/:goalId/delete", (req, res, next) => {
     });
 });
 
+//Add a child-goal
 router.put("/:goalId/child/delete", (req, res, next) => {
   const { userId, goalId, subGoalId, childId } = req.body;
   User.findById(userId)
@@ -148,6 +153,7 @@ router.put("/:goalId/child/delete", (req, res, next) => {
     });
 });
 
+//Mark the goal either completed or not completed
 router.put("/:goalId/:subGoalId/:childId/mark", (req, res, next) => {
   const { userId, goalId, subGoalId, childId } = req.body;
   User.findById(userId)

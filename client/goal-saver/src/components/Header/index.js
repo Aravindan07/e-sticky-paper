@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
 import { connect } from "react-redux";
 import GoalLogo from "../../icons/goal-logo.svg";
-import "./styles.css";
 import {
   InnerWrap,
   LogoDiv,

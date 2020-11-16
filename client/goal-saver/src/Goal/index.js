@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../components/Header";
 import { connect } from "react-redux";
+import { markChecked, openModal } from "../actions";
 import { ReactSVG } from "react-svg";
 import AddIcon from "../icons/add-icon.svg";
 import ChildDeleteIcon from "../icons/child-delete.svg";
@@ -18,39 +18,48 @@ import {
   Children,
   ChildName,
   IconsDiv,
-} from "./styles";
+} from "../Goals/styles";
+import Header from "../components/Header";
 
-import { markChecked, openModal } from "../actions";
-
-function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
-  const markCompleted = (userId, goalId, childId) => {
-    return MarkGoal(userId, goalId, childId);
-  };
+function Goal({ Open, location, userGoals, MarkGoal, userId, ...props }) {
+  let goalIdToShow = location.pathname.split("/")[4];
+  const returnedGoal = userGoals.find((el) => {
+    return el._id === goalIdToShow;
+  });
 
   const openModalType = (modalType, data = {}) => {
     return Open(modalType, data);
   };
-  const GoalClicked = (goalId) => {
-    console.log("Clicked a goal");
-    return props.history.push(`goals/${goalId}`);
+
+  const markCompleted = (userId, goalId, subGoalId, childId) => {
+    return MarkGoal(userId, goalId, subGoalId, childId);
   };
+
+  const createFreshGoal = () => {
+    return props.history.push(`/user/${userId}/create-goal`);
+  };
+
   return (
     <>
       <Header />
       <Wrapper>
         <SubButtonDiv>
-          {/* <Button onClick={() => openModalType("input", "subGoalInput")}>
+          <Button
+            onClick={() =>
+              openModalType("input", {
+                type: "subGoalInput",
+                goalId: returnedGoal._id,
+              })
+            }
+          >
             Add a Goal
-          </Button> */}
-          <HeaderButton onClick={() => openModalType("save")}>
+          </Button>
+          <HeaderButton onClick={createFreshGoal}>
             Create a Fresh Goal
           </HeaderButton>
         </SubButtonDiv>
-        <GoalName style={{ textAlign: "center", margin: "0 auto" }}>
-          Click on a goal to view and edit it!
-        </GoalName>
         <InnerWrapper>
-          {/* {userGoals.map((goal) => {
+          {returnedGoal.userGoals.map((goal) => {
             return (
               <GoalWrapper key={goal._id}>
                 <GoalName>
@@ -63,7 +72,12 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
                     <ReactSVG
                       className="addIcon"
                       src={AddIcon}
-                      onClick={() => openModalType("input", goal)}
+                      onClick={() =>
+                        openModalType("input", {
+                          goalId: returnedGoal._id,
+                          goal,
+                        })
+                      }
                     />
                   </IconsDiv>
                 </GoalName>
@@ -79,7 +93,12 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
                             className="deleteChild"
                             src={CancelIcon}
                             onClick={() =>
-                              markCompleted(userId, goal._id, child._id)
+                              markCompleted(
+                                userId,
+                                returnedGoal._id,
+                                goal._id,
+                                child._id
+                              )
                             }
                           />
                         </>
@@ -91,9 +110,11 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
                             onClick={() =>
                               openModalType("delete_child", {
                                 type: "delete_child",
-                                _id: goal._id,
-                                child: child.child,
-                                name: goal.goalName,
+                                goalId: returnedGoal._id,
+                                subGoalId: goal._id,
+                                childId: child._id,
+                                childName: child.child,
+                                parentName: goal.goalName,
                               })
                             }
                           />
@@ -101,7 +122,12 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
                             id={child._id}
                             src={CompleteIcon}
                             onClick={() =>
-                              markCompleted(userId, goal._id, child._id)
+                              markCompleted(
+                                userId,
+                                returnedGoal._id,
+                                goal._id,
+                                child._id
+                              )
                             }
                           />
                         </>
@@ -109,16 +135,6 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
                     </IconsDiv>
                   </Children>
                 ))}
-              </GoalWrapper>
-            );
-          })} */}
-
-          {userGoals.map((el) => {
-            return (
-              <GoalWrapper key={el._id}>
-                <Button onClick={() => GoalClicked(el._id)}>
-                  {el.mainGoalName}
-                </Button>
               </GoalWrapper>
             );
           })}
@@ -131,11 +147,12 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
 const mapStateToProps = (state) => ({
   userGoals: state.authentication.user.goals,
   userId: state.authentication.user.id,
+  location: state.router.location,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   Open: (modalType, data) => dispatch(openModal(modalType, data)),
-  MarkGoal: (userId, goalId, childId) =>
-    dispatch(markChecked(userId, goalId, childId)),
+  MarkGoal: (userId, goalId, subGoalId, childId) =>
+    dispatch(markChecked(userId, goalId, subGoalId, childId)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Goals);
+export default connect(mapStateToProps, mapDispatchToProps)(Goal);

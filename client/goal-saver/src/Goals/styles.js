@@ -15,7 +15,7 @@ export const SubButtonDiv = styled.div`
 `;
 
 export const InnerWrapper = styled.div`
-  max-width: 80%;
+  max-width: 90%;
   max-height: 70%;
   margin: 15px auto 25px auto;
   display: flex;
@@ -80,6 +80,7 @@ export const ChildName = styled.div`
   font-size: 18px;
   font-weight: 500;
   letter-spacing: 0.8px;
+  text-transform: capitalize;
   text-decoration: ${(props) => (props.completed ? "line-through" : "none")};
   text-decoration-style: double;
 `;

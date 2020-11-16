@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { loadUser } from "./actions";
 import Loader from "./components/Loader";
 import Goals from "./Goals";
+import Goal from "./Goal";
 
 const AppWrapper = styled.div`
   margin: 0px;
@@ -42,6 +43,7 @@ function App({ loadUser, isAuthenticated }) {
         <Route exact path="/" component={Home} />
         <Route exact path="/user/:userId/create-goal" component={GoalCreator} />
         <Route exact path="/user/:userId/goals" component={Goals} />
+        <Route exact path="/user/:userId/goals/:goalId" component={Goal} />
       </Switch>
     </AppWrapper>
   );

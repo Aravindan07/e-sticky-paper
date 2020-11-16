@@ -18,8 +18,8 @@ function Message({ close, deleteGoal, deleteChild, userId, data }) {
     return deleteGoal(userId, goalId);
   };
 
-  const deleteChildFn = (userId, goalId, childName) => {
-    return deleteChild(userId, goalId, childName);
+  const deleteChildFn = (userId, goalId, SubGoalId, childId) => {
+    return deleteChild(userId, goalId, SubGoalId, childId);
   };
   return (
     <>
@@ -27,11 +27,15 @@ function Message({ close, deleteGoal, deleteChild, userId, data }) {
         <>
           <MessageDiv>
             Are you sure you want to delete this child goal{" "}
-            <span>{data.child} </span>
-            from <span> {data.name} ?</span>
+            <span>{data.childName} </span>
+            from <span> {data.parentName} ?</span>
           </MessageDiv>
           <ButtonsDiv>
-            <Button onClick={() => deleteChildFn(userId, data._id, data.child)}>
+            <Button
+              onClick={() =>
+                deleteChildFn(userId, data.goalId, data.subGoalId, data.childId)
+              }
+            >
               CONFIRM
             </Button>
             <Button btnType="cancel" onClick={close}>
@@ -65,8 +69,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   close: () => dispatch(closeModal()),
   deleteGoal: (userId, goalId) => dispatch(deleteGoal(userId, goalId)),
-  deleteChild: (userId, goalId, childName) =>
-    dispatch(deleteChildGoal(userId, goalId, childName)),
+  deleteChild: (userId, goalId, SubGoalId, childId) =>
+    dispatch(deleteChildGoal(userId, goalId, SubGoalId, childId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Message);
