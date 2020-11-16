@@ -42,8 +42,11 @@ function Goals({ userGoals, userId, MarkGoal, Open }) {
             Create a Fresh Goal
           </HeaderButton>
         </SubButtonDiv>
+        <GoalName style={{ textAlign: "center", margin: "0 auto" }}>
+          Click on a goal to view and edit it!
+        </GoalName>
         <InnerWrapper>
-          {userGoals.map((goal) => {
+          {/* {userGoals.map((goal) => {
             return (
               <GoalWrapper key={goal._id}>
                 <GoalName>
@@ -104,6 +107,9 @@ function Goals({ userGoals, userId, MarkGoal, Open }) {
                 ))}
               </GoalWrapper>
             );
+          })} */}
+          {userGoals.map((el) => {
+            return <Button>{el.mainGoalName}</Button>;
           })}
         </InnerWrapper>
       </Wrapper>

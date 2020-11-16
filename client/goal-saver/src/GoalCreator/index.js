@@ -13,17 +13,17 @@ import {
 } from "./styles";
 import { H2 } from "../Homepage/styles";
 import Header from "../components/Header";
-import { createGoal } from "../actions";
+import { addMainGoalName } from "../actions";
 
-function GoalCreator({ userId, createGoal, ...props }) {
+function GoalCreator({ userId, addMainGoalName, ...props }) {
   const initialState = {
     name: "",
   };
   const [{ name }, setState] = useState(initialState);
 
   const onClickHandler = () => {
-    props.history.push("goals");
-    return createGoal(userId, name, "");
+    // props.history.push("goals");
+    return addMainGoalName(userId, name);
   };
 
   const onChangeHandler = (event) => {
@@ -66,8 +66,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createGoal: (userId, name, children) =>
-    dispatch(createGoal(userId, name, children)),
+  addMainGoalName: (userId, goalName) =>
+    dispatch(addMainGoalName(userId, goalName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalCreator);

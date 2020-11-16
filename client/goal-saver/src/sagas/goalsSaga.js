@@ -2,6 +2,7 @@ import { call, takeLatest, put } from "redux-saga/effects";
 import { push } from "connected-react-router";
 import Axios from "axios";
 import {
+  ADD_MAIN_GOAL_NAME,
   CREATE_GOAL,
   DELETE_CHILD_GOAL,
   DELETE_GOAL,
@@ -44,6 +45,48 @@ export const TokenConfig = () => {
 //     "Content-type": "application/json",
 //   },
 // };
+
+function* addMainGoalNameSaga(action) {
+  const body = JSON.stringify({
+    userId: action.userId,
+    goalName: action.goalName,
+  });
+  console.log(body);
+  const apiCall = () => {
+    return Axios.put(
+      `/api/users/${action.userId}/goal/goal-name`,
+      body,
+      TokenConfig()
+    )
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response.data);
+          return err;
+        }
+      });
+  };
+  try {
+    const result = yield call(apiCall);
+    if (result.status) {
+      yield put(goalSuccess(result));
+      console.log(result);
+      yield put(closeModal());
+      yield put(push(`/user/${action.userId}/goals`));
+      return;
+    }
+    console.log(result);
+    yield put(ErrorMessage(result.response.data.message));
+    yield put(clearError());
+    return;
+  } catch (error) {
+    console.log(error);
+    yield put(ErrorMessage(error));
+  }
+}
 
 function* createGoalSaga(action) {
   if (action.goalName === "") {
@@ -216,6 +259,7 @@ function* markGoalSaga(action) {
 }
 
 export default function* watchGoals() {
+  yield takeLatest(ADD_MAIN_GOAL_NAME, addMainGoalNameSaga);
   yield takeLatest(CREATE_GOAL, createGoalSaga);
   yield takeLatest(DELETE_GOAL, deleteGoalSaga);
   yield takeLatest(DELETE_CHILD_GOAL, deleteChildSaga);

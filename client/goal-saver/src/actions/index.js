@@ -13,6 +13,7 @@ import {
   SUCCESS_MESSAGE,
   CLEAR_ERROR,
   LOGOUT,
+  ADD_MAIN_GOAL_NAME,
   CREATE_GOAL,
   GOAL_SUCCESS,
   DELETE_GOAL,
@@ -103,6 +104,14 @@ export const SuccessMessage = (message) => {
 
 export const ErrorMessage = (message) => {
   return { type: ERROR_MESSAGE, message };
+};
+
+export const addMainGoalName = (userId, goalName) => {
+  return {
+    type: ADD_MAIN_GOAL_NAME,
+    userId,
+    goalName,
+  };
 };
 
 export const createGoal = (userId, goalName, child) => {

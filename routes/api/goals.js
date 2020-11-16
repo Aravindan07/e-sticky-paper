@@ -6,52 +6,80 @@ const mongoose = require("mongoose");
 //User model
 const User = require("../../models/user");
 
-router.put("/", auth, (req, res, next) => {
-  const { userId, goalName, children } = req.body;
+router.put("/goal-name", (req, res, next) => {
+  const { userId, goalName } = req.body;
   User.findById(userId)
     .then((user) => {
-      if (children.child) {
-        console.log("In the child part");
-        user.goals[0].userGoals.forEach((userObj) => {
-          if (userObj.goalName === goalName) {
-            userObj.children.push(children);
-            user
-              .save()
-              .then((result) => {
-                return res.json({ status: 201, goals: result.goals });
-              })
-              .catch((error) => {
-                console.log(error);
-                return res.json({ error: error });
-              });
-          }
-        });
-      } else {
-        let goalData = {
-          _id: new mongoose.Types.ObjectId(),
-          mainGoalName: goalName,
-          userGoals: [
-            {
-              _id: new mongoose.Types.ObjectId(),
-              goalName: goalName,
-              children: [],
-            },
-          ],
-        };
-        console.log("In the else section");
-        user.goals.push(goalData);
-        user
-          .save()
-          .then((result) => {
-            return res.json({ status: 201, goals: result.goals });
-          })
-          .catch((error) => {
-            console.log("Error outside all the if statements");
-            return res.json({ error: error });
-          });
-      }
+      let goalData = {
+        _id: new mongoose.Types.ObjectId(),
+        mainGoalName: goalName,
+        userGoals: [],
+      };
+      user.goals.push(goalData);
+      user.save().then((result) => {
+        return res.json({ status: 201, goals: result.goals });
+      });
     })
     .catch((error) => {
+      console.log(error);
+      return res.json({ error: error, message: "An error occurred" });
+    });
+});
+
+router.put("/:goalId/add-sub-goal", auth, (req, res, next) => {
+  const { userId, goalName, goalId } = req.body;
+  User.findById(userId)
+    .then((user) => {
+      let findedGoal = user.goals.find((el) => {
+        return String(el._id) === String(goalId);
+      });
+      console.log(findedGoal);
+      let data = {
+        _id: new mongoose.Types.ObjectId(),
+        goalName: goalName,
+        children: [],
+      };
+      findedGoal.userGoals.push(data);
+      user
+        .save()
+        .then((result) => {
+          return res.json({ status: 201, goals: result.goals });
+        })
+        .catch((error) => {
+          console.log("Error outside all the if statements");
+          return res.json({ error: error });
+        });
+    })
+    .catch((error) => {
+      return res.json({ error: error, message: "An error occurred" });
+    });
+});
+
+router.put("/:goalId/:subGoalId/add-child-goal", (req, res, next) => {
+  const { userId, goalId, subGoalId, children } = req.body;
+  User.findById(userId)
+    .then((user) => {
+      let findedGoal = user.goals.find((el) => {
+        return String(el._id) === String(goalId);
+      });
+      console.log(findedGoal);
+      let addChild = findedGoal.userGoals.find((el) => {
+        return String(el._id) === subGoalId;
+      });
+      console.log(addChild);
+      addChild.children.push(children);
+      user
+        .save()
+        .then((result) => {
+          return res.json({ status: 201, goals: result.goals });
+        })
+        .catch((error) => {
+          console.log(error);
+          return res.json({ error: error });
+        });
+    })
+    .catch((error) => {
+      console.log(error);
       return res.json({ error: error, message: "An error occurred" });
     });
 });
@@ -86,16 +114,20 @@ router.put("/:goalId/delete", (req, res, next) => {
 });
 
 router.put("/:goalId/child/delete", (req, res, next) => {
-  const { userId, goalId, childName } = req.body;
+  const { userId, goalId, subGoalId, childId } = req.body;
   User.findById(userId)
     .then((user) => {
       let findedGoal = user.goals.find((el) => {
         return String(el._id) === String(goalId);
       });
-      let modifiedChild = findedGoal.children.filter((el) => {
-        return el.child !== childName;
+      console.log(findedGoal);
+      let findedSubGoal = findedGoal.userGoals.find((el) => {
+        return String(el._id) === String(subGoalId);
       });
-      findedGoal.children = modifiedChild;
+      let modifiedChild = findedSubGoal.children.filter((el) => {
+        return String(el._id) !== String(childId);
+      });
+      findedSubGoal.children = modifiedChild;
       user
         .save()
         .then((result) => {
@@ -116,14 +148,17 @@ router.put("/:goalId/child/delete", (req, res, next) => {
     });
 });
 
-router.put("/:goalId/:childId/mark", (req, res, next) => {
-  const { userId, goalId, childId } = req.body;
+router.put("/:goalId/:subGoalId/:childId/mark", (req, res, next) => {
+  const { userId, goalId, subGoalId, childId } = req.body;
   User.findById(userId)
     .then((user) => {
       let findedGoal = user.goals.find((el) => {
         return String(el._id) === String(goalId);
       });
-      let modifiedChild = findedGoal.children.find((el) => {
+      let findedSubGoal = findedGoal.userGoals.find((el) => {
+        return String(el._id) === String(subGoalId);
+      });
+      let modifiedChild = findedSubGoal.children.find((el) => {
         return String(el._id) === String(childId);
       });
       modifiedChild.checked = !modifiedChild.checked;

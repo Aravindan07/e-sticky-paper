@@ -13,6 +13,7 @@ export const ERROR = "ERROR";
 export const ERROR_MESSAGE = "ERROR_MESSAGE";
 export const SUCCESS_MESSAGE = "SUCCESS_MESSAGE";
 export const CLEAR_ERROR = "CLEAR_ERROR";
+export const ADD_MAIN_GOAL_NAME = "ADD_MAIN_GOAL_NAME";
 export const CREATE_GOAL = "CREATE_GOAL";
 export const DELETE_GOAL = "DELETE_GOAL";
 export const DELETE_CHILD_GOAL = "DELETE_CHILD_GOAL";
