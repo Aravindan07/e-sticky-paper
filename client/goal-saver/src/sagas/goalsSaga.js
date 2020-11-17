@@ -6,6 +6,7 @@ import {
   CREATE_CHILD_GOAL,
   CREATE_GOAL,
   DELETE_CHILD_GOAL,
+  DELETE_ENTIRE_GOAL,
   DELETE_GOAL,
   MARK_CHECKED,
   SIGN_IN,
@@ -174,15 +175,57 @@ function* createChildGoalSaga(action) {
   }
 }
 
-function* deleteGoalSaga(action) {
+function* deleteEntireGoalSaga(action) {
   const body = JSON.stringify({
     userId: action.userId,
     goalId: action.goalId,
   });
-  console.log(body);
   const apiCall = () => {
     return Axios.put(
       `/api/users/${action.userId}/goal/${action.goalId}/delete`,
+      body,
+      TokenConfig()
+    )
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response.data);
+          return err;
+        }
+      });
+  };
+  try {
+    const result = yield call(apiCall);
+    if (result.status) {
+      yield put(goalSuccess(result));
+      console.log(result);
+      yield put(SuccessMessage(result.message));
+      yield put(closeModal());
+      return;
+    }
+    // console.log(result.response.data.message);
+    console.log(result);
+    yield put(ErrorMessage(result.response.data.message));
+    yield put(clearError());
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* deleteGoalSaga(action) {
+  const body = JSON.stringify({
+    userId: action.userId,
+    goalId: action.goalId,
+    subGoalId: action.subGoalId,
+  });
+  console.log(body);
+  const apiCall = () => {
+    return Axios.put(
+      `/api/users/${action.userId}/goal/${action.goalId}/${action.subGoalId}/delete`,
       body,
       TokenConfig()
     )
@@ -307,6 +350,7 @@ function* markGoalSaga(action) {
 
 export default function* watchGoals() {
   yield takeLatest(ADD_MAIN_GOAL_NAME, addMainGoalNameSaga);
+  yield takeLatest(DELETE_ENTIRE_GOAL, deleteEntireGoalSaga);
   yield takeLatest(CREATE_GOAL, createGoalSaga);
   yield takeLatest(CREATE_CHILD_GOAL, createChildGoalSaga);
   yield takeLatest(DELETE_GOAL, deleteGoalSaga);

@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { closeModal, deleteChildGoal, deleteGoal } from "../../../actions";
+import {
+  closeModal,
+  deleteChildGoal,
+  deleteEntireGoal,
+  deleteGoal,
+} from "../../../actions";
 import { Button, ButtonsDiv } from "../styles";
 
 const MessageDiv = styled.div`
@@ -13,17 +18,32 @@ const MessageDiv = styled.div`
     font-weight: 600;
   }
 `;
-function Message({ close, deleteGoal, deleteChild, userId, data }) {
-  const deleteGoalFn = (userId, goalId) => {
-    return deleteGoal(userId, goalId);
+function Message({
+  close,
+  deleteEntireGoal,
+  deleteGoal,
+  deleteChild,
+  userId,
+  data,
+}) {
+  console.log(data);
+
+  const deleteEntireGoalFn = (userId, goalId) => {
+    console.log(userId, goalId);
+    return deleteEntireGoal(userId, goalId);
+  };
+
+  const deleteGoalFn = (userId, goalId, subGoalId) => {
+    return deleteGoal(userId, goalId, subGoalId);
   };
 
   const deleteChildFn = (userId, goalId, SubGoalId, childId) => {
     return deleteChild(userId, goalId, SubGoalId, childId);
   };
-  return (
-    <>
-      {data.type === "delete_child" ? (
+
+  const whatToRender = () => {
+    if (data.type === "delete_child") {
+      return (
         <>
           <MessageDiv>
             Are you sure you want to delete this child goal{" "}
@@ -43,12 +63,35 @@ function Message({ close, deleteGoal, deleteChild, userId, data }) {
             </Button>
           </ButtonsDiv>
         </>
-      ) : (
+      );
+    }
+    if (data.type === "delete_entire_goal") {
+      return (
         <>
           <MessageDiv>
-            Are you sure you want to delete goal <span>{data.goalName} ?</span>
+            Are you sure you want to delete this entire goal{" "}
+            <span>{data.goalName} ?</span>
+          </MessageDiv>
+          <ButtonsDiv>
+            <Button onClick={() => deleteEntireGoalFn(userId, data.goalId)}>
+              CONFIRM
+            </Button>
+            <Button btnType="cancel" onClick={close}>
+              CANCEL
+            </Button>
+          </ButtonsDiv>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <MessageDiv>
+            Are you sure you want to delete goal{" "}
+            <span>{data.goal.goalName} ?</span>
             <ButtonsDiv>
-              <Button onClick={() => deleteGoalFn(userId, data._id)}>
+              <Button
+                onClick={() => deleteGoalFn(userId, data.goalId, data.goal._id)}
+              >
                 CONFIRM
               </Button>
               <Button btnType="cancel" onClick={close}>
@@ -57,9 +100,10 @@ function Message({ close, deleteGoal, deleteChild, userId, data }) {
             </ButtonsDiv>
           </MessageDiv>
         </>
-      )}
-    </>
-  );
+      );
+    }
+  };
+  return <>{whatToRender()}</>;
 }
 
 const mapStateToProps = (state) => ({
@@ -68,7 +112,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   close: () => dispatch(closeModal()),
-  deleteGoal: (userId, goalId) => dispatch(deleteGoal(userId, goalId)),
+  deleteEntireGoal: (userId, goalId) =>
+    dispatch(deleteEntireGoal(userId, goalId)),
+  deleteGoal: (userId, goalId, subGoalId) =>
+    dispatch(deleteGoal(userId, goalId, subGoalId)),
   deleteChild: (userId, goalId, SubGoalId, childId) =>
     dispatch(deleteChildGoal(userId, goalId, SubGoalId, childId)),
 });

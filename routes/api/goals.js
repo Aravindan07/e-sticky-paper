@@ -87,7 +87,7 @@ router.put("/:goalId/:subGoalId/add-child-goal", (req, res, next) => {
     });
 });
 
-//Delete a sub-goal
+//Delete a goal
 router.put("/:goalId/delete", (req, res, next) => {
   const { userId, goalId } = req.body;
   console.log(userId, goalId);
@@ -117,7 +117,41 @@ router.put("/:goalId/delete", (req, res, next) => {
     });
 });
 
-//Add a child-goal
+//Delete a sub-goal
+router.put("/:goalId/:subGoalId/delete", (req, res, next) => {
+  const { userId, goalId, subGoalId } = req.body;
+  User.findById(userId)
+    .then((user) => {
+      let findedGoal = user.goals.find((el) => {
+        return String(el._id) === String(goalId);
+      });
+      console.log(findedGoal);
+      let filteredSubGoals = findedGoal.userGoals.filter((el) => {
+        return String(el._id) !== String(subGoalId);
+      });
+
+      findedGoal.userGoals = filteredSubGoals;
+      user
+        .save()
+        .then((result) => {
+          return res.json({
+            status: 200,
+            message: "Goal deleted successfully",
+            goals: result.goals,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          return res.json({ error: error });
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+      return res.json({ error: error });
+    });
+});
+
+//Delete a child-goal
 router.put("/:goalId/child/delete", (req, res, next) => {
   const { userId, goalId, subGoalId, childId } = req.body;
   User.findById(userId)

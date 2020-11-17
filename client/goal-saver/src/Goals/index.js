@@ -2,123 +2,57 @@ import React from "react";
 import Header from "../components/Header";
 import { connect } from "react-redux";
 import { ReactSVG } from "react-svg";
-import AddIcon from "../icons/add-icon.svg";
-import ChildDeleteIcon from "../icons/child-delete.svg";
 import TrashIcon from "../icons/trash.svg";
-import CompleteIcon from "../icons/completed-icon.svg";
-import CancelIcon from "../icons/cancel-icon.svg";
 import { Button } from "../components/Modals/styles";
 import { HeaderButton } from "../components/Header/styles";
-import {
-  Wrapper,
-  SubButtonDiv,
-  InnerWrapper,
-  GoalWrapper,
-  GoalName,
-  Children,
-  ChildName,
-  IconsDiv,
-} from "./styles";
+import { Wrapper, SubButtonDiv, InnerWrapper, GoalWrapper } from "./styles";
 
 import { markChecked, openModal } from "../actions";
+import { P } from "../Homepage/styles";
 
 function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
-  const markCompleted = (userId, goalId, childId) => {
-    return MarkGoal(userId, goalId, childId);
-  };
-
   const openModalType = (modalType, data = {}) => {
     return Open(modalType, data);
   };
+
   const GoalClicked = (goalId) => {
     console.log("Clicked a goal");
     return props.history.push(`goals/${goalId}`);
   };
+
+  const freshGoalClicked = () => {
+    return props.history.push("create-goal");
+  };
+
   return (
     <>
       <Header />
       <Wrapper>
         <SubButtonDiv>
-          {/* <Button onClick={() => openModalType("input", "subGoalInput")}>
-            Add a Goal
-          </Button> */}
-          <HeaderButton onClick={() => openModalType("save")}>
+          <HeaderButton onClick={freshGoalClicked}>
             Create a Fresh Goal
           </HeaderButton>
         </SubButtonDiv>
-        <GoalName style={{ textAlign: "center", margin: "0 auto" }}>
+        <P style={{ textAlign: "center", margin: "0 auto" }}>
           Click on a goal to view and edit it!
-        </GoalName>
+        </P>
         <InnerWrapper>
-          {/* {userGoals.map((goal) => {
-            return (
-              <GoalWrapper key={goal._id}>
-                <GoalName>
-                  {goal.goalName}
-                  <IconsDiv divType="heading">
-                    <ReactSVG
-                      src={TrashIcon}
-                      onClick={() => openModalType("message", goal)}
-                    />
-                    <ReactSVG
-                      className="addIcon"
-                      src={AddIcon}
-                      onClick={() => openModalType("input", goal)}
-                    />
-                  </IconsDiv>
-                </GoalName>
-                {goal.children.map((child) => (
-                  <Children key={child._id} id={child._id}>
-                    <ChildName completed={child.checked}>
-                      {child.child}
-                    </ChildName>
-                    <IconsDiv>
-                      {child.checked ? (
-                        <>
-                          <ReactSVG
-                            className="deleteChild"
-                            src={CancelIcon}
-                            onClick={() =>
-                              markCompleted(userId, goal._id, child._id)
-                            }
-                          />
-                        </>
-                      ) : (
-                        <>
-                          <ReactSVG
-                            className="deleteChild"
-                            src={ChildDeleteIcon}
-                            onClick={() =>
-                              openModalType("delete_child", {
-                                type: "delete_child",
-                                _id: goal._id,
-                                child: child.child,
-                                name: goal.goalName,
-                              })
-                            }
-                          />
-                          <ReactSVG
-                            id={child._id}
-                            src={CompleteIcon}
-                            onClick={() =>
-                              markCompleted(userId, goal._id, child._id)
-                            }
-                          />
-                        </>
-                      )}
-                    </IconsDiv>
-                  </Children>
-                ))}
-              </GoalWrapper>
-            );
-          })} */}
-
           {userGoals.map((el) => {
             return (
               <GoalWrapper key={el._id}>
                 <Button onClick={() => GoalClicked(el._id)}>
                   {el.mainGoalName}
                 </Button>
+                <ReactSVG
+                  src={TrashIcon}
+                  onClick={() =>
+                    openModalType("message", {
+                      type: "delete_entire_goal",
+                      goalId: el._id,
+                      goalName: el.mainGoalName,
+                    })
+                  }
+                />
               </GoalWrapper>
             );
           })}

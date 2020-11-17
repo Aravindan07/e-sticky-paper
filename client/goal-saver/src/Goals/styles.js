@@ -27,8 +27,18 @@ export const InnerWrapper = styled.div`
 `;
 
 export const GoalWrapper = styled.div`
-  display: block;
+  display: ${(props) => (props.pageType === "single-goal" ? "block" : "flex")};
+  align-items: center;
   margin: 20px 15px;
+  svg {
+    margin-left: 20px;
+    cursor: pointer;
+    color: #ba181b;
+    :hover {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+      transform: scale(1.1);
+    }
+  }
 `;
 
 export const GoalName = styled.div`

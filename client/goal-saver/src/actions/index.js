@@ -20,6 +20,7 @@ import {
   DELETE_CHILD_GOAL,
   MARK_CHECKED,
   CREATE_CHILD_GOAL,
+  DELETE_ENTIRE_GOAL,
 } from "../constants";
 
 export const openModal = (modalType, data) => {
@@ -136,11 +137,20 @@ export const createChildGoal = (userId, goalId, subGoalId, child) => {
   };
 };
 
-export const deleteGoal = (userId, goalId) => {
+export const deleteEntireGoal = (userId, goalId) => {
+  return {
+    type: DELETE_ENTIRE_GOAL,
+    userId,
+    goalId,
+  };
+};
+
+export const deleteGoal = (userId, goalId, subGoalId) => {
   return {
     type: DELETE_GOAL,
     userId,
     goalId,
+    subGoalId,
   };
 };
 
