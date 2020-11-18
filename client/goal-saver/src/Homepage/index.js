@@ -35,7 +35,7 @@ function HomePage({
   };
   const clickHandler = () => {
     if (isAuthenticated) {
-      return props.history.push(`user/${id}/create-goal`);
+      return props.history.push(`user/${id}/goals`);
     }
     openModalType("signin");
   };
