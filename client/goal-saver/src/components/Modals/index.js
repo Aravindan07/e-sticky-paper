@@ -82,6 +82,13 @@ function Modals({
     }
   }, [errorMsg, successMsg, errorMessage, successMessage, modalType]);
 
+  const setPadding = () => {
+    if (modalType === "signup") {
+      return "15px 20px 15px 20px";
+    }
+    return "30px 20px";
+  };
+
   const overlay = {
     backgroundColor: "rgba(0,0,0,0.8)",
   };
@@ -90,7 +97,8 @@ function Modals({
     height: "70%",
     margin: "auto",
     borderRadius: "10px",
-    padding: "30px 20px 20px 20px",
+    // padding: "30px 20px 20px 20px",
+    padding: setPadding(),
   };
 
   const logoutContent = {

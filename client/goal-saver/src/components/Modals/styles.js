@@ -4,7 +4,7 @@ export const Heading = styled.div`
   font-size: 24px;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: ${(props) => (props.divType === "signup" ? "15px" : "20px")};
   color: #2a6049;
 `;
 
@@ -13,6 +13,7 @@ export const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: ${(props) => (props.divType === "signin" ? "30px" : "0px")};
 `;
 
 export const Input = styled.input`

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { closeModal, signUp } from "../../../actions";
+import { closeModal, openModal, signUp } from "../../../actions";
 import { Heading, Wrap, Input, ButtonsDiv, Button } from "../styles";
 import Loader from "../../Loader";
+import { P } from "../../../Homepage/styles";
 
-function SignupModal({ signupUser, closeModal, isLoading }) {
+function SignupModal({ signupUser, closeModal, OpenModal, isLoading }) {
   const initialState = {
     name: "",
     email: "",
@@ -23,10 +24,30 @@ function SignupModal({ signupUser, closeModal, isLoading }) {
     signupUser(name, email, password);
   };
 
+  const signinClicked = (modalType, data = {}) => {
+    closeModal();
+    return OpenModal(modalType, data);
+  };
+
   return (
     <>
       {isLoading && <Loader />}
-      <Heading>Sign Up Now!</Heading>
+      <Heading divType="signup">Sign Up Now!</Heading>
+      <P style={{ textAlign: "center" }}>
+        Have an account ?{" "}
+        <span
+          style={{
+            cursor: "pointer",
+            color: "#496ddb",
+            fontWeight: "600",
+            textDecoration: "underline",
+          }}
+          onClick={() => signinClicked("signin")}
+        >
+          SIGNIN
+        </span>{" "}
+        Now
+      </P>
       <Wrap>
         <Input
           type="text"
@@ -70,6 +91,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  OpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
   closeModal: () => dispatch(closeModal()),
   signupUser: (name, email, password) =>
     dispatch(signUp(name, email, password)),

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { closeModal, signIn } from "../../../actions";
+import { closeModal, openModal, signIn } from "../../../actions";
 import { Heading, Wrap, Input, ButtonsDiv, Button } from "../styles";
+import { P } from "../../../Homepage/styles";
 
-function SigninModal({ signinUser, closeModal, errorMessage, successMessage }) {
+function SigninModal({ signinUser, closeModal, OpenModal }) {
   const initialState = {
     email: "",
     password: "",
@@ -21,10 +22,15 @@ function SigninModal({ signinUser, closeModal, errorMessage, successMessage }) {
     signinUser(email, password);
   };
 
+  const registerClicked = (modalType, data = {}) => {
+    closeModal();
+    return OpenModal(modalType, data);
+  };
+
   return (
     <>
       <Heading>Sign In</Heading>
-      <Wrap>
+      <Wrap divType="signin">
         <Input
           type="text"
           name="email"
@@ -48,6 +54,21 @@ function SigninModal({ signinUser, closeModal, errorMessage, successMessage }) {
           <Button onClick={onSubmitHandler}>Submit</Button>
         </ButtonsDiv>
       </Wrap>
+      <P style={{ textAlign: "center" }}>
+        Don't have an account?{" "}
+        <span
+          style={{
+            cursor: "pointer",
+            color: "#496ddb",
+            fontWeight: "600",
+            textDecoration: "underline",
+          }}
+          onClick={() => registerClicked("signup")}
+        >
+          REGISTER
+        </span>{" "}
+        Now
+      </P>
     </>
   );
 }
@@ -58,6 +79,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  OpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
   closeModal: () => dispatch(closeModal()),
   signinUser: (email, password) => dispatch(signIn(email, password)),
 });
