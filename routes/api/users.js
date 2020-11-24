@@ -92,6 +92,7 @@ router.get("/user", auth, (req, res, next) => {
           name: user.name,
           email: user.email,
           goals: user.goals,
+          notes: user.notes,
         },
       });
     })

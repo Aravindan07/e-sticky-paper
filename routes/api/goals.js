@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const User = require("../../models/user");
 
 // Add a main goal name
-router.put("/goal-name", (req, res, next) => {
+router.put("/goal-name", auth, (req, res, next) => {
   const { userId, goalName } = req.body;
   User.findById(userId)
     .then((user) => {
@@ -58,7 +58,7 @@ router.put("/:goalId/add-sub-goal", auth, (req, res, next) => {
 });
 
 //Add a child-goal
-router.put("/:goalId/:subGoalId/add-child-goal", (req, res, next) => {
+router.put("/:goalId/:subGoalId/add-child-goal", auth, (req, res, next) => {
   const { userId, goalId, subGoalId, children } = req.body;
   User.findById(userId)
     .then((user) => {
@@ -88,7 +88,7 @@ router.put("/:goalId/:subGoalId/add-child-goal", (req, res, next) => {
 });
 
 //Delete a goal
-router.put("/:goalId/delete", (req, res, next) => {
+router.put("/:goalId/delete", auth, (req, res, next) => {
   const { userId, goalId } = req.body;
   console.log(userId, goalId);
   User.findById(userId)
@@ -118,7 +118,7 @@ router.put("/:goalId/delete", (req, res, next) => {
 });
 
 //Delete a sub-goal
-router.put("/:goalId/:subGoalId/delete", (req, res, next) => {
+router.put("/:goalId/:subGoalId/delete", auth, (req, res, next) => {
   const { userId, goalId, subGoalId } = req.body;
   User.findById(userId)
     .then((user) => {
@@ -152,7 +152,7 @@ router.put("/:goalId/:subGoalId/delete", (req, res, next) => {
 });
 
 //Delete a child-goal
-router.put("/:goalId/child/delete", (req, res, next) => {
+router.put("/:goalId/child/delete", auth, (req, res, next) => {
   const { userId, goalId, subGoalId, childId } = req.body;
   User.findById(userId)
     .then((user) => {
@@ -188,7 +188,7 @@ router.put("/:goalId/child/delete", (req, res, next) => {
 });
 
 //Mark the goal either completed or not completed
-router.put("/:goalId/:subGoalId/:childId/mark", (req, res, next) => {
+router.put("/:goalId/:subGoalId/:childId/mark", auth, (req, res, next) => {
   const { userId, goalId, subGoalId, childId } = req.body;
   User.findById(userId)
     .then((user) => {
