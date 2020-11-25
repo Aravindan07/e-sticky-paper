@@ -10,19 +10,20 @@ export const InnerWrap = styled.div`
 `;
 
 export const LogoDiv = styled.div`
-  margin-left: 15px;
+  margin: ${(props) =>
+    props.divType === "sidepane" ? "0px" : "0px 0px 0px 15px"};
   display: flex;
   align-items: center;
   color: #f4fffd;
   font-weight: 600;
-  font-size: 18px;
+  font-size: ${(props) => (props.divType === "sidepane" ? "16px" : "18px")};
   letter-spacing: 1.2px;
   text-transform: uppercase;
   cursor: pointer;
   svg {
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
+    width: ${(props) => (props.divType === "sidepane" ? "30px" : "50px")};
+    height: ${(props) => (props.divType === "sidepane" ? "30px" : "50px")};
+    margin-right: ${(props) => (props.divType === "sidepane" ? "5px" : "15px")};
   }
 `;
 
@@ -77,6 +78,7 @@ export const HeaderButton = styled.button`
   font-weight: 600;
   letter-spacing: 1.2px;
   cursor: pointer;
+  margin-top: ${(props) => (props.btnPlace === "sidepane" ? "15px" : "0px")};
   :hover {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
     transform: scale(1.03);

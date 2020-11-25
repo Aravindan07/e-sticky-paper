@@ -1,14 +1,33 @@
 import React from "react";
-import Header from "../components/Header";
+import { connect } from "react-redux";
+import { HeaderButton } from "../components/Header/styles";
+import SidePane from "../components/Sidepane";
+import { NoGoalsWrapper } from "../components/Sidepane/styles";
 import { Wrapper } from "../Goals/styles";
+import { OuterWrapper } from "./styles";
 
-function Notes() {
+function Notes({ userNotes }) {
   return (
     <>
-      <Header />
-      <Wrapper>This is the Notes Page.</Wrapper>
+      <SidePane />
+      <OuterWrapper>
+        <Wrapper divType="sidepane">
+          {userNotes.length === 0 ? (
+            <NoGoalsWrapper divType="notes">
+              You don't have any Notes!
+              <HeaderButton btnPlace="sidepane">Add a note</HeaderButton>
+            </NoGoalsWrapper>
+          ) : (
+            <>Click on a note to view and edit it</>
+          )}
+        </Wrapper>
+      </OuterWrapper>
     </>
   );
 }
 
-export default Notes;
+const mapStateToProps = (state) => ({
+  userNotes: state.authentication.user.notes,
+});
+
+export default connect(mapStateToProps, null)(Notes);

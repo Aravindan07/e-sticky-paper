@@ -34,6 +34,9 @@ function Header({ Open, isAuthenticated, userName, userId }) {
     if (type === "my-goals") {
       return history.push(`/user/${userId}/goals`);
     }
+    if (type === "notes") {
+      return history.push(`/user/${userId}/notes`);
+    }
   };
 
   return (
@@ -58,6 +61,9 @@ function Header({ Open, isAuthenticated, userName, userId }) {
                     </Content>
                     <Content onClick={() => clickHandler("my-goals")}>
                       My Goals
+                    </Content>
+                    <Content onClick={() => clickHandler("notes")}>
+                      My-notes
                     </Content>
                     <Content onClick={() => OpenModalType("logout")}>
                       Logout
