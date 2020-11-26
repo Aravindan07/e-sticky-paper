@@ -7,7 +7,7 @@ import { Input } from "../styles";
 import { P } from "../../../Homepage/styles";
 import styled from "styled-components";
 
-const InputModalWrap = styled.div`
+export const InputModalWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

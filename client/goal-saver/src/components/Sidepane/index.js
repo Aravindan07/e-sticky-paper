@@ -77,7 +77,12 @@ function SidePane({ OpenModal, userId, userNotes, ...props }) {
       {userNotes.length === 0 ? (
         <NoGoalsWrapper>
           You Don't have any notes!
-          <HeaderButton btnPlace="sidepane">Add a Note</HeaderButton>
+          <HeaderButton
+            btnPlace="sidepane"
+            onClick={() => OpenModalType("create_note")}
+          >
+            Add a Note
+          </HeaderButton>
         </NoGoalsWrapper>
       ) : (
         <>Click on a note to view it!</>

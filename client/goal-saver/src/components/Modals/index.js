@@ -12,6 +12,7 @@ import LogoutModal from "./Logout";
 import InputModal from "./InputModal";
 import MessageModal from "./Message";
 import SaveModal from "./SaveModal";
+import CreateNote from "./Create-Note";
 import PropTypes from "prop-types";
 // import Notification from "../toastNotifications";
 
@@ -25,6 +26,7 @@ const ModalList = {
   message: MessageModal,
   delete_child: MessageModal,
   save: SaveModal,
+  create_note: CreateNote,
 };
 
 function Modals({
