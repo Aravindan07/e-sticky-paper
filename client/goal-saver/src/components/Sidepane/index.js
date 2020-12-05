@@ -5,6 +5,9 @@ import GoalLogo from "../../icons/goal-logo.svg";
 import MenuIcon from "../../icons/menu-icon.svg";
 import SidePaneClose from "../../icons/close-sidepane.svg";
 import CloseDropDown from "../../icons/dropdown-close.svg";
+import NotesIcon from "../../icons/notes.svg";
+import DeleteIcon from "../../icons/trash.svg";
+import EditIcon from "../../icons/edit.svg";
 import { LogoDiv, HeaderButton } from "../Header/styles";
 import {
   Wrapper,
@@ -14,12 +17,21 @@ import {
   DropdownContent,
   Content,
   NoGoalsWrapper,
+  Desc,
+  NotesWrapper,
+  IndividualNotes,
+  Organizer,
+  Organizer1,
 } from "./styles";
 import { connect } from "react-redux";
 import { openModal } from "../../actions";
 
-function SidePane({ OpenModal, userId, userNotes, ...props }) {
+function SidePane({ OpenModal, userId, userNotes, isOpen, ...props }) {
   const [show, setShow] = useState(false);
+
+  const OpenModalType = (modalType, data = {}) => {
+    return OpenModal(modalType, data);
+  };
 
   const clickHandler = (type) => {
     if (type === "home") {
@@ -27,6 +39,9 @@ function SidePane({ OpenModal, userId, userNotes, ...props }) {
     }
     if (type === "my-goals") {
       return props.history.push(`/user/${userId}/goals`);
+    }
+    if (type === "new-note") {
+      return OpenModalType("create_note");
     }
   };
 
@@ -37,10 +52,6 @@ function SidePane({ OpenModal, userId, userNotes, ...props }) {
 
   const closeDropDownFn = () => {
     return setShow(false);
-  };
-
-  const OpenModalType = (modalType, data = {}) => {
-    return OpenModal(modalType, data);
   };
 
   return (
@@ -69,12 +80,13 @@ function SidePane({ OpenModal, userId, userNotes, ...props }) {
           )}
           <DropdownContent isShow={show}>
             <Content onClick={() => clickHandler("home")}>Home</Content>
+            <Content onClick={() => clickHandler("new-note")}>New Note</Content>
             <Content onClick={() => clickHandler("my-goals")}>My Goals</Content>
             <Content onClick={() => OpenModalType("logout")}>Logout</Content>
           </DropdownContent>
         </Dropdown>
       </HeaderDiv>
-      {userNotes.length === 0 ? (
+      {userNotes && userNotes.length === 0 && !isOpen ? (
         <NoGoalsWrapper>
           You Don't have any notes!
           <HeaderButton
@@ -85,13 +97,39 @@ function SidePane({ OpenModal, userId, userNotes, ...props }) {
           </HeaderButton>
         </NoGoalsWrapper>
       ) : (
-        <>Click on a note to view it!</>
+        !isOpen && (
+          <>
+            <Desc>Click on a note to view it!</Desc>
+            <NotesWrapper>
+              {userNotes.map((el) => (
+                <IndividualNotes>
+                  <ReactSVG src={NotesIcon} />
+                  <Organizer>{el.NoteName}</Organizer>
+                  <Organizer1>
+                    <ReactSVG
+                      src={DeleteIcon}
+                      onClick={() =>
+                        OpenModalType("delete_note", {
+                          type: "delete_note",
+                          noteName: el.NoteName,
+                          noteId: el._id,
+                        })
+                      }
+                    />
+                    <ReactSVG src={EditIcon} />
+                  </Organizer1>
+                </IndividualNotes>
+              ))}
+            </NotesWrapper>
+          </>
+        )
       )}
     </Wrapper>
   );
 }
 
 const mapStateToProps = (state) => ({
+  isOpen: state.modal.isOpen,
   userId: state.authentication.user.id,
   userNotes: state.authentication.user.notes,
 });

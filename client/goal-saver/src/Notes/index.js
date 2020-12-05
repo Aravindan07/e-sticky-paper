@@ -5,26 +5,56 @@ import { HeaderButton } from "../components/Header/styles";
 import SidePane from "../components/Sidepane";
 import { NoGoalsWrapper } from "../components/Sidepane/styles";
 import { Wrapper } from "../Goals/styles";
-import { OuterWrapper } from "./styles";
+import {
+  OuterWrapper,
+  NoteNameDiv,
+  NoteName,
+  UnderlineBorder,
+  TopButtonWrapper,
+  TextArea,
+} from "./styles";
 
-function Notes({ userNotes, createNote }) {
+function Notes({ userNotes, OpenModal }) {
+  const openModalType = (modalType, data = {}) => {
+    return OpenModal(modalType, data);
+  };
   return (
     <>
       <SidePane />
       <OuterWrapper>
         <Wrapper divType="sidepane">
-          {userNotes.length === 0 ? (
+          {userNotes && userNotes.length === 0 ? (
             <NoGoalsWrapper divType="notes">
               You don't have any Notes!
               <HeaderButton
                 btnPlace="sidepane"
-                onClick={() => createNote("create_note", {})}
+                onClick={() => openModalType("create_note")}
               >
                 Add a note
               </HeaderButton>
             </NoGoalsWrapper>
           ) : (
-            <>Click on a note to view and edit it</>
+            <>
+              <NoteNameDiv>
+                <NoteName>
+                  New Note
+                  <UnderlineBorder />
+                </NoteName>
+              </NoteNameDiv>
+              <TopButtonWrapper>
+                <HeaderButton onClick={() => openModalType("create_note")}>
+                  New Note
+                </HeaderButton>
+                <HeaderButton>Save Note</HeaderButton>
+              </TopButtonWrapper>
+              <TextArea
+                name="notes"
+                id="notes"
+                cols="30"
+                rows="10"
+                placeholder="Type your text here..."
+              ></TextArea>
+            </>
           )}
         </Wrapper>
       </OuterWrapper>
@@ -37,7 +67,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createNote: (modalType, data) => dispatch(openModal(modalType, data)),
+  OpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notes);

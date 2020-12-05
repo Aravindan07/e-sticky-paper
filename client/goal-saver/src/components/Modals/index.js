@@ -27,6 +27,7 @@ const ModalList = {
   delete_child: MessageModal,
   save: SaveModal,
   create_note: CreateNote,
+  delete_note: MessageModal,
 };
 
 function Modals({
@@ -101,6 +102,7 @@ function Modals({
     borderRadius: "10px",
     // padding: "30px 20px 20px 20px",
     padding: setPadding(),
+    zIndex: "10",
   };
 
   const logoutContent = {
@@ -109,6 +111,7 @@ function Modals({
     margin: "auto",
     borderRadius: "10px",
     padding: "20px",
+    zIndex: "10",
   };
 
   const ModalToShow = ModalList[modalType];

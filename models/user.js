@@ -30,8 +30,8 @@ const userSchema = new Schema({
   notes: [
     {
       _id: mongoose.Schema.Types.ObjectId,
-      NoteName: { type: String, default: "Untitled" },
-      notes: { type: String },
+      NoteName: { type: String },
+      notes: { type: String, default: "" },
     },
   ],
 });

@@ -13,7 +13,7 @@ const rootReducer = (history) =>
     quote: LoadQuoteReducer,
     authentication: AuthenticationReducer,
     message: messageReducer,
-    goal: goalReducer,
+    // goal: goalReducer,
   });
 
 export default rootReducer;

@@ -77,3 +77,50 @@ export const NoGoalsWrapper = styled.div`
   letter-spacing: 0.8px;
   color: ${(props) => (props.divType === "notes" ? "#011936" : "#ffffff")}; ;
 `;
+
+export const Desc = styled.p`
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: bold;
+`;
+
+export const NotesWrapper = styled.div`
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const IndividualNotes = styled.div`
+  color: #000;
+  font-weight: bold;
+  font-size: 1.1.rem;
+  width: 100%;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  text-align: left;
+  margin: 0.5rem 0rem;
+  background: #e5e5e5;
+  padding: 0.5rem 0.5rem 0.5rem 0.2rem;
+  cursor: pointer;
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+export const Organizer = styled.div`
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-align: center;
+`;
+
+export const Organizer1 = styled.div`
+  display: flex;
+  svg {
+    margin-right: 5px;
+  }
+`;

@@ -6,12 +6,12 @@ const User = require("../../models/user");
 
 //Post a new Note
 router.post("/", auth, (req, res, next) => {
-  const { userId, notes } = req.body;
+  const { userId, name } = req.body;
   User.findById(userId)
     .then((user) => {
       let newNote = {
         _id: new mongoose.Types.ObjectId(),
-        notes: notes,
+        NoteName: name,
       };
       user.notes.push(newNote);
       user
@@ -20,6 +20,7 @@ router.post("/", auth, (req, res, next) => {
           return res.json({
             status: 201,
             message: "Created a new Note!",
+            NoteName: result.NoteName,
             notes: result.notes,
           });
         })

@@ -6,6 +6,7 @@ import {
   deleteChildGoal,
   deleteEntireGoal,
   deleteGoal,
+  deleteNote,
 } from "../../../actions";
 import { Button, ButtonsDiv } from "../styles";
 
@@ -23,6 +24,7 @@ function Message({
   deleteEntireGoal,
   deleteGoal,
   deleteChild,
+  DeleteNote,
   userId,
   data,
 }) {
@@ -39,6 +41,10 @@ function Message({
 
   const deleteChildFn = (userId, goalId, SubGoalId, childId) => {
     return deleteChild(userId, goalId, SubGoalId, childId);
+  };
+
+  const deleteNoteFn = (userId, noteId) => {
+    return DeleteNote(userId, noteId);
   };
 
   const whatToRender = () => {
@@ -74,6 +80,24 @@ function Message({
           </MessageDiv>
           <ButtonsDiv>
             <Button onClick={() => deleteEntireGoalFn(userId, data.goalId)}>
+              CONFIRM
+            </Button>
+            <Button btnType="cancel" onClick={close}>
+              CANCEL
+            </Button>
+          </ButtonsDiv>
+        </>
+      );
+    }
+    if (data.type === "delete_note") {
+      return (
+        <>
+          <MessageDiv>
+            Are you sure you want to delete this note{" "}
+            <span>{data.noteName} ?</span>
+          </MessageDiv>
+          <ButtonsDiv>
+            <Button onClick={() => deleteNoteFn(userId, data.noteId)}>
               CONFIRM
             </Button>
             <Button btnType="cancel" onClick={close}>
@@ -118,6 +142,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(deleteGoal(userId, goalId, subGoalId)),
   deleteChild: (userId, goalId, SubGoalId, childId) =>
     dispatch(deleteChildGoal(userId, goalId, SubGoalId, childId)),
+  DeleteNote: (userId, noteId) => dispatch(deleteNote(userId, noteId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Message);

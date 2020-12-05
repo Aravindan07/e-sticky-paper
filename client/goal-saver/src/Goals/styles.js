@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   height: 100%;
   width: ${(props) => (props.divType === "sidepane" ? "80%" : "100%")};
   background: #f9dc5c;
-  position: ${(props) => (props.divType === "sidepane" ? "relative" : "fixed")};
+  position: ${(props) => (props.divType === "sidepane" ? "fixed" : "fixed")};
   left: ${(props) => (props.divType === "sidepane" ? "20%" : "0px")};
 `;
 

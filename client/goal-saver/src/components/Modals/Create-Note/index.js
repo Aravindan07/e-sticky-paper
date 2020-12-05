@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { closeModal } from "../../../actions";
+import { closeModal, createNewNote } from "../../../actions";
 import { P } from "../../../Homepage/styles";
 import { InputModalWrap } from "../InputModal";
 import { Button, ButtonsDiv, Input } from "../styles";
 
-function CreateNote({ close }) {
+function CreateNote({ close, userId, newNote }) {
   const [value, setValue] = useState("");
 
   const onChangeHandler = (event) => {
     event.stopPropagation();
     return setValue(event.target.value);
+  };
+
+  const createNoteHandler = () => {
+    return newNote(userId, value);
   };
 
   return (
@@ -27,15 +31,20 @@ function CreateNote({ close }) {
           <Button btnType="cancel" onClick={close}>
             Cancel
           </Button>
-          <Button>CREATE</Button>
+          <Button onClick={createNoteHandler}>CREATE</Button>
         </ButtonsDiv>
       </InputModalWrap>
     </>
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  close: () => dispatch(closeModal()),
+const mapStateToProps = (state) => ({
+  userId: state.authentication.user.id,
 });
 
-export default connect(null, mapDispatchToProps)(CreateNote);
+const mapDispatchToProps = (dispatch) => ({
+  close: () => dispatch(closeModal()),
+  newNote: (userId, name) => dispatch(createNewNote(userId, name)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNote);

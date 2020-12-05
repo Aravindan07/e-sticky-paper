@@ -21,6 +21,9 @@ import {
   MARK_CHECKED,
   CREATE_CHILD_GOAL,
   DELETE_ENTIRE_GOAL,
+  NOTES_SUCCESS,
+  CREATE_NEW_NOTE,
+  DELETE_NOTE,
 } from "../constants";
 
 export const openModal = (modalType, data) => {
@@ -178,5 +181,28 @@ export const goalSuccess = (payload) => {
   return {
     type: GOAL_SUCCESS,
     payload,
+  };
+};
+
+export const NotesSuccess = (payload) => {
+  return {
+    type: NOTES_SUCCESS,
+    payload,
+  };
+};
+
+export const createNewNote = (userId, name) => {
+  return {
+    type: CREATE_NEW_NOTE,
+    userId,
+    name,
+  };
+};
+
+export const deleteNote = (userId, noteId) => {
+  return {
+    type: DELETE_NOTE,
+    userId,
+    noteId,
   };
 };

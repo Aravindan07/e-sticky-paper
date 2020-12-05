@@ -5,6 +5,7 @@ import signInSaga from "./signInSaga";
 import logoutSaga from "./logoutSaga";
 import loadUserSaga from "./loadUserSaga";
 import goalsSaga from "./goalsSaga";
+import notesSaga from "./notesSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -14,5 +15,6 @@ export default function* rootSaga() {
     signInSaga(),
     logoutSaga(),
     goalsSaga(),
+    notesSaga(),
   ]);
 }

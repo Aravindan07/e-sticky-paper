@@ -5,6 +5,7 @@ import {
   LOAD_USER,
   LOADED_USER,
   GOAL_SUCCESS,
+  NOTES_SUCCESS,
 } from "../constants";
 
 const initialState = {
@@ -47,6 +48,14 @@ const AuthenticationReducer = (state = initialState, action) => {
     case GOAL_SUCCESS:
       state.user.goals = action.payload.goals;
       console.log(state.user.goals);
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: true,
+      };
+    case NOTES_SUCCESS:
+      state.user.notes = action.payload.notes;
+      console.log(state.user.notes);
       return {
         ...state,
         isLoading: false,
