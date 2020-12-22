@@ -66,14 +66,17 @@ router.put("/:notesId/delete", auth, (req, res, next) => {
 
 //Change the note name
 router.put("/:notesId/modifyName", auth, (req, res, next) => {
-  const { userId, noteId, newName } = req.body;
+  const { userId, noteId, noteName } = req.body;
+  console.log(noteName);
   User.findById(userId)
     .then((user) => {
-      if (newName.length > 0) {
+      if (noteName.length > 0) {
+        console.log("Inside NoteName");
         let findedNote = user.notes.find((el) => {
           return String(el._id) === String(noteId);
         });
-        findedNote.NoteName = newName;
+        findedNote.NoteName = noteName;
+        console.log(findedNote);
         user
           .save()
           .then((result) => {
@@ -87,8 +90,9 @@ router.put("/:notesId/modifyName", auth, (req, res, next) => {
             console.log(error);
             return res.json({ error: error });
           });
+      } else {
+        return res.json({ message: "Please Enter a name" });
       }
-      return res.json({ message: "Your name Field is empty" });
     })
     .catch((error) => {
       console.log(error);

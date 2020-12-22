@@ -24,3 +24,4 @@ export const GOAL_SUCCESS = "GOAL_SUCCESS";
 export const NOTES_SUCCESS = "NOTES_SUCCESS";
 export const CREATE_NEW_NOTE = "CREATE_NEW_NOTE";
 export const DELETE_NOTE = "DELETE_NOTE";
+export const EDIT_NOTE_NAME = "EDIT_NOTE_NAME";

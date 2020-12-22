@@ -24,6 +24,7 @@ import {
   NOTES_SUCCESS,
   CREATE_NEW_NOTE,
   DELETE_NOTE,
+  EDIT_NOTE_NAME,
 } from "../constants";
 
 export const openModal = (modalType, data) => {
@@ -204,5 +205,14 @@ export const deleteNote = (userId, noteId) => {
     type: DELETE_NOTE,
     userId,
     noteId,
+  };
+};
+
+export const editNoteName = (userId, noteId, noteName) => {
+  return {
+    type: EDIT_NOTE_NAME,
+    userId,
+    noteId,
+    noteName,
   };
 };

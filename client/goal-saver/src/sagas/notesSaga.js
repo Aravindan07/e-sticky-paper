@@ -1,7 +1,7 @@
 import { call, takeLatest, put } from "redux-saga/effects";
 // import { push } from "connected-react-router";
 import Axios from "axios";
-import { CREATE_NEW_NOTE, DELETE_NOTE } from "../constants";
+import { CREATE_NEW_NOTE, DELETE_NOTE, EDIT_NOTE_NAME } from "../constants";
 import {
   clearError,
   closeModal,
@@ -109,7 +109,50 @@ function* deleteNoteSaga(action) {
   }
 }
 
+function* editNoteNameSaga(action) {
+  const body = JSON.stringify({
+    userId: action.userId,
+    noteId: action.noteId,
+    noteName: action.noteName,
+  });
+  const apiCall = () => {
+    return Axios.put(
+      `/api/users/${action.userId}/notes/${action.noteId}/modifyName`,
+      body,
+      TokenConfig()
+    )
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response.data);
+          return err;
+        }
+      });
+  };
+  try {
+    const result = yield call(apiCall);
+    if (result.status) {
+      console.log("In notes success");
+      yield put(NotesSuccess(result));
+      yield put(SuccessMessage(result.message));
+      yield put(clearError());
+      yield put(closeModal());
+      return;
+    }
+    console.log(result.message);
+    yield put(ErrorMessage(result.message));
+    yield put(clearError());
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default function* watchNotes() {
   yield takeLatest(CREATE_NEW_NOTE, createNoteSaga);
   yield takeLatest(DELETE_NOTE, deleteNoteSaga);
+  yield takeLatest(EDIT_NOTE_NAME, editNoteNameSaga);
 }

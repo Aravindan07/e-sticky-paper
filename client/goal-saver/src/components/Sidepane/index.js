@@ -54,6 +54,11 @@ function SidePane({ OpenModal, userId, userNotes, isOpen, ...props }) {
     return setShow(false);
   };
 
+  const openNoteHandler = (Id) => {
+    console.log("Clicked on Notes");
+    return props.history.push(`notes/${Id}`);
+  };
+
   return (
     <Wrapper onClick={closeDropDownFn}>
       <SidePaneCloseDiv>
@@ -101,25 +106,36 @@ function SidePane({ OpenModal, userId, userNotes, isOpen, ...props }) {
           <>
             <Desc>Click on a note to view it!</Desc>
             <NotesWrapper>
-              {userNotes.map((el) => (
-                <IndividualNotes>
-                  <ReactSVG src={NotesIcon} />
-                  <Organizer>{el.NoteName}</Organizer>
-                  <Organizer1>
-                    <ReactSVG
-                      src={DeleteIcon}
-                      onClick={() =>
-                        OpenModalType("delete_note", {
-                          type: "delete_note",
-                          noteName: el.NoteName,
-                          noteId: el._id,
-                        })
-                      }
-                    />
-                    <ReactSVG src={EditIcon} />
-                  </Organizer1>
-                </IndividualNotes>
-              ))}
+              {userNotes &&
+                userNotes.map((el) => (
+                  <IndividualNotes key={el._id}>
+                    <ReactSVG src={NotesIcon} />
+                    <Organizer onClick={() => openNoteHandler(el._id)}>
+                      {el.NoteName}
+                    </Organizer>
+                    <Organizer1>
+                      <ReactSVG
+                        src={DeleteIcon}
+                        onClick={() =>
+                          OpenModalType("delete_note", {
+                            type: "delete_note",
+                            noteName: el.NoteName,
+                            noteId: el._id,
+                          })
+                        }
+                      />
+                      <ReactSVG
+                        src={EditIcon}
+                        onClick={() =>
+                          OpenModalType("edit_note_name", {
+                            type: "edit_note_name",
+                            noteId: el._id,
+                          })
+                        }
+                      />
+                    </Organizer1>
+                  </IndividualNotes>
+                ))}
             </NotesWrapper>
           </>
         )

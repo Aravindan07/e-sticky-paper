@@ -28,6 +28,7 @@ const ModalList = {
   save: SaveModal,
   create_note: CreateNote,
   delete_note: MessageModal,
+  edit_note_name: InputModal,
 };
 
 function Modals({

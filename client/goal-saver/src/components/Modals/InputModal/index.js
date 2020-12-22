@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { closeModal, createChildGoal, createGoal } from "../../../actions";
+import {
+  closeModal,
+  createChildGoal,
+  createGoal,
+  editNoteName,
+} from "../../../actions";
 import { HeaderButton } from "../../Header/styles";
 import { ButtonsDiv } from "../styles";
 import { Input } from "../styles";
@@ -20,42 +25,77 @@ function InputModal({
   user,
   data,
   createChildGoal,
+  EditNoteName,
 }) {
   console.log(data);
   const [goal, setGoal] = useState("");
+  const [changedName, setChangedName] = useState("");
 
   const onChangeHandler = (event) => {
     setGoal(event.target.value);
   };
 
+  const onNoteChangeHandler = (event) => {
+    setChangedName(event.target.value);
+  };
+
   const createGoalMethod = () => {
     if (data.type === "subGoalInput") {
-      //userId,goalName,goalId
       return createGoal(userId, goal, data.goalId);
     }
     console.log(userId, data.goalId, data.goal._id, goal);
     return createChildGoal(userId, data.goalId, data.goal._id, goal);
   };
+
+  const editNameHandler = () => {
+    //userId,noteId,newName
+    console.log(userId, data.noteId, changedName);
+    return EditNoteName(userId, data.noteId, changedName);
+  };
+
+  const basedOnType = () => {
+    if (data.type === "subGoalInput") {
+      return "Please Enter a Sub-Goal";
+    }
+    if (data.type === "edit_note_name") {
+      return "Enter a New Name";
+    }
+    return "Please Enter a Child Goal";
+  };
+  const placeholderText = () => {
+    if (data.type === "subGoalInput") {
+      return "Enter a sub-goal";
+    }
+    if (data.type === "edit_note_name") {
+      return "Edit note name";
+    }
+    return "Enter a child Goal";
+  };
   return (
     <InputModalWrap>
-      <P>
-        {data.type === "subGoalInput"
-          ? "Please Enter a Sub-Goal"
-          : "Please Enter a Child Goal"}
-      </P>
-      <Input
-        type="text"
-        value={goal}
-        onChange={onChangeHandler}
-        placeholder={
-          data.type === "subGoalInput"
-            ? "Enter a sub-goal"
-            : "Enter a child goal"
-        }
-      />
+      <P>{basedOnType()}</P>
+      {data.type === "edit_note_name" ? (
+        <Input
+          type="text"
+          value={changedName}
+          onChange={onNoteChangeHandler}
+          placeholder={placeholderText()}
+        />
+      ) : (
+        <Input
+          type="text"
+          value={goal}
+          onChange={onChangeHandler}
+          placeholder={placeholderText()}
+        />
+      )}
       <ButtonsDiv divType="input">
         <span onClick={closeModal}>CANCEL</span>
-        <HeaderButton onClick={createGoalMethod}>Add Goal</HeaderButton>
+        {data.type === "edit_note_name" ? (
+          <HeaderButton onClick={editNameHandler}>Edit Name</HeaderButton>
+        ) : (
+          <HeaderButton onClick={createGoalMethod}>Add Goal</HeaderButton>
+        )}
       </ButtonsDiv>
     </InputModalWrap>
   );
@@ -72,6 +112,8 @@ const mapDispatchToProps = (dispatch) => ({
   createChildGoal: (userId, goalId, subGoalId, child) =>
     dispatch(createChildGoal(userId, goalId, subGoalId, child)),
   closeModal: () => dispatch(closeModal()),
+  EditNoteName: (userId, noteId, noteName) =>
+    dispatch(editNoteName(userId, noteId, noteName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputModal);
