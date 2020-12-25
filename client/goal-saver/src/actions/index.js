@@ -25,6 +25,7 @@ import {
   CREATE_NEW_NOTE,
   DELETE_NOTE,
   EDIT_NOTE_NAME,
+  SAVE_NOTE,
 } from "../constants";
 
 export const openModal = (modalType, data) => {
@@ -214,5 +215,14 @@ export const editNoteName = (userId, noteId, noteName) => {
     userId,
     noteId,
     noteName,
+  };
+};
+
+export const saveNote = (userId, noteId, newNote) => {
+  return {
+    type: SAVE_NOTE,
+    userId,
+    noteId,
+    newNote,
   };
 };

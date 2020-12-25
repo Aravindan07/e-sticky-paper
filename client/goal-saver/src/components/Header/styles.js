@@ -79,6 +79,7 @@ export const HeaderButton = styled.button`
   letter-spacing: 1.2px;
   cursor: pointer;
   margin-top: ${(props) => (props.btnPlace === "sidepane" ? "15px" : "0px")};
+  margin-right: ${(props) => (props.btnType === "note" ? "2rem" : "0rem")};
   :hover {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
     transform: scale(1.03);

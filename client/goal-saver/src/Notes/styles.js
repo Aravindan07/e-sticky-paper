@@ -34,9 +34,6 @@ export const TopButtonWrapper = styled.div`
   justify-content: center;
   width: 100%;
   margin-bottom: 1.5rem;
-  button {
-    margin-right: 2rem;
-  }
 `;
 
 export const TextArea = styled.textarea`
@@ -48,7 +45,40 @@ export const TextArea = styled.textarea`
   border-radius: 5px;
   border: none;
   outline: none;
-  padding: 5px;
+  padding: 1rem;
   font-size: 1.2rem;
   font-weight: bold;
+`;
+
+export const ButtonWrap = styled.div`
+  display: block;
+  margin: 1rem auto;
+`;
+
+export const NotesOrganizer = styled.div`
+  width: 60%;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+`;
+
+export const NotesDivWrap = styled.div`
+  display: flex;
+  align-items: center;
+  svg {
+    cursor: pointer;
+    color: #ba181b;
+    margin-left: 0.5rem;
+    :hover {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+      transform: scale(1.1);
+    }
+  }
+  .edit {
+    svg {
+      color: black;
+    }
+  }
 `;

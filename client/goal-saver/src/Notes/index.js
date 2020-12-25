@@ -1,63 +1,100 @@
 import React from "react";
 import { connect } from "react-redux";
+import { ReactSVG } from "react-svg";
 import { openModal } from "../actions";
+import Header from "../components/Header";
 import { HeaderButton } from "../components/Header/styles";
-import SidePane from "../components/Sidepane";
 import { NoGoalsWrapper } from "../components/Sidepane/styles";
 import { Wrapper } from "../Goals/styles";
+import { Button } from "../components/Modals/styles";
+import TrashIcon from "../icons/trash.svg";
+import EditIcon from "../icons/edit.svg";
 import {
-  OuterWrapper,
   NoteNameDiv,
   NoteName,
   UnderlineBorder,
   TopButtonWrapper,
-  TextArea,
+  NotesOrganizer,
+  ButtonWrap,
+  NotesDivWrap,
 } from "./styles";
 
-function Notes({ userNotes, OpenModal }) {
+function Notes({ userNotes, OpenModal, ...props }) {
   const openModalType = (modalType, data = {}) => {
     return OpenModal(modalType, data);
   };
+
+  const openNoteHandler = (Id) => {
+    console.log("Clicked on Notes");
+    return props.history.push(`notes/${Id}`);
+  };
+
   return (
     <>
-      <SidePane />
-      <OuterWrapper>
-        <Wrapper divType="sidepane">
-          {userNotes && userNotes.length === 0 ? (
-            <NoGoalsWrapper divType="notes">
-              You don't have any Notes!
+      <Wrapper>
+        <Header />
+        {userNotes && userNotes.length === 0 ? (
+          <NoGoalsWrapper divType="notes">
+            You don't have any Notes!
+            <p>Create a new note now!</p>
+            <HeaderButton
+              btnPlace="sidepane"
+              onClick={() => openModalType("create_note")}
+            >
+              Add a note
+            </HeaderButton>
+          </NoGoalsWrapper>
+        ) : (
+          <>
+            <NoteNameDiv>
+              <NoteName>
+                Your Notes
+                <UnderlineBorder />
+              </NoteName>
+            </NoteNameDiv>
+            <ButtonWrap>
               <HeaderButton
-                btnPlace="sidepane"
+                style={{ display: "block", margin: "auto" }}
                 onClick={() => openModalType("create_note")}
               >
-                Add a note
+                New Note
               </HeaderButton>
-            </NoGoalsWrapper>
-          ) : (
-            <>
-              <NoteNameDiv>
-                <NoteName>
-                  New Note
-                  <UnderlineBorder />
-                </NoteName>
-              </NoteNameDiv>
-              <TopButtonWrapper>
-                <HeaderButton onClick={() => openModalType("create_note")}>
-                  New Note
-                </HeaderButton>
-                <HeaderButton>Save Note</HeaderButton>
-              </TopButtonWrapper>
-              <TextArea
-                name="notes"
-                id="notes"
-                cols="30"
-                rows="10"
-                placeholder="Type your text here..."
-              ></TextArea>
-            </>
-          )}
-        </Wrapper>
-      </OuterWrapper>
+            </ButtonWrap>
+            <TopButtonWrapper>
+              <NotesOrganizer>
+                {userNotes &&
+                  userNotes.map((note) => (
+                    <NotesDivWrap key={note._id}>
+                      <Button onClick={() => openNoteHandler(note._id)}>
+                        {note.NoteName}
+                      </Button>
+                      <ReactSVG
+                        className="edit"
+                        src={EditIcon}
+                        onClick={() =>
+                          openModalType("edit_note_name", {
+                            type: "edit_note_name",
+                            noteId: note._id,
+                          })
+                        }
+                      />
+                      <ReactSVG
+                        src={TrashIcon}
+                        onClick={() =>
+                          openModalType("delete_note", {
+                            type: "delete_note",
+                            noteName: note.NoteName,
+                            noteId: note._id,
+                          })
+                        }
+                      />
+                    </NotesDivWrap>
+                  ))}
+              </NotesOrganizer>
+            </TopButtonWrapper>
+          </>
+        )}
+      </Wrapper>
     </>
   );
 }

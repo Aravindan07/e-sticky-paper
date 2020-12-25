@@ -103,6 +103,7 @@ router.put("/:notesId/modifyName", auth, (req, res, next) => {
 //Edit Individual notes
 router.put("/:notesId/edit", auth, (req, res, next) => {
   const { userId, noteId, newNotes } = req.body;
+  console.log(userId, noteId, newNotes);
   User.findById(userId)
     .then((user) => {
       let findedNote = user.notes.find((el) => {

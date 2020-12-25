@@ -1,7 +1,12 @@
 import { call, takeLatest, put } from "redux-saga/effects";
 // import { push } from "connected-react-router";
 import Axios from "axios";
-import { CREATE_NEW_NOTE, DELETE_NOTE, EDIT_NOTE_NAME } from "../constants";
+import {
+  CREATE_NEW_NOTE,
+  DELETE_NOTE,
+  EDIT_NOTE_NAME,
+  SAVE_NOTE,
+} from "../constants";
 import {
   clearError,
   closeModal,
@@ -36,6 +41,7 @@ export const TokenConfig = () => {
 //   },
 // };
 
+//Create a new Note
 function* createNoteSaga(action) {
   const body = JSON.stringify({ userId: action.userId, name: action.name });
   const apiCall = () => {
@@ -69,6 +75,7 @@ function* createNoteSaga(action) {
   }
 }
 
+//Delete a Note
 function* deleteNoteSaga(action) {
   const body = JSON.stringify({
     userId: action.userId,
@@ -109,6 +116,7 @@ function* deleteNoteSaga(action) {
   }
 }
 
+// Edit Note Name
 function* editNoteNameSaga(action) {
   const body = JSON.stringify({
     userId: action.userId,
@@ -151,8 +159,50 @@ function* editNoteNameSaga(action) {
   }
 }
 
+// Save Note
+function* saveNoteSaga(action) {
+  const body = JSON.stringify({
+    userId: action.userId,
+    noteId: action.noteId,
+    newNotes: action.newNote,
+  });
+
+  const apiCall = () => {
+    return Axios.put(
+      `/api/users/${action.userId}/notes/${action.noteId}/edit`,
+      body,
+      TokenConfig()
+    )
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          return error;
+        }
+      });
+  };
+
+  try {
+    const result = yield call(apiCall);
+    if (result.status) {
+      console.log(result);
+      yield put(NotesSuccess(result));
+      yield put(SuccessMessage(result.message));
+      return yield put(clearError());
+    }
+    yield put(ErrorMessage(result.message));
+    return yield put(clearError());
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default function* watchNotes() {
   yield takeLatest(CREATE_NEW_NOTE, createNoteSaga);
   yield takeLatest(DELETE_NOTE, deleteNoteSaga);
   yield takeLatest(EDIT_NOTE_NAME, editNoteNameSaga);
+  yield takeLatest(SAVE_NOTE, saveNoteSaga);
 }

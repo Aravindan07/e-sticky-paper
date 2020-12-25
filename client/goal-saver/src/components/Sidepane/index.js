@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import GoalLogo from "../../icons/goal-logo.svg";
@@ -29,6 +29,10 @@ import { openModal } from "../../actions";
 function SidePane({ OpenModal, userId, userNotes, isOpen, ...props }) {
   const [show, setShow] = useState(false);
 
+  useEffect(() => {
+    console.log("inside useEffect");
+  }, [userNotes]);
+
   const OpenModalType = (modalType, data = {}) => {
     return OpenModal(modalType, data);
   };
@@ -55,8 +59,7 @@ function SidePane({ OpenModal, userId, userNotes, isOpen, ...props }) {
   };
 
   const openNoteHandler = (Id) => {
-    console.log("Clicked on Notes");
-    return props.history.push(`notes/${Id}`);
+    return props.history.push(`/user/${userId}/notes/${Id}`);
   };
 
   return (

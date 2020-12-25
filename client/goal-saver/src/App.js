@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import { connect } from "react-redux";
 import { loadUser } from "./actions";
 import Loader from "./components/Loader";
+import Note from "./components/Note";
 
 const AppWrapper = styled.div`
   margin: 0px;
@@ -58,6 +59,7 @@ function App({ loadUser, isAuthenticated }) {
           <Route exact path="/user/:userId/goals" component={Goals} />
           <Route exact path="/user/:userId/goals/:goalId" component={Goal} />
           <Route exact path="/user/:userId/notes" component={Notes} />
+          <Route exact path="/user/:userId/notes/:noteId" component={Note} />
         </Suspense>
       </Switch>
     </AppWrapper>

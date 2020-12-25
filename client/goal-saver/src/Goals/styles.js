@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   height: 100%;
   width: ${(props) => (props.divType === "sidepane" ? "80%" : "100%")};
-  background: #f9dc5c;
+  /* background: #f9dc5c; */
+  background: #fcd34d;
   position: ${(props) => (props.divType === "sidepane" ? "fixed" : "fixed")};
   left: ${(props) => (props.divType === "sidepane" ? "20%" : "0px")};
 `;
