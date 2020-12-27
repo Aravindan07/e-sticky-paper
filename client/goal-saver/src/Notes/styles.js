@@ -32,8 +32,24 @@ export const UnderlineBorder = styled.div`
 export const TopButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   width: 100%;
   margin-bottom: 1.5rem;
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+    /* border-radius: 10px; */
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: orangered;
+    outline: 1px solid orangered;
+  }
 `;
 
 export const TextArea = styled.textarea`
@@ -56,7 +72,7 @@ export const ButtonWrap = styled.div`
 `;
 
 export const NotesOrganizer = styled.div`
-  width: 60%;
+  width: 80%;
   margin: 2rem auto;
   display: flex;
   justify-content: space-between;
@@ -67,6 +83,7 @@ export const NotesOrganizer = styled.div`
 export const NotesDivWrap = styled.div`
   display: flex;
   align-items: center;
+  margin: 1rem 0rem;
   svg {
     cursor: pointer;
     color: #ba181b;

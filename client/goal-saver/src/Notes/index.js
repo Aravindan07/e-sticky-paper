@@ -9,6 +9,7 @@ import { Wrapper } from "../Goals/styles";
 import { Button } from "../components/Modals/styles";
 import TrashIcon from "../icons/trash.svg";
 import EditIcon from "../icons/edit.svg";
+import "../scroll.css";
 import {
   NoteNameDiv,
   NoteName,
@@ -65,7 +66,10 @@ function Notes({ userNotes, OpenModal, ...props }) {
                 {userNotes &&
                   userNotes.map((note) => (
                     <NotesDivWrap key={note._id}>
-                      <Button onClick={() => openNoteHandler(note._id)}>
+                      <Button
+                        btnType="showcase"
+                        onClick={() => openNoteHandler(note._id)}
+                      >
                         {note.NoteName}
                       </Button>
                       <ReactSVG

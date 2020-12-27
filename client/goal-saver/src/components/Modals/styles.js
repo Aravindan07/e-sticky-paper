@@ -68,6 +68,7 @@ function setMargin(props) {
 export const Button = styled.button`
   background: ${(props) =>
     props.btnType === "cancel" ? "#aa3b64" : "#0e7c65 "};
+  min-width: ${(props) => (props.btnType === "showcase" ? "200px" : "unset")};
   padding: 5px 15px;
   color: #ffffff;
   font-weight: 600;

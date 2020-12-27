@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const SidepaneWrapper = styled.div`
   height: 100%;
   width: 20%;
   position: fixed;
@@ -86,10 +86,22 @@ export const Desc = styled.p`
 
 export const NotesWrapper = styled.div`
   color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  max-height: 450px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0.8rem;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: orangered;
+    outline: 1px solid orange;
+  }
 `;
 
 export const IndividualNotes = styled.div`
@@ -98,7 +110,6 @@ export const IndividualNotes = styled.div`
   font-size: 1.1.rem;
   width: 100%;
   display: flex;
-  /* align-items: center; */
   justify-content: space-between;
   text-align: left;
   margin: 0.5rem 0rem;
@@ -116,6 +127,8 @@ export const Organizer = styled.div`
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-align: center;
+  justify-content: center;
+  width: 100%;
 `;
 
 export const Organizer1 = styled.div`

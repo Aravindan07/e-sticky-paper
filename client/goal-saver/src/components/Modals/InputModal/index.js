@@ -29,7 +29,7 @@ function InputModal({
 }) {
   console.log(data);
   const [goal, setGoal] = useState("");
-  const [changedName, setChangedName] = useState("");
+  const [changedName, setChangedName] = useState(data.noteName);
 
   const onChangeHandler = (event) => {
     setGoal(event.target.value);

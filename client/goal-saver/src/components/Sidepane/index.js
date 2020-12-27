@@ -10,7 +10,7 @@ import DeleteIcon from "../../icons/trash.svg";
 import EditIcon from "../../icons/edit.svg";
 import { LogoDiv, HeaderButton } from "../Header/styles";
 import {
-  Wrapper,
+  SidepaneWrapper,
   SidePaneCloseDiv,
   HeaderDiv,
   Dropdown,
@@ -63,7 +63,7 @@ function SidePane({ OpenModal, userId, userNotes, isOpen, ...props }) {
   };
 
   return (
-    <Wrapper onClick={closeDropDownFn}>
+    <SidepaneWrapper onClick={closeDropDownFn}>
       <SidePaneCloseDiv>
         <ReactSVG src={SidePaneClose} />
       </SidePaneCloseDiv>
@@ -132,6 +132,7 @@ function SidePane({ OpenModal, userId, userNotes, isOpen, ...props }) {
                         onClick={() =>
                           OpenModalType("edit_note_name", {
                             type: "edit_note_name",
+                            noteName: el.NoteName,
                             noteId: el._id,
                           })
                         }
@@ -143,7 +144,7 @@ function SidePane({ OpenModal, userId, userNotes, isOpen, ...props }) {
           </>
         )
       )}
-    </Wrapper>
+    </SidepaneWrapper>
   );
 }
 

@@ -10,23 +10,27 @@ import {
 } from "../../Notes/styles";
 import { HeaderButton } from "../Header/styles";
 import { connect } from "react-redux";
-import { saveNote } from "../../actions";
+import { openModal, saveNote } from "../../actions";
 
-function Note({ userId, userNotes, location, saveNoteAction, ...props }) {
-  let noteIdToShow = location.pathname.split("/")[4];
-  let newReturnedNote = userNotes.find((el) => {
-    return el._id === noteIdToShow;
-  });
-  const [returnedNote, setReturnedNote] = useState(newReturnedNote);
-  const [noteValue, setNoteValue] = useState(newReturnedNote.notes);
+function Note({
+  userId,
+  userNotes,
+  location,
+  saveNoteAction,
+  OpenModal,
+  ...props
+}) {
+  const [returnedNote, setReturnedNote] = useState("");
+  const [noteValue, setNoteValue] = useState("");
+
   useEffect(() => {
-    console.log("Inside note effect");
     let noteIdToShow = location.pathname.split("/")[4];
     let newReturnedNote = userNotes.find((el) => {
       return el._id === noteIdToShow;
     });
+    setNoteValue(newReturnedNote.notes);
     setReturnedNote(newReturnedNote);
-  }, [noteIdToShow, location, returnedNote, noteValue]);
+  }, [location, userNotes]);
 
   const onChangeHandler = (event) => {
     setNoteValue(event.target.value);
@@ -38,7 +42,7 @@ function Note({ userId, userNotes, location, saveNoteAction, ...props }) {
   };
 
   const openModalType = (modalType, data = {}) => {
-    console.log(modalType, data);
+    return OpenModal(modalType, data);
   };
 
   const homeClickHandler = () => {
@@ -78,10 +82,7 @@ function Note({ userId, userNotes, location, saveNoteAction, ...props }) {
           value={noteValue}
           onChange={onChangeHandler}
           placeholder="Type your text here..."
-        >
-          {/* {noteValue} */}
-        </TextArea>
-        {/* {console.log("It got Re-rendered")} */}
+        ></TextArea>
       </Wrapper>
     </>
   );
@@ -96,6 +97,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   saveNoteAction: (userId, noteId, newNote) =>
     dispatch(saveNote(userId, noteId, newNote)),
+  OpenModal: (modalType, data) => dispatch(openModal(modalType, data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Note);
