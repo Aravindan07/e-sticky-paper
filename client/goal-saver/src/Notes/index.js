@@ -9,7 +9,6 @@ import { Wrapper } from "../Goals/styles";
 import { Button } from "../components/Modals/styles";
 import TrashIcon from "../icons/trash.svg";
 import EditIcon from "../icons/edit.svg";
-import "../scroll.css";
 import {
   NoteNameDiv,
   NoteName,
