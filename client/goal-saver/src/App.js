@@ -1,7 +1,9 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, Suspense, useContext, useEffect } from "react";
+import { __RouterContext } from "react-router";
 import { Route, Switch, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { ToastContainer } from "react-toastify";
+import { useTransition, animated } from "react-spring";
 import { connect } from "react-redux";
 import { loadUser } from "./actions";
 import Loader from "./components/Loader";
@@ -22,6 +24,14 @@ const Notes = lazy(() => import("./Notes"));
 
 function App({ loadUser, isAuthenticated }) {
   let history = useHistory();
+
+  const { location } = useContext(__RouterContext);
+
+  const transitions = useTransition(location, (location) => location.pathname, {
+    from: { opacity: 0, transform: "translate(0,100%)" },
+    enter: { opacity: 1, transform: "translate(0%,0)" },
+    leave: { opacity: 0, transform: "translate(0%,-50%)" },
+  });
 
   useEffect(() => {
     loadUser();
@@ -48,26 +58,39 @@ function App({ loadUser, isAuthenticated }) {
       <Suspense fallback={<Loader />}>
         <Modals />
       </Suspense>
-      <Switch>
-        <Suspense fallback={<Loader />}>
-          <Route exact path="/" component={Home} />
-          <Route
-            exact
-            path="/user/:userId/create-goal"
-            component={GoalCreator}
-          />
-          <Route exact path="/user/:userId/goals" component={Goals} />
-          <Route exact path="/user/:userId/goals/:goalId" component={Goal} />
-          <Route exact path="/user/:userId/notes" component={Notes} />
-          <Route exact path="/user/:userId/notes/:noteId" component={Note} />
-        </Suspense>
-      </Switch>
+      {transitions.map(({ item, key, props }) => (
+        <animated.div key={key} style={props}>
+          <Switch location={location}>
+            <Suspense fallback={<Loader />}>
+              <Route exact path="/" component={Home} />
+              <Route
+                exact
+                path="/user/:userId/create-goal"
+                component={GoalCreator}
+              />
+              <Route exact path="/user/:userId/goals" component={Goals} />
+              <Route
+                exact
+                path="/user/:userId/goals/:goalId"
+                component={Goal}
+              />
+              <Route exact path="/user/:userId/notes" component={Notes} />
+              <Route
+                exact
+                path="/user/:userId/notes/:noteId"
+                component={Note}
+              />
+            </Suspense>
+          </Switch>
+        </animated.div>
+      ))}
     </AppWrapper>
   );
 }
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.authentication.isAuthenticated,
+  location: state.router.location,
 });
 
 const mapDispatchToProps = (dispatch) => ({

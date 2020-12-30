@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const HomeWrapper = styled.div`
-  position: fixed;
-  height: 100%;
+  position: absolute;
+  height: 100vh;
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  display: block;
+  /* flex-direction: column; */
   background: #f9dc5c;
 `;
 
@@ -18,6 +18,7 @@ export const H2 = styled.h1`
   color: ${(props) => (props.headingType === "goal" ? "#011936" : "#861657")};
   letter-spacing: 0.6px;
   line-height: 50px;
+  text-align: center;
 `;
 
 export const SubHeadingDiv = styled.div`
