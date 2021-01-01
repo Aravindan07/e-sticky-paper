@@ -11,7 +11,7 @@ import {
   ButtonDiv,
   ProceedButton,
 } from "./styles";
-import { H2 } from "../Homepage/styles";
+import { AnimationDiv, H2 } from "../Homepage/styles";
 import Header from "../components/Header";
 import { addMainGoalName } from "../actions";
 
@@ -36,24 +36,26 @@ function GoalCreator({ userId, addMainGoalName, ...props }) {
     <>
       <Header />
       <GoalWrapper>
-        <InputWrapper>
-          <H2>Let's get started !</H2>
-          <ExampleAndInputDiv>
-            <InputField
-              type="text"
-              name="name"
-              value={name}
-              onChange={onChangeHandler}
-              placeholder="Type your main goal"
-            />
-            <Example>e.g: To learn react</Example>
-          </ExampleAndInputDiv>
-        </InputWrapper>
-        <ButtonDiv>
-          <ProceedButton onClick={onClickHandler}>
-            <ReactSVG src={Arrow} />
-          </ProceedButton>
-        </ButtonDiv>
+        <AnimationDiv>
+          <InputWrapper>
+            <H2>Let's get started !</H2>
+            <ExampleAndInputDiv>
+              <InputField
+                type="text"
+                name="name"
+                value={name}
+                onChange={onChangeHandler}
+                placeholder="Type your main goal"
+              />
+              <Example>e.g: To learn react</Example>
+            </ExampleAndInputDiv>
+          </InputWrapper>
+          <ButtonDiv>
+            <ProceedButton onClick={onClickHandler}>
+              <ReactSVG src={Arrow} />
+            </ProceedButton>
+          </ButtonDiv>
+        </AnimationDiv>
       </GoalWrapper>
     </>
   );

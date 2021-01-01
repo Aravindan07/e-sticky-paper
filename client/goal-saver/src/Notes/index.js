@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { ReactSVG } from "react-svg";
 import { openModal } from "../actions";
@@ -18,8 +18,10 @@ import {
   ButtonWrap,
   NotesDivWrap,
 } from "./styles";
+import { AnimationDiv } from "../Homepage/styles";
 
 function Notes({ userNotes, OpenModal, ...props }) {
+  useEffect(() => {}, [userNotes]);
   const openModalType = (modalType, data = {}) => {
     return OpenModal(modalType, data);
   };
@@ -60,41 +62,43 @@ function Notes({ userNotes, OpenModal, ...props }) {
                 New Note
               </HeaderButton>
             </ButtonWrap>
-            <TopButtonWrapper>
-              <NotesOrganizer>
-                {userNotes &&
-                  userNotes.map((note) => (
-                    <NotesDivWrap key={note._id}>
-                      <Button
-                        btnType="showcase"
-                        onClick={() => openNoteHandler(note._id)}
-                      >
-                        {note.NoteName}
-                      </Button>
-                      <ReactSVG
-                        className="edit"
-                        src={EditIcon}
-                        onClick={() =>
-                          openModalType("edit_note_name", {
-                            type: "edit_note_name",
-                            noteId: note._id,
-                          })
-                        }
-                      />
-                      <ReactSVG
-                        src={TrashIcon}
-                        onClick={() =>
-                          openModalType("delete_note", {
-                            type: "delete_note",
-                            noteName: note.NoteName,
-                            noteId: note._id,
-                          })
-                        }
-                      />
-                    </NotesDivWrap>
-                  ))}
-              </NotesOrganizer>
-            </TopButtonWrapper>
+            <AnimationDiv>
+              <TopButtonWrapper>
+                <NotesOrganizer>
+                  {userNotes &&
+                    userNotes.map((note) => (
+                      <NotesDivWrap key={note._id}>
+                        <Button
+                          btnType="showcase"
+                          onClick={() => openNoteHandler(note._id)}
+                        >
+                          {note.NoteName}
+                        </Button>
+                        <ReactSVG
+                          className="edit"
+                          src={EditIcon}
+                          onClick={() =>
+                            openModalType("edit_note_name", {
+                              type: "edit_note_name",
+                              noteId: note._id,
+                            })
+                          }
+                        />
+                        <ReactSVG
+                          src={TrashIcon}
+                          onClick={() =>
+                            openModalType("delete_note", {
+                              type: "delete_note",
+                              noteName: note.NoteName,
+                              noteId: note._id,
+                            })
+                          }
+                        />
+                      </NotesDivWrap>
+                    ))}
+                </NotesOrganizer>
+              </TopButtonWrapper>
+            </AnimationDiv>
           </>
         )}
       </Wrapper>

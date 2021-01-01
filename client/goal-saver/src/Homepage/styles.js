@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const HomeWrapper = styled.div`
   position: absolute;
@@ -7,6 +7,21 @@ export const HomeWrapper = styled.div`
   display: block;
   /* flex-direction: column; */
   background: #f9dc5c;
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translate3d(0,20px,0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+`;
+
+export const AnimationDiv = styled.div`
+  animation: 1s ${fadeIn} ease-out forwards;
 `;
 
 export const H2 = styled.h1`

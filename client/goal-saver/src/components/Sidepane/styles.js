@@ -90,8 +90,9 @@ export const NotesWrapper = styled.div`
   max-height: 450px;
   overflow-x: hidden;
   overflow-y: auto;
+  scroll-behavior: smooth;
   &::-webkit-scrollbar {
-    width: 0.8rem;
+    width: 10px;
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track {
@@ -99,8 +100,8 @@ export const NotesWrapper = styled.div`
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   }
   &::-webkit-scrollbar-thumb {
-    background-color: orangered;
-    outline: 1px solid orange;
+    background-color: rgba(108, 122, 137, 1);
+    border-radius: 15px;
   }
 `;
 

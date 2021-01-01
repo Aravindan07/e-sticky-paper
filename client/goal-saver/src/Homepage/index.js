@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
+// import { AnimateOnChange } from "react-animation";
 import {
   HomeWrapper,
+  AnimationDiv,
   H2,
   SubHeadingDiv,
   FormWrapper,
@@ -43,31 +45,34 @@ function HomePage({
   return (
     <HomeWrapper>
       <Header />
-      <H2>Create and store your Goals </H2>
-      <SubHeadingDiv>
-        <P>
-          This application is created to nullify the use of sticky-paper for
-          writing out some deadlines,tasks,notes,etc.. and allow us to create
-          and store them on the web. Thus we are reducing the use of papers!!!!!
-        </P>
-      </SubHeadingDiv>
-      <FormWrapper>
-        <QuotesWrapper>
-          <QuoteHeading>Quote of the Moment!!!</QuoteHeading>
-          {/* <P quote>{quote.quote.quoteText}</P>
+      <AnimationDiv>
+        <H2>Create and store your Goals </H2>
+        <SubHeadingDiv>
+          <P>
+            This application is created to nullify the use of sticky-paper for
+            writing out some deadlines,tasks,notes,etc.. and allow us to create
+            and store them on the web. Thus we are reducing the use of
+            papers!!!!!
+          </P>
+        </SubHeadingDiv>
+        <FormWrapper>
+          <QuotesWrapper>
+            <QuoteHeading>Quote of the Moment!!!</QuoteHeading>
+            {/* <P quote>{quote.quote.quoteText}</P>
           <P>
             -- <span>{quote.quote.quoteAuthor}</span>
           </P> */}
-          <P>We are working on quotes</P>
-          <P>
-            -- <span>Developer</span>
-          </P>
-        </QuotesWrapper>
-        <GetStartedWrapper>
-          <P>Try it now.It's free!!!</P>
-          <CreateButton onClick={() => clickHandler()}>Try Now</CreateButton>
-        </GetStartedWrapper>
-      </FormWrapper>
+            <P>We are working on quotes</P>
+            <P>
+              -- <span>Developer</span>
+            </P>
+          </QuotesWrapper>
+          <GetStartedWrapper>
+            <P>Try it now.It's free!!!</P>
+            <CreateButton onClick={() => clickHandler()}>Try Now</CreateButton>
+          </GetStartedWrapper>
+        </FormWrapper>
+      </AnimationDiv>
     </HomeWrapper>
   );
 }

@@ -1,9 +1,7 @@
 import React, { lazy, Suspense, useContext, useEffect } from "react";
-import { __RouterContext } from "react-router";
 import { Route, Switch, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { ToastContainer } from "react-toastify";
-import { useTransition, animated } from "react-spring";
 import { connect } from "react-redux";
 import { loadUser } from "./actions";
 import Loader from "./components/Loader";
@@ -15,23 +13,41 @@ const AppWrapper = styled.div`
   width: 100%;
 `;
 
+const lazyDelayed = (path, delay = 3000) => {
+  return lazy(() =>
+    Promise.all([
+      import(path),
+      new Promise((resolve) => setTimeout(resolve, delay)), // ensures minimal delay
+    ]).then(([module]) => module)
+  );
+};
+
+// const GoalCreator = lazyDelayed("./GoalCreator");
+// const Goals = lazyDelayed("./Goals");
+// const Notes = lazyDelayed("./Notes");
+// const Home = lazyDelayed(() => import("./Homepage"));
+// const Home = lazy(() => import("./Homepage"));
 const Goals = lazy(() => import("./Goals/index"));
-const Home = lazy(() => import("./Homepage"));
 const Goal = lazy(() => import("./Goal"));
-const GoalCreator = lazy(() => import("./GoalCreator"));
+// const GoalCreator = lazy(() => import("./GoalCreator"));
 const Modals = lazy(() => import("./components/Modals"));
 const Notes = lazy(() => import("./Notes"));
 
+const Home = lazy(() =>
+  Promise.all([
+    import("./Homepage"),
+    new Promise((resolve) => setTimeout(resolve, 3000)), // ensures minimal delay
+  ]).then(([module]) => module)
+);
+const GoalCreator = lazy(() =>
+  Promise.all([
+    import("./GoalCreator"),
+    new Promise((resolve) => setTimeout(resolve, 3000)), // ensures minimal delay
+  ]).then(([module]) => module)
+);
+
 function App({ loadUser, isAuthenticated }) {
   let history = useHistory();
-
-  const { location } = useContext(__RouterContext);
-
-  const transitions = useTransition(location, (location) => location.pathname, {
-    from: { opacity: 0, transform: "translate(0,100%)" },
-    enter: { opacity: 1, transform: "translate(0%,0)" },
-    leave: { opacity: 0, transform: "translate(0%,-50%)" },
-  });
 
   useEffect(() => {
     loadUser();
@@ -58,32 +74,21 @@ function App({ loadUser, isAuthenticated }) {
       <Suspense fallback={<Loader />}>
         <Modals />
       </Suspense>
-      {transitions.map(({ item, key, props }) => (
-        <animated.div key={key} style={props}>
-          <Switch location={location}>
-            <Suspense fallback={<Loader />}>
-              <Route exact path="/" component={Home} />
-              <Route
-                exact
-                path="/user/:userId/create-goal"
-                component={GoalCreator}
-              />
-              <Route exact path="/user/:userId/goals" component={Goals} />
-              <Route
-                exact
-                path="/user/:userId/goals/:goalId"
-                component={Goal}
-              />
-              <Route exact path="/user/:userId/notes" component={Notes} />
-              <Route
-                exact
-                path="/user/:userId/notes/:noteId"
-                component={Note}
-              />
-            </Suspense>
-          </Switch>
-        </animated.div>
-      ))}
+
+      <Switch>
+        <Suspense fallback={<Loader />}>
+          <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/user/:userId/create-goal"
+            component={GoalCreator}
+          />
+          <Route exact path="/user/:userId/goals" component={Goals} />
+          <Route exact path="/user/:userId/goals/:goalId" component={Goal} />
+          <Route exact path="/user/:userId/notes" component={Notes} />
+          <Route exact path="/user/:userId/notes/:noteId" component={Note} />
+        </Suspense>
+      </Switch>
     </AppWrapper>
   );
 }

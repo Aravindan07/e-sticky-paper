@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { markChecked, openModal } from "../actions";
 import { ReactSVG } from "react-svg";
-import { AnimateGroup } from "react-animation";
 import AddIcon from "../icons/add-icon.svg";
 import ChildDeleteIcon from "../icons/child-delete.svg";
 import TrashIcon from "../icons/trash.svg";
@@ -60,7 +59,6 @@ function Goal({ Open, location, userGoals, MarkGoal, userId, ...props }) {
           </HeaderButton>
         </SubButtonDiv>
         <InnerWrapper>
-          {/* <AnimateGroup animation="bounce"> */}
           {returnedGoal &&
             returnedGoal.userGoals.map((goal) => {
               return (
@@ -89,66 +87,63 @@ function Goal({ Open, location, userGoals, MarkGoal, userId, ...props }) {
                       />
                     </IconsDiv>
                   </GoalName>
-                  <AnimateGroup animation="bounce">
-                    {goal.children.map((child) => (
-                      <Children key={child._id} id={child._id}>
-                        <ChildName completed={child.checked}>
-                          {child.child}
-                        </ChildName>
-                        <IconsDiv>
-                          {child.checked ? (
-                            <>
-                              <ReactSVG
-                                className="deleteChild"
-                                src={CancelIcon}
-                                onClick={() =>
-                                  markCompleted(
-                                    userId,
-                                    returnedGoal._id,
-                                    goal._id,
-                                    child._id
-                                  )
-                                }
-                              />
-                            </>
-                          ) : (
-                            <>
-                              <ReactSVG
-                                className="deleteChild"
-                                src={ChildDeleteIcon}
-                                onClick={() =>
-                                  openModalType("delete_child", {
-                                    type: "delete_child",
-                                    goalId: returnedGoal._id,
-                                    subGoalId: goal._id,
-                                    childId: child._id,
-                                    childName: child.child,
-                                    parentName: goal.goalName,
-                                  })
-                                }
-                              />
-                              <ReactSVG
-                                id={child._id}
-                                src={CompleteIcon}
-                                onClick={() =>
-                                  markCompleted(
-                                    userId,
-                                    returnedGoal._id,
-                                    goal._id,
-                                    child._id
-                                  )
-                                }
-                              />
-                            </>
-                          )}
-                        </IconsDiv>
-                      </Children>
-                    ))}
-                  </AnimateGroup>
+                  {goal.children.map((child) => (
+                    <Children key={child._id} id={child._id}>
+                      <ChildName completed={child.checked}>
+                        {child.child}
+                      </ChildName>
+                      <IconsDiv>
+                        {child.checked ? (
+                          <>
+                            <ReactSVG
+                              className="deleteChild"
+                              src={CancelIcon}
+                              onClick={() =>
+                                markCompleted(
+                                  userId,
+                                  returnedGoal._id,
+                                  goal._id,
+                                  child._id
+                                )
+                              }
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <ReactSVG
+                              className="deleteChild"
+                              src={ChildDeleteIcon}
+                              onClick={() =>
+                                openModalType("delete_child", {
+                                  type: "delete_child",
+                                  goalId: returnedGoal._id,
+                                  subGoalId: goal._id,
+                                  childId: child._id,
+                                  childName: child.child,
+                                  parentName: goal.goalName,
+                                })
+                              }
+                            />
+                            <ReactSVG
+                              id={child._id}
+                              src={CompleteIcon}
+                              onClick={() =>
+                                markCompleted(
+                                  userId,
+                                  returnedGoal._id,
+                                  goal._id,
+                                  child._id
+                                )
+                              }
+                            />
+                          </>
+                        )}
+                      </IconsDiv>
+                    </Children>
+                  ))}
                 </GoalWrapper>
               );
             })}
-          {/* </AnimateGroup> */}
         </InnerWrapper>
       </Wrapper>
     </>

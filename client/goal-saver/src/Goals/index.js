@@ -8,7 +8,7 @@ import { HeaderButton } from "../components/Header/styles";
 import { Wrapper, SubButtonDiv, InnerWrapper, GoalWrapper } from "./styles";
 
 import { markChecked, openModal } from "../actions";
-import { P } from "../Homepage/styles";
+import { AnimationDiv, P } from "../Homepage/styles";
 
 function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
   const openModalType = (modalType, data = {}) => {
@@ -33,30 +33,32 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
             Create a Fresh Goal
           </HeaderButton>
         </SubButtonDiv>
-        <P style={{ textAlign: "center", margin: "0 auto" }}>
-          Click on a goal to view and edit it!
-        </P>
-        <InnerWrapper>
-          {userGoals.map((el) => {
-            return (
-              <GoalWrapper key={el._id}>
-                <Button onClick={() => GoalClicked(el._id)}>
-                  {el.mainGoalName}
-                </Button>
-                <ReactSVG
-                  src={TrashIcon}
-                  onClick={() =>
-                    openModalType("message", {
-                      type: "delete_entire_goal",
-                      goalId: el._id,
-                      goalName: el.mainGoalName,
-                    })
-                  }
-                />
-              </GoalWrapper>
-            );
-          })}
-        </InnerWrapper>
+        <AnimationDiv>
+          <P style={{ textAlign: "center", margin: "0 auto" }}>
+            Click on a goal to view and edit it!
+          </P>
+          <InnerWrapper>
+            {userGoals.map((el) => {
+              return (
+                <GoalWrapper key={el._id}>
+                  <Button onClick={() => GoalClicked(el._id)}>
+                    {el.mainGoalName}
+                  </Button>
+                  <ReactSVG
+                    src={TrashIcon}
+                    onClick={() =>
+                      openModalType("message", {
+                        type: "delete_entire_goal",
+                        goalId: el._id,
+                        goalName: el.mainGoalName,
+                      })
+                    }
+                  />
+                </GoalWrapper>
+              );
+            })}
+          </InnerWrapper>
+        </AnimationDiv>
       </Wrapper>
     </>
   );

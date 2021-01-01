@@ -38,17 +38,19 @@ export const TopButtonWrapper = styled.div`
   max-height: 400px;
   overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-width: thin;
   &::-webkit-scrollbar {
-    width: 0.8rem;
-    /* border-radius: 10px; */
+    width: 10px;
+    border-radius: 10px;
   }
   &::-webkit-scrollbar-track {
+    border-radius: 15px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   }
   &::-webkit-scrollbar-thumb {
-    background-color: orangered;
-    outline: 1px solid orangered;
+    background-color: rgba(108, 122, 137, 1);
+    border-radius: 15px;
   }
 `;
 
