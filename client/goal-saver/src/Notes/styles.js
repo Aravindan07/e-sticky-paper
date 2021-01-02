@@ -20,6 +20,7 @@ export const NoteName = styled.div`
   margin: auto;
   font-size: 1.5rem;
   font-weight: bold;
+  color: #111827;
 `;
 
 export const UnderlineBorder = styled.div`
@@ -86,6 +87,9 @@ export const NotesDivWrap = styled.div`
   display: flex;
   align-items: center;
   margin: 1rem 0rem;
+  background-color: #f9dc5c;
+  padding: 1rem;
+  border-radius: 10px;
   svg {
     cursor: pointer;
     color: #ba181b;

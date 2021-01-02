@@ -5,7 +5,7 @@ import { openModal } from "../actions";
 import Header from "../components/Header";
 import { HeaderButton } from "../components/Header/styles";
 import { NoGoalsWrapper } from "../components/Sidepane/styles";
-import { Wrapper } from "../Goals/styles";
+import { ShowCaseButton, Wrapper } from "../Goals/styles";
 import { Button } from "../components/Modals/styles";
 import TrashIcon from "../icons/trash.svg";
 import EditIcon from "../icons/edit.svg";
@@ -51,11 +51,12 @@ function Notes({ userNotes, OpenModal, ...props }) {
             <NoteNameDiv>
               <NoteName>
                 Your Notes
-                <UnderlineBorder />
+                {/* <UnderlineBorder /> */}
               </NoteName>
             </NoteNameDiv>
             <ButtonWrap>
               <HeaderButton
+                btnType="notes"
                 style={{ display: "block", margin: "auto" }}
                 onClick={() => openModalType("create_note")}
               >
@@ -68,12 +69,12 @@ function Notes({ userNotes, OpenModal, ...props }) {
                   {userNotes &&
                     userNotes.map((note) => (
                       <NotesDivWrap key={note._id}>
-                        <Button
+                        <ShowCaseButton
                           btnType="showcase"
                           onClick={() => openNoteHandler(note._id)}
                         >
                           {note.NoteName}
-                        </Button>
+                        </ShowCaseButton>
                         <ReactSVG
                           className="edit"
                           src={EditIcon}

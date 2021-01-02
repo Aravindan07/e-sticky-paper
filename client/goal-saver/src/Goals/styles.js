@@ -26,12 +26,28 @@ export const InnerWrapper = styled.div`
   overflow-y: auto;
   padding: 10px;
   color: #011936;
+  &::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 15px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(108, 122, 137, 1);
+    border-radius: 15px;
+  }
 `;
 
 export const GoalWrapper = styled.div`
   display: ${(props) => (props.pageType === "single-goal" ? "block" : "flex")};
   align-items: center;
   margin: 20px 15px;
+  background-color: #f9dc5c;
+  padding: 1rem;
+  border-radius: 10px;
   svg {
     margin-left: 20px;
     cursor: pointer;
@@ -115,4 +131,26 @@ export const IconsDiv = styled.div`
 export const ButtonCenterDiv = styled.div`
   margin: auto;
   text-align: center;
+`;
+
+export const ShowCaseButton = styled.button`
+  /* background: #047857; */
+  background-color: #7f1d1d;
+  min-width: ${(props) => (props.btnType === "showcase" ? "200px" : "unset")};
+  width: 100%;
+  padding: 5px 15px;
+  color: #ffffff;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 36px;
+  letter-spacing: 1px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  :hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+    /* transform: scale(1.02); */
+  }
 `;

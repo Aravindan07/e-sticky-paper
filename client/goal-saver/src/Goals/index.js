@@ -3,9 +3,14 @@ import Header from "../components/Header";
 import { connect } from "react-redux";
 import { ReactSVG } from "react-svg";
 import TrashIcon from "../icons/trash.svg";
-import { Button } from "../components/Modals/styles";
 import { HeaderButton } from "../components/Header/styles";
-import { Wrapper, SubButtonDiv, InnerWrapper, GoalWrapper } from "./styles";
+import {
+  Wrapper,
+  SubButtonDiv,
+  InnerWrapper,
+  GoalWrapper,
+  ShowCaseButton,
+} from "./styles";
 
 import { markChecked, openModal } from "../actions";
 import { AnimationDiv, P } from "../Homepage/styles";
@@ -29,21 +34,27 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
       <Header />
       <Wrapper>
         <SubButtonDiv>
-          <HeaderButton onClick={freshGoalClicked}>
-            Create a Fresh Goal
+          <HeaderButton btnType="notes" onClick={freshGoalClicked}>
+            Create a fresh goal
           </HeaderButton>
         </SubButtonDiv>
         <AnimationDiv>
-          <P style={{ textAlign: "center", margin: "0 auto" }}>
+          <P
+            style={{
+              textAlign: "center",
+              margin: "0 auto",
+              fontWeight: "bold",
+            }}
+          >
             Click on a goal to view and edit it!
           </P>
           <InnerWrapper>
             {userGoals.map((el) => {
               return (
                 <GoalWrapper key={el._id}>
-                  <Button onClick={() => GoalClicked(el._id)}>
+                  <ShowCaseButton onClick={() => GoalClicked(el._id)}>
                     {el.mainGoalName}
-                  </Button>
+                  </ShowCaseButton>
                   <ReactSVG
                     src={TrashIcon}
                     onClick={() =>

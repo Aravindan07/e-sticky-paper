@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidepane from "../Sidepane";
+import styled from "styled-components";
 import { Wrapper } from "../../Goals/styles";
 import {
   NoteName,
@@ -11,6 +12,15 @@ import {
 import { HeaderButton } from "../Header/styles";
 import { connect } from "react-redux";
 import { openModal, saveNote } from "../../actions";
+
+export const NoteButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  max-height: 400px;
+`;
 
 function Note({
   userId,
@@ -60,7 +70,7 @@ function Note({
             <UnderlineBorder />
           </NoteName>
         </NoteNameDiv>
-        <TopButtonWrapper>
+        <NoteButtonWrap>
           <HeaderButton
             btnType="note"
             onClick={() => openModalType("create_note")}
@@ -71,9 +81,9 @@ function Note({
             Save Note
           </HeaderButton>
           <HeaderButton btnType="note" onClick={homeClickHandler}>
-            Home Notes
+            Home
           </HeaderButton>
-        </TopButtonWrapper>
+        </NoteButtonWrap>
         <TextArea
           name="notes"
           id="notes"

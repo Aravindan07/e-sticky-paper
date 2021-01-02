@@ -93,9 +93,8 @@ function setMargin(props) {
 export const Button = styled.button`
   background: ${(props) =>
     props.btnType === "cancel" ? "#aa3b64" : "#3F40F0 "};
-  /* min-width: ${(props) =>
-    props.btnType === "showcase" ? "200px" : "unset"}; */
-  width: 100%;
+  min-width: ${(props) => (props.btnType === "showcase" ? "200px" : "100%")};
+  /* width: 100%; */
   padding: 5px 15px;
   color: #ffffff;
   font-family: "Open Sans", sans-serif;

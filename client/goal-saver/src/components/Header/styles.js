@@ -67,15 +67,16 @@ export const SignInSignUpWrap = styled.div`
 
 export const HeaderButton = styled.button`
   /* background: #496ddb; */
-  background: #3f40f0;
+  /* min-width: 200px; */
+  background: ${(props) => (props.btnType === "notes" ? "#065F46" : "#3f40f0")};
   outline: none;
   border: none;
   color: #f4fffd;
   border-radius: 5px;
   padding: 10px;
   font-weight: 600;
-  text-transform: uppercase;
-  font-size: 16px;
+  /* text-transform: uppercase; */
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 1.2px;
   cursor: pointer;

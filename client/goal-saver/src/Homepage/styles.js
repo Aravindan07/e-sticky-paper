@@ -30,7 +30,7 @@ export const H2 = styled.h1`
       ? "auto auto 20px auto"
       : "40px auto 20px auto"};
   letter-spacing: 1.6px;
-  color: ${(props) => (props.headingType === "goal" ? "#011936" : "#861657")};
+  color: ${(props) => (props.headingType === "goal" ? "#011936" : "#7F1D1D")};
   letter-spacing: 0.6px;
   line-height: 50px;
   text-align: center;

@@ -44,7 +44,8 @@ function Goal({ Open, location, userGoals, MarkGoal, userId, ...props }) {
       <Header />
       <Wrapper>
         <SubButtonDiv>
-          <Button
+          <HeaderButton
+            btnType="notes"
             onClick={() =>
               openModalType("input", {
                 type: "subGoalInput",
@@ -53,8 +54,8 @@ function Goal({ Open, location, userGoals, MarkGoal, userId, ...props }) {
             }
           >
             Add a Goal
-          </Button>
-          <HeaderButton onClick={createFreshGoal}>
+          </HeaderButton>
+          <HeaderButton btnType="notes" onClick={createFreshGoal}>
             Create a Fresh Goal
           </HeaderButton>
         </SubButtonDiv>
