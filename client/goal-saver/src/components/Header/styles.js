@@ -66,7 +66,8 @@ export const SignInSignUpWrap = styled.div`
 `;
 
 export const HeaderButton = styled.button`
-  background: #496ddb;
+  /* background: #496ddb; */
+  background: #3f40f0;
   outline: none;
   border: none;
   color: #f4fffd;

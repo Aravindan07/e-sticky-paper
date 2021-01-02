@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { ReactSVG } from "react-svg";
 import { closeModal, openModal, signIn } from "../../../actions";
-import { Heading, Wrap, Input, ButtonsDiv, Button } from "../styles";
-import { P } from "../../../Homepage/styles";
+import CloseModalIcon from "../../../icons/dropdown-close.svg";
+import {
+  Heading,
+  Wrap,
+  Input,
+  ButtonsDiv,
+  Button,
+  InputWrap,
+  Label,
+  Form,
+  ElseDiv,
+  CloseModalDiv,
+} from "../styles";
 
 function SigninModal({ signinUser, closeModal, OpenModal }) {
   const initialState = {
@@ -10,12 +22,26 @@ function SigninModal({ signinUser, closeModal, OpenModal }) {
     password: "",
   };
 
-  const [{ email, password }, setState] = useState(initialState);
+  const initialActive = {
+    isEmailActive: false,
+    isPasswordActive: false,
+  };
 
-  const onChangeHandler = (event) => {
+  const [{ email, password }, setState] = useState(initialState);
+  const [{ isEmailActive, isPasswordActive }, setIsActive] = useState(
+    initialActive
+  );
+
+  const onChangeHandler = (event, sentName) => {
     const name = event.target.name;
     const value = event.target.value;
+    const labelName = sentName;
     setState((prevState) => ({ ...prevState, [name]: value }));
+    if (value !== "") {
+      return setIsActive((prevState) => ({ ...prevState, [labelName]: true }));
+    } else {
+      return setIsActive((prevState) => ({ ...prevState, [labelName]: false }));
+    }
   };
 
   const onSubmitHandler = () => {
@@ -30,45 +56,46 @@ function SigninModal({ signinUser, closeModal, OpenModal }) {
   return (
     <>
       <Heading>Sign In</Heading>
-      <Wrap divType="signin">
-        <Input
-          type="text"
-          name="email"
-          value={email}
-          onChange={onChangeHandler}
-          placeholder="Enter your email"
-          required
-        />
-        <Input
-          type="password"
-          name="password"
-          value={password}
-          onChange={onChangeHandler}
-          placeholder="Enter your password"
-          required
-        />
+      <CloseModalDiv>
+        <ReactSVG src={CloseModalIcon} onClick={closeModal} />
+      </CloseModalDiv>
+      <Wrap>
+        <Form>
+          <InputWrap>
+            <Label htmlFor="email" active={isEmailActive}>
+              Email
+            </Label>
+            <Input
+              type="text"
+              name="email"
+              id="email"
+              value={email}
+              onChange={(e) => onChangeHandler(e, "isEmailActive")}
+              required
+            />
+          </InputWrap>
+          <InputWrap>
+            <Label htmlFor="password" active={isPasswordActive}>
+              Password
+            </Label>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(e) => onChangeHandler(e, "isPasswordActive")}
+              required
+            />
+          </InputWrap>
+        </Form>
         <ButtonsDiv>
-          <Button onClick={closeModal} btnType="cancel">
-            Cancel
-          </Button>
-          <Button onClick={onSubmitHandler}>Submit</Button>
+          <Button onClick={onSubmitHandler}>Sign in</Button>
         </ButtonsDiv>
+        <ElseDiv>
+          New here?{" "}
+          <span onClick={() => registerClicked("signup")}>Sign up</span>
+        </ElseDiv>
       </Wrap>
-      <P style={{ textAlign: "center" }}>
-        Don't have an account?{" "}
-        <span
-          style={{
-            cursor: "pointer",
-            color: "#496ddb",
-            fontWeight: "600",
-            textDecoration: "underline",
-          }}
-          onClick={() => registerClicked("signup")}
-        >
-          REGISTER
-        </span>{" "}
-        Now
-      </P>
     </>
   );
 }

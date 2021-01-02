@@ -93,14 +93,20 @@ function Modals({
     return "30px 20px";
   };
 
+  const setHeight = () => {
+    if (modalType === "signup") {
+      return "80%";
+    }
+    return "70%";
+  };
   const overlay = {
     backgroundColor: "rgba(0,0,0,0.8)",
   };
   const content = {
     width: "50%",
-    height: "70%",
+    height: setHeight(),
     margin: "auto",
-    borderRadius: "10px",
+    borderRadius: "5px",
     // padding: "30px 20px 20px 20px",
     padding: setPadding(),
     zIndex: "10",

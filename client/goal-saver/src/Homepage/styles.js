@@ -98,14 +98,14 @@ export const CreateButton = styled.div`
   width: 130px;
   padding: 7px 11px 7px 14px;
   border-radius: 5px;
-  background: #496ddb;
+  background: #3f40f0;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 18px;
   height: 40px;
   margin: 20px 0px;
   cursor: pointer;
-  color: #fff;
+  color: #ffffff;
   letter-spacing: 1px;
   text-align: center;
   :focus,
