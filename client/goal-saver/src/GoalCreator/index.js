@@ -11,15 +11,21 @@ import {
   ButtonDiv,
   ProceedButton,
 } from "./styles";
+import { Form, InputWrap, Label, Input } from "../components/Modals/styles";
 import { AnimationDiv, H2 } from "../Homepage/styles";
 import Header from "../components/Header";
 import { addMainGoalName } from "../actions";
+import { HeaderButton } from "../components/Header/styles";
 
 function GoalCreator({ userId, addMainGoalName, ...props }) {
   const initialState = {
     name: "",
   };
+  // const initialActive = {
+  //   isGoalNameActive: false,
+  // };
   const [{ name }, setState] = useState(initialState);
+  // const [{ isGoalNameActive }, setGoalName] = useState(initialActive);
 
   const onClickHandler = () => {
     // props.history.push("goals");
@@ -45,16 +51,17 @@ function GoalCreator({ userId, addMainGoalName, ...props }) {
                 name="name"
                 value={name}
                 onChange={onChangeHandler}
-                placeholder="Type your main goal"
+                placeholder="Give it a title"
               />
-              <Example>e.g: To learn react</Example>
+              <Example>e.g: Learn React</Example>
             </ExampleAndInputDiv>
+            <ButtonDiv>
+              <ProceedButton onClick={onClickHandler}>
+                Proceed
+                <ReactSVG src={Arrow} />
+              </ProceedButton>
+            </ButtonDiv>
           </InputWrapper>
-          <ButtonDiv>
-            <ProceedButton onClick={onClickHandler}>
-              <ReactSVG src={Arrow} />
-            </ProceedButton>
-          </ButtonDiv>
         </AnimationDiv>
       </GoalWrapper>
     </>

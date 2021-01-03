@@ -38,8 +38,8 @@ function Note({
     let newReturnedNote = userNotes.find((el) => {
       return el._id === noteIdToShow;
     });
-    setNoteValue(newReturnedNote.notes);
-    setReturnedNote(newReturnedNote);
+    setNoteValue(newReturnedNote && newReturnedNote.notes);
+    setReturnedNote(newReturnedNote && newReturnedNote);
   }, [location, userNotes]);
 
   const onChangeHandler = (event) => {

@@ -64,9 +64,10 @@ export const Input = styled.input`
 `;
 
 export const ButtonsDiv = styled.div`
-  width: 70%;
+  width: ${(props) => (props.divType === "logout" ? "auto" : "70%")};
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props) =>
+    props.divType === "logout" ? "space-around" : "space-between"};
   align-items: center;
   margin: ${setMargin};
   span {
@@ -93,7 +94,8 @@ function setMargin(props) {
 export const Button = styled.button`
   background: ${(props) =>
     props.btnType === "cancel" ? "#aa3b64" : "#3F40F0 "};
-  min-width: ${(props) => (props.btnType === "showcase" ? "200px" : "100%")};
+  min-width: ${(props) =>
+    props.btnType === "showcase" || props.Btn === "message" ? "200px" : "100%"};
   /* width: 100%; */
   padding: 5px 15px;
   color: #ffffff;

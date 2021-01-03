@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { closeModal, logout } from "../../../actions";
 import { P } from "../../../Homepage/styles";
 import { ButtonsDiv } from "../../Modals/styles";
-import { Button } from "../../Modals/styles";
+// import { Button } from "../../Modals/styles";
+import { Button } from "./styles";
 
 function LogoutModal({ close, Logout }) {
   console.log("message");
@@ -13,10 +14,10 @@ function LogoutModal({ close, Logout }) {
         Are you sure you want to <span>logout?</span>
       </P>
       <ButtonsDiv divType="logout">
-        <Button onClick={close} btnType="cancel">
+        <Button onClick={Logout}>Yes,Logout</Button>
+        <Button btnType="cancel" onClick={close}>
           Cancel
         </Button>
-        <Button onClick={Logout}>Yes,Logout</Button>
       </ButtonsDiv>
     </>
   );

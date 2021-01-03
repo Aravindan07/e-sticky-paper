@@ -8,7 +8,8 @@ import {
   deleteGoal,
   deleteNote,
 } from "../../../actions";
-import { Button, ButtonsDiv } from "../styles";
+import { ButtonsDiv } from "../styles";
+import { Button } from "../Logout/styles";
 
 const MessageDiv = styled.div`
   font-size: 18px;

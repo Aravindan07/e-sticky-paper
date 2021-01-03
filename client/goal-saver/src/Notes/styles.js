@@ -20,7 +20,7 @@ export const NoteName = styled.div`
   margin: auto;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #111827;
+  color: ${(props) => (props.txtType === "goal" ? "#7F1D1D" : "#111827")};
 `;
 
 export const UnderlineBorder = styled.div`

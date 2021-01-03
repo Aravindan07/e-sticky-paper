@@ -20,6 +20,8 @@ import {
   IconsDiv,
 } from "../Goals/styles";
 import Header from "../components/Header";
+import { H2 } from "../Homepage/styles";
+import { NoteName } from "../Notes/styles";
 
 function Goal({ Open, location, userGoals, MarkGoal, userId, ...props }) {
   let goalIdToShow = location.pathname.split("/")[4];
@@ -59,6 +61,9 @@ function Goal({ Open, location, userGoals, MarkGoal, userId, ...props }) {
             Create a Fresh Goal
           </HeaderButton>
         </SubButtonDiv>
+        <NoteName txtType="goal">
+          {returnedGoal && returnedGoal.mainGoalName}
+        </NoteName>
         <InnerWrapper>
           {returnedGoal &&
             returnedGoal.userGoals.map((goal) => {

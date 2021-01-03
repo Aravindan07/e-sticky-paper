@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { closeModal, createNewNote } from "../../../actions";
 import { P } from "../../../Homepage/styles";
 import { InputModalWrap } from "../InputModal";
-import { Button, ButtonsDiv, Input } from "../styles";
+import { ButtonsDiv, Input } from "../styles";
+import { Button } from "../Logout/styles";
 
 function CreateNote({ close, userId, newNote }) {
   const [value, setValue] = useState("");
