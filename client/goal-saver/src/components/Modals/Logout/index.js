@@ -7,7 +7,6 @@ import { ButtonsDiv } from "../../Modals/styles";
 import { Button } from "./styles";
 
 function LogoutModal({ close, Logout }) {
-  console.log("message");
   return (
     <>
       <P style={{ textAlign: "center", marginTop: "10px" }} divType="logout">

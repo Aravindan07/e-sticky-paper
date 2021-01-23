@@ -7,7 +7,6 @@ import ChildDeleteIcon from "../icons/child-delete.svg";
 import TrashIcon from "../icons/trash.svg";
 import CompleteIcon from "../icons/completed-icon.svg";
 import CancelIcon from "../icons/cancel-icon.svg";
-import { Button } from "../components/Modals/styles";
 import { HeaderButton } from "../components/Header/styles";
 import {
   Wrapper,
@@ -20,7 +19,6 @@ import {
   IconsDiv,
 } from "../Goals/styles";
 import Header from "../components/Header";
-import { H2 } from "../Homepage/styles";
 import { NoteName } from "../Notes/styles";
 
 function Goal({ Open, location, userGoals, MarkGoal, userId, ...props }) {

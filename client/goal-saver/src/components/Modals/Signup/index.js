@@ -16,7 +16,6 @@ import {
   CloseModalDiv,
 } from "../styles";
 import Loader from "../../Loader";
-import { P } from "../../../Homepage/styles";
 
 function SignupModal({ signupUser, closeModal, OpenModal, isLoading }) {
   const initialState = {
@@ -108,9 +107,6 @@ function SignupModal({ signupUser, closeModal, OpenModal, isLoading }) {
           </InputWrap>
         </Form>
         <ButtonsDiv>
-          {/* <Button onClick={closeModal} btnType="cancel">
-            Cancel
-          </Button> */}
           <Button onClick={onSubmitHandler}>Sign up</Button>
         </ButtonsDiv>
         <ElseDiv>

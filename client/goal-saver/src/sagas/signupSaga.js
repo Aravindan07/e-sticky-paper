@@ -41,7 +41,6 @@ function* signupSaga({ name, email, password }) {
   const apiCall = () => {
     return Axios.post("/api/users", body, config)
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -54,6 +53,7 @@ function* signupSaga({ name, email, password }) {
   try {
     const result = yield call(apiCall);
     if (result.status) {
+      console.log("Inside result.status");
       yield put(SignUpSuccess(result));
       yield put(SuccessMessage(result.message));
       yield put(clearError());
@@ -62,7 +62,6 @@ function* signupSaga({ name, email, password }) {
       return;
     }
     yield put(ErrorMessage(result.response.data.message));
-    console.log(result.response.data.message);
     yield put(clearError());
     return;
   } catch (error) {

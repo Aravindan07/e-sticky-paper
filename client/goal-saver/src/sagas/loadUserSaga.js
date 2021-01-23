@@ -1,5 +1,4 @@
 import { call, takeLatest, put } from "redux-saga/effects";
-// import { push } from "connected-react-router";
 import Axios from "axios";
 import { LOAD_USER } from "../constants";
 import {
@@ -52,7 +51,6 @@ function* loadUserSaga() {
       yield put(SuccessMessage(result.message));
       yield put(clearError());
       yield put(closeModal());
-      // yield put(push(`/user/${result.user.id}/create-goal`));
       return;
     }
     yield put(ErrorMessage(result.response.data.message));

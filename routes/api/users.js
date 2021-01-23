@@ -37,7 +37,6 @@ router.post("/", (req, res, next) => {
         name,
         email,
         password,
-        goals: "",
       });
 
       //Creating salt and hash

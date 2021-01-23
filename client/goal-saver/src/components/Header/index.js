@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ReactSVG } from "react-svg";
 import { connect } from "react-redux";
 import GoalLogo from "../../icons/goal-logo.svg";
@@ -15,7 +15,6 @@ import {
 } from "./styles";
 import { openModal } from "../../actions";
 import AccountIcon from "../../icons/account.svg";
-import { push } from "connected-react-router";
 import { useHistory } from "react-router-dom";
 
 function Header({ Open, isAuthenticated, userName, userId }) {

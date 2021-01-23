@@ -6,13 +6,11 @@ import Header from "../components/Header";
 import { HeaderButton } from "../components/Header/styles";
 import { NoGoalsWrapper } from "../components/Sidepane/styles";
 import { ShowCaseButton, Wrapper } from "../Goals/styles";
-import { Button } from "../components/Modals/styles";
 import TrashIcon from "../icons/trash.svg";
 import EditIcon from "../icons/edit.svg";
 import {
   NoteNameDiv,
   NoteName,
-  UnderlineBorder,
   TopButtonWrapper,
   NotesOrganizer,
   ButtonWrap,
@@ -27,7 +25,6 @@ function Notes({ userNotes, OpenModal, ...props }) {
   };
 
   const openNoteHandler = (Id) => {
-    console.log("Clicked on Notes");
     return props.history.push(`notes/${Id}`);
   };
 
@@ -49,10 +46,7 @@ function Notes({ userNotes, OpenModal, ...props }) {
         ) : (
           <>
             <NoteNameDiv>
-              <NoteName>
-                Your Notes
-                {/* <UnderlineBorder /> */}
-              </NoteName>
+              <NoteName>Your Notes</NoteName>
             </NoteNameDiv>
             <ButtonWrap>
               <HeaderButton

@@ -1,5 +1,4 @@
 import { call, takeLatest, put } from "redux-saga/effects";
-// import { push } from "connected-react-router";
 import Axios from "axios";
 import {
   CREATE_NEW_NOTE,
@@ -47,7 +46,6 @@ function* createNoteSaga(action) {
   const apiCall = () => {
     return Axios.post(`/api/users/${action.userId}/notes`, body, TokenConfig())
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -66,7 +64,6 @@ function* createNoteSaga(action) {
       yield put(closeModal());
       return;
     }
-    console.log(result.response.data.message);
     yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;
@@ -88,7 +85,6 @@ function* deleteNoteSaga(action) {
       TokenConfig()
     )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -107,7 +103,6 @@ function* deleteNoteSaga(action) {
       yield put(closeModal());
       return;
     }
-    console.log(result.response.data.message);
     yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;
@@ -130,7 +125,6 @@ function* editNoteNameSaga(action) {
       TokenConfig()
     )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -143,14 +137,12 @@ function* editNoteNameSaga(action) {
   try {
     const result = yield call(apiCall);
     if (result.status) {
-      console.log("In notes success");
       yield put(NotesSuccess(result));
       yield put(SuccessMessage(result.message));
       yield put(clearError());
       yield put(closeModal());
       return;
     }
-    console.log(result.message);
     yield put(ErrorMessage(result.message));
     yield put(clearError());
     return;
@@ -174,7 +166,6 @@ function* saveNoteSaga(action) {
       TokenConfig()
     )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((error) => {
@@ -188,7 +179,6 @@ function* saveNoteSaga(action) {
   try {
     const result = yield call(apiCall);
     if (result.status) {
-      console.log(result);
       yield put(NotesSuccess(result));
       yield put(SuccessMessage(result.message));
       return yield put(clearError());

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-// import { AnimateOnChange } from "react-animation";
 import {
   HomeWrapper,
   AnimationDiv,
@@ -28,9 +27,9 @@ function HomePage({
   id,
   ...props
 }) {
-  // useEffect(() => {
-  //   loadQuote();
-  // }, [loadQuote]);
+  useEffect(() => {
+    loadQuote();
+  }, [loadQuote]);
 
   const openModalType = (modalType, data = {}) => {
     return OpenModal(modalType, data);
@@ -41,7 +40,6 @@ function HomePage({
     }
     openModalType("signin");
   };
-
   return (
     <HomeWrapper>
       <Header />
@@ -58,13 +56,10 @@ function HomePage({
         <FormWrapper>
           <QuotesWrapper>
             <QuoteHeading>Quote of the Moment!!!</QuoteHeading>
-            {/* <P quote>{quote.quote.quoteText}</P>
-          <P>
-            -- <span>{quote.quote.quoteAuthor}</span>
-          </P> */}
-            <P>We are working on quotes</P>
+            <P quote>{isAuthenticated && quote.data && quote.data.quote}</P>
             <P>
-              -- <span>Developer</span>
+              --{" "}
+              <span>{isAuthenticated && quote.data && quote.data.author}</span>
             </P>
           </QuotesWrapper>
           <GetStartedWrapper>
@@ -82,8 +77,6 @@ const mapStateToProps = (state) => ({
   isOpen: state.modal.isOpen,
   isAuthenticated: state.authentication.isAuthenticated,
   id: state.authentication.isAuthenticated && state.authentication.user.id,
-  // errorMessage: state.message.error,
-  // successMessage: state.message.success,
 });
 
 const mapDispatchToProps = (dispatch) => ({

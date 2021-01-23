@@ -21,7 +21,6 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
   };
 
   const GoalClicked = (goalId) => {
-    console.log("Clicked a goal");
     return props.history.push(`goals/${goalId}`);
   };
 
@@ -46,7 +45,9 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
               fontWeight: "bold",
             }}
           >
-            Click on a goal to view and edit it!
+            {userGoals.length >= 1
+              ? "Click on a goal to view and edit it!"
+              : "Please Create a Goal!"}
           </P>
           <InnerWrapper>
             {userGoals.map((el) => {

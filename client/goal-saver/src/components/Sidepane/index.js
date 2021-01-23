@@ -29,9 +29,7 @@ import { openModal } from "../../actions";
 function SidePane({ OpenModal, userId, userNotes, isOpen, ...props }) {
   const [show, setShow] = useState(false);
 
-  useEffect(() => {
-    console.log("inside useEffect");
-  }, [userNotes]);
+  useEffect(() => {}, [userNotes]);
 
   const OpenModalType = (modalType, data = {}) => {
     return OpenModal(modalType, data);

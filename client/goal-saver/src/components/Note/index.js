@@ -6,7 +6,6 @@ import {
   NoteName,
   NoteNameDiv,
   TextArea,
-  TopButtonWrapper,
   UnderlineBorder,
 } from "../../Notes/styles";
 import { HeaderButton } from "../Header/styles";
@@ -47,7 +46,6 @@ function Note({
   };
 
   const saveNoteHandler = () => {
-    console.log(userId, returnedNote._id, noteValue);
     return saveNoteAction(userId, returnedNote._id, noteValue);
   };
 

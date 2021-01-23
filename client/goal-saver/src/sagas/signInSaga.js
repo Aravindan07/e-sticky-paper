@@ -41,7 +41,6 @@ function* signinSaga({ email, password }) {
   const apiCall = () => {
     return Axios.post("/api/users/login", body, config)
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -61,7 +60,6 @@ function* signinSaga({ email, password }) {
       yield put(push(`/user/${result.user.id}/goals`));
       return;
     }
-    console.log(result.response.data.message);
     yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;

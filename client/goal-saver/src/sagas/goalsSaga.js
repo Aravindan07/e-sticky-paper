@@ -9,15 +9,12 @@ import {
   DELETE_ENTIRE_GOAL,
   DELETE_GOAL,
   MARK_CHECKED,
-  SIGN_IN,
-  SUCCESS_MESSAGE,
 } from "../constants";
 import {
   clearError,
   closeModal,
   ErrorMessage,
   goalSuccess,
-  SignInSuccess,
   SuccessMessage,
 } from "../actions";
 
@@ -53,7 +50,6 @@ function* addMainGoalNameSaga(action) {
     userId: action.userId,
     goalName: action.goalName,
   });
-  console.log(body);
   const apiCall = () => {
     return Axios.put(
       `/api/users/${action.userId}/goal/goal-name`,
@@ -61,7 +57,6 @@ function* addMainGoalNameSaga(action) {
       TokenConfig()
     )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -75,12 +70,10 @@ function* addMainGoalNameSaga(action) {
     const result = yield call(apiCall);
     if (result.status) {
       yield put(goalSuccess(result));
-      console.log(result);
       yield put(closeModal());
       yield put(push(`/user/${action.userId}/goals`));
       return;
     }
-    console.log(result);
     yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;
@@ -96,7 +89,6 @@ function* createGoalSaga(action) {
     goalName: action.goalName,
     goalId: action.goalId,
   });
-  console.log(body);
   const apiCall = () => {
     return Axios.put(
       `/api/users/${action.userId}/goal/:${action.goalId}/add-sub-goal`,
@@ -104,7 +96,6 @@ function* createGoalSaga(action) {
       TokenConfig()
     )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -118,12 +109,9 @@ function* createGoalSaga(action) {
     const result = yield call(apiCall);
     if (result.status) {
       yield put(goalSuccess(result));
-      console.log(result);
       yield put(closeModal());
       return;
     }
-    // console.log(result.response.data.message);
-    console.log(result);
     yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;
@@ -139,7 +127,6 @@ function* createChildGoalSaga(action) {
     subGoalId: action.subGoalId,
     children: action.children,
   });
-  console.log(body);
   const apiCall = () => {
     return Axios.put(
       `/api/users/${action.userId}/goal/:${action.goalId}/${action.subGoalId}/add-child-goal`,
@@ -147,7 +134,6 @@ function* createChildGoalSaga(action) {
       TokenConfig()
     )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -161,12 +147,9 @@ function* createChildGoalSaga(action) {
     const result = yield call(apiCall);
     if (result.status) {
       yield put(goalSuccess(result));
-      console.log(result);
       yield put(closeModal());
       return;
     }
-    // console.log(result.response.data.message);
-    console.log(result);
     yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;
@@ -187,7 +170,6 @@ function* deleteEntireGoalSaga(action) {
       TokenConfig()
     )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -201,13 +183,10 @@ function* deleteEntireGoalSaga(action) {
     const result = yield call(apiCall);
     if (result.status) {
       yield put(goalSuccess(result));
-      console.log(result);
       yield put(SuccessMessage(result.message));
       yield put(closeModal());
       return;
     }
-    // console.log(result.response.data.message);
-    console.log(result);
     yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;
@@ -222,7 +201,6 @@ function* deleteGoalSaga(action) {
     goalId: action.goalId,
     subGoalId: action.subGoalId,
   });
-  console.log(body);
   const apiCall = () => {
     return Axios.put(
       `/api/users/${action.userId}/goal/${action.goalId}/${action.subGoalId}/delete`,
@@ -230,7 +208,6 @@ function* deleteGoalSaga(action) {
       TokenConfig()
     )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -244,13 +221,10 @@ function* deleteGoalSaga(action) {
     const result = yield call(apiCall);
     if (result.status) {
       yield put(goalSuccess(result));
-      console.log(result);
       yield put(SuccessMessage(result.message));
       yield put(closeModal());
       return;
     }
-    // console.log(result.response.data.message);
-    console.log(result);
     yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;
@@ -266,7 +240,6 @@ function* deleteChildSaga(action) {
     subGoalId: action.subGoalId,
     childId: action.childId,
   });
-  console.log(body);
   const apiCall = () => {
     return Axios.put(
       `/api/users/${action.userId}/goal/${action.goalId}/child/delete`,
@@ -274,7 +247,6 @@ function* deleteChildSaga(action) {
       TokenConfig()
     )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -288,14 +260,11 @@ function* deleteChildSaga(action) {
     const result = yield call(apiCall);
     if (result.status) {
       yield put(goalSuccess(result));
-      console.log(result);
       yield put(SuccessMessage(result.message));
       yield put(closeModal());
       yield put(clearError());
       return;
     }
-    // console.log(result.response.data.message);
-    console.log(result);
     yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;
@@ -311,7 +280,6 @@ function* markGoalSaga(action) {
     subGoalId: action.subGoalId,
     childId: action.childId,
   });
-  console.log(body);
   const apiCall = () => {
     return Axios.put(
       `/api/users/${action.userId}/goal/${action.goalId}/${action.subGoalId}/${action.childId}/mark`,
@@ -319,7 +287,6 @@ function* markGoalSaga(action) {
       TokenConfig()
     )
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((err) => {
@@ -333,13 +300,10 @@ function* markGoalSaga(action) {
     const result = yield call(apiCall);
     if (result.status) {
       yield put(goalSuccess(result));
-      console.log(result);
       yield put(SuccessMessage(result.message));
       yield put(clearError());
       return;
     }
-    // console.log(result.response.data.message);
-    console.log(result);
     yield put(ErrorMessage(result.response.data.message));
     yield put(clearError());
     return;

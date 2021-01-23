@@ -11,24 +11,18 @@ import {
   ButtonDiv,
   ProceedButton,
 } from "./styles";
-import { Form, InputWrap, Label, Input } from "../components/Modals/styles";
 import { AnimationDiv, H2 } from "../Homepage/styles";
 import Header from "../components/Header";
 import { addMainGoalName } from "../actions";
-import { HeaderButton } from "../components/Header/styles";
 
-function GoalCreator({ userId, addMainGoalName, ...props }) {
+function GoalCreator({ userId, addMainGoalName }) {
   const initialState = {
     name: "",
   };
-  // const initialActive = {
-  //   isGoalNameActive: false,
-  // };
+
   const [{ name }, setState] = useState(initialState);
-  // const [{ isGoalNameActive }, setGoalName] = useState(initialActive);
 
   const onClickHandler = () => {
-    // props.history.push("goals");
     return addMainGoalName(userId, name);
   };
 

@@ -38,22 +38,6 @@ webPush.setVapidDetails(
   vapidKeys.privateKey
 );
 
-// Use Routes
-app.post("/subscribe", (req, res) => {
-  //Get pushSubscription object
-  const subscription = req.body;
-
-  //Send 201-resource created
-  res.status(201).json({});
-
-  //Create payload
-  const payload = JSON.stringify({ title: "Push notification test" });
-
-  //Pass object into sendNotification
-  webPush
-    .sendNotification(subscription, payload)
-    .catch((err) => console.error(err));
-});
 app.use("/api/users", newUsers);
 app.use("/api/users/login", loginUser);
 app.use("/api/users/:userId/goal", Goals);

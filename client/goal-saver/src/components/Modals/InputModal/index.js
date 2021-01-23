@@ -27,7 +27,6 @@ function InputModal({
   createChildGoal,
   EditNoteName,
 }) {
-  console.log(data);
   const [goal, setGoal] = useState("");
   const [changedName, setChangedName] = useState(data.noteName);
 
@@ -43,13 +42,11 @@ function InputModal({
     if (data.type === "subGoalInput") {
       return createGoal(userId, goal, data.goalId);
     }
-    console.log(userId, data.goalId, data.goal._id, goal);
     return createChildGoal(userId, data.goalId, data.goal._id, goal);
   };
 
   const editNameHandler = () => {
     //userId,noteId,newName
-    console.log(userId, data.noteId, changedName);
     return EditNoteName(userId, data.noteId, changedName);
   };
 

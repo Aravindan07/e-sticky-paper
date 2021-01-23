@@ -15,7 +15,7 @@ const userSchema = new Schema({
   goals: [
     {
       _id: mongoose.Schema.Types.ObjectId,
-      mainGoalName: { type: String, required: true },
+      mainGoalName: { type: String },
       userGoals: [
         {
           _id: mongoose.Schema.Types.ObjectId,
