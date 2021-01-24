@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { devices } from "../devices";
 
 export const HomeWrapper = styled.div`
   min-height: 100vh;
@@ -46,6 +47,12 @@ export const FormWrapper = styled.div`
   display: flex;
   margin-top: 50px;
   align-items: center;
+
+  @media ${devices.tablet} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const QuotesWrapper = styled.div`
@@ -58,6 +65,10 @@ export const QuotesWrapper = styled.div`
   text-align: center;
   padding: 0px 0px 0px 10px;
   /* border-radius: 10px 0px 0px 10px; */
+
+  @media ${devices.tablet} {
+    width: 80%;
+  }
 `;
 
 export const QuoteHeading = styled.div`
@@ -88,6 +99,11 @@ export const GetStartedWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media ${devices.tablet} {
+    width: 80%;
+    margin: 1rem 0rem;
+  }
 `;
 
 export const CreateButton = styled.div`

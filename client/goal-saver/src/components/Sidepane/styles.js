@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { devices } from "../../devices";
 
 export const SidepaneWrapper = styled.div`
   height: 100%;
@@ -6,6 +7,11 @@ export const SidepaneWrapper = styled.div`
   position: fixed;
   background: #13262f;
   z-index: 2;
+
+  @media ${devices.mobileL} {
+    display: none;
+    position: unset;
+  }
 `;
 
 export const SidePaneCloseDiv = styled.div`
@@ -47,6 +53,10 @@ export const DropdownContent = styled.div`
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 10;
+
+  @media ${devices.tablet} {
+    right: -10px;
+  }
 `;
 
 export const Dropdown = styled.div`

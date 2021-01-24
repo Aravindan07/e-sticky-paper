@@ -56,10 +56,9 @@ function HomePage({
         <FormWrapper>
           <QuotesWrapper>
             <QuoteHeading>Quote of the Moment!!!</QuoteHeading>
-            <P quote>{isAuthenticated && quote.data && quote.data.quote}</P>
+            <P quote>{quote.data && quote.data.quote}</P>
             <P>
-              --{" "}
-              <span>{isAuthenticated && quote.data && quote.data.author}</span>
+              -- <span>{quote.data && quote.data.author}</span>
             </P>
           </QuotesWrapper>
           <GetStartedWrapper>

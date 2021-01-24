@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { devices } from "../devices";
 
 export const Wrapper = styled.div`
   height: 100vh;
@@ -7,6 +8,11 @@ export const Wrapper = styled.div`
   background: #fcd34d;
   position: ${(props) => (props.divType === "sidepane" ? "fixed" : "fixed")};
   left: ${(props) => (props.divType === "sidepane" ? "20%" : "0px")};
+
+  @media ${devices.mobileL} {
+    width: ${(props) => (props.divType === "sidepane" ? "100%" : "100%")};
+    left: ${(props) => (props.divType === "sidepane" ? "0%" : "0px")};
+  }
 `;
 
 export const SubButtonDiv = styled.div`

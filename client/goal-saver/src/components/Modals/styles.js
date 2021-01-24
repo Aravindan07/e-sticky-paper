@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { devices } from "../../devices";
 
 export const Heading = styled.div`
   font-size: 28px;
@@ -61,6 +62,10 @@ export const Input = styled.input`
     background: #ffffff;
     border: 1px solid #818cf8;
   }
+
+  @media ${devices.tablet} {
+    width: 100%;
+  }
 `;
 
 export const ButtonsDiv = styled.div`
@@ -79,6 +84,10 @@ export const ButtonsDiv = styled.div`
     cursor: pointer;
     text-transform: uppercase;
     transform: scale(1.03);
+  }
+
+  @media ${devices.tablet} {
+    width: 100%;
   }
 `;
 function setMargin(props) {

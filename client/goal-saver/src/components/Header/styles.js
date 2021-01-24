@@ -1,12 +1,19 @@
+import { useDebugValue } from "react";
 import styled from "styled-components";
+import { devices } from "../../devices";
 
 export const InnerWrap = styled.div`
   width: 100%;
-  height: 70px;
+  min-height: 70px;
   background: #13262f;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media ${devices.mobileL} {
+    display: block;
+    padding: 0.5rem 0rem;
+  }
 `;
 
 export const LogoDiv = styled.div`
@@ -56,6 +63,10 @@ export const AccountName = styled.div`
     cursor: pointer;
     color: #f9dc5c;
   }
+
+  @media ${devices.mobileL} {
+    margin-left: 1rem;
+  }
 `;
 
 export const SignInSignUpWrap = styled.div`
@@ -75,7 +86,6 @@ export const HeaderButton = styled.button`
   border-radius: 5px;
   padding: 10px;
   font-weight: 600;
-  /* text-transform: uppercase; */
   font-size: 18px;
   font-weight: 600;
   letter-spacing: 1.2px;

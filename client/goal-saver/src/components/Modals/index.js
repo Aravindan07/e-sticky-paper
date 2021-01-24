@@ -14,7 +14,7 @@ import MessageModal from "./Message";
 import SaveModal from "./SaveModal";
 import CreateNote from "./Create-Note";
 import PropTypes from "prop-types";
-// import Notification from "../toastNotifications";
+import { devices } from "../../devices";
 
 toast.configure();
 
@@ -40,6 +40,9 @@ function Modals({
   successMsg,
   // isAuthenticated,
 }) {
+  const [deviceWidth, setDeviceWidth] = useState(
+    document.documentElement.clientWidth
+  );
   useEffect(() => {
     Modal.setAppElement("#root");
   });
@@ -99,11 +102,18 @@ function Modals({
     }
     return "70%";
   };
+
+  const determineWidth = () => {
+    if (deviceWidth >= "320" && deviceWidth < "768") {
+      return "80%";
+    }
+    return "50%";
+  };
   const overlay = {
     backgroundColor: "rgba(0,0,0,0.8)",
   };
   const content = {
-    width: "50%",
+    width: determineWidth(),
     height: setHeight(),
     margin: "auto",
     borderRadius: "5px",
@@ -112,12 +122,27 @@ function Modals({
     zIndex: "10",
   };
 
+  const smallModalWidth = () => {
+    if (deviceWidth >= "320" && deviceWidth < "768") {
+      console.log("re-rendering");
+      return "80%";
+    }
+    return "40%";
+  };
+
+  const smallModalPadding = () => {
+    if (deviceWidth >= "320" && deviceWidth < "768") {
+      return "1rem";
+    }
+    return "20px";
+  };
+
   const logoutContent = {
-    width: "40%",
+    width: smallModalWidth(),
     height: "200px",
     margin: "auto",
     borderRadius: "10px",
-    padding: "20px",
+    padding: smallModalPadding(),
     zIndex: "10",
   };
 
