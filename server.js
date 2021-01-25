@@ -7,7 +7,7 @@ const newUsers = require("./routes/api/users");
 const loginUser = require("./routes/api/login");
 const Goals = require("./routes/api/goals");
 const Notes = require("./routes/api/notes");
-const webPush = require("web-push");
+const path = require("path");
 
 app.use(morgan("dev"));
 
@@ -28,20 +28,23 @@ mongoose
   .catch((err) => console.log(err));
 
 const vapidKeys = webPush.generateVAPIDKeys();
-// const publicVapidKey =
-//   "BH2v8FAHYiT3n3l3qAQGo_FvJgytwDK2e1d9NJXyReF0TebIyii9prcZXIHHvngLvn6p-Efqc3MOOM6lh3_CQV0";
-// const privateVapidKey = "vdBFzfheha8rwQzOZ_ftSvMis4eGci8raSylt1J0Vss";
-
-webPush.setVapidDetails(
-  "mailto:aravindanravi33@gmail.com",
-  vapidKeys.publicKey,
-  vapidKeys.privateKey
-);
 
 app.use("/api/users", newUsers);
 app.use("/api/users/login", loginUser);
 app.use("/api/users/:userId/goal", Goals);
 app.use("/api/users/:userId/notes", Notes);
+
+// Set static assets if in production
+if (process.env.NODE_ENV === "production") {
+  // set static folder
+  app.use(express.static("client/goal-saver/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "client", "goal-saver", "build", "index.html")
+    );
+  });
+}
 
 const port = process.env.PORT || 3333;
 app.listen(port, () => console.log(`Server started at port ${port}`));
