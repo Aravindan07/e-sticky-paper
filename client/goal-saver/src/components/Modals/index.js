@@ -14,7 +14,6 @@ import MessageModal from "./Message";
 import SaveModal from "./SaveModal";
 import CreateNote from "./Create-Note";
 import PropTypes from "prop-types";
-import { devices } from "../../devices";
 
 toast.configure();
 
@@ -40,9 +39,6 @@ function Modals({
   successMsg,
   // isAuthenticated,
 }) {
-  const [deviceWidth, setDeviceWidth] = useState(
-    document.documentElement.clientWidth
-  );
   useEffect(() => {
     Modal.setAppElement("#root");
   });
@@ -104,7 +100,10 @@ function Modals({
   };
 
   const determineWidth = () => {
-    if (deviceWidth >= "320" && deviceWidth < "768") {
+    if (
+      document.documentElement.clientWidth >= "320" &&
+      document.documentElement.clientWidth < "768"
+    ) {
       return "80%";
     }
     return "50%";
@@ -123,15 +122,20 @@ function Modals({
   };
 
   const smallModalWidth = () => {
-    if (deviceWidth >= "320" && deviceWidth < "768") {
-      console.log("re-rendering");
+    if (
+      document.documentElement.clientWidth >= "320" &&
+      document.documentElement.clientWidth < "768"
+    ) {
       return "80%";
     }
     return "40%";
   };
 
   const smallModalPadding = () => {
-    if (deviceWidth >= "320" && deviceWidth < "768") {
+    if (
+      document.documentElement.clientWidth >= "320" &&
+      document.documentElement.clientWidth < "768"
+    ) {
       return "1rem";
     }
     return "20px";
