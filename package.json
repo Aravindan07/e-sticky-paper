@@ -9,7 +9,7 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client/goal-saver",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuilt": "NPM_CONFIG_PRODUCTION=false npm install --prefix client/goal-saver && npm run build --prefix client/goal-saver"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client/goal-saver && npm run build --prefix client/goal-saver"
   },
   "keywords": [
     "goals",
