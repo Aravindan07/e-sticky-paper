@@ -1,0 +1,4 @@
+{
+    "MongoURI": "mongodb+srv://goalDb:87YfBxUKEHeEMpxr@goal-saver.le1lk.gcp.mongodb.net/goal-saver?retryWrites=true&w=majority",
+    "JwtSecretKey": "goal-secret"
+}
