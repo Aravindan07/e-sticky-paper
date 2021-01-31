@@ -39,7 +39,11 @@ const config = {
 function* signupSaga({ name, email, password }) {
   const body = JSON.stringify({ name, email, password });
   const apiCall = () => {
-    return Axios.post("/api/users", body, config)
+    return Axios.post(
+      "https://e-sticky-paper-c58a25.asia1.kinto.io/api/users",
+      body,
+      config
+    )
       .then((response) => {
         return response.data;
       })

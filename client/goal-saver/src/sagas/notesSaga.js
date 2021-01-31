@@ -44,7 +44,11 @@ export const TokenConfig = () => {
 function* createNoteSaga(action) {
   const body = JSON.stringify({ userId: action.userId, name: action.name });
   const apiCall = () => {
-    return Axios.post(`/api/users/${action.userId}/notes`, body, TokenConfig())
+    return Axios.post(
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/notes`,
+      body,
+      TokenConfig()
+    )
       .then((response) => {
         return response.data;
       })
@@ -80,7 +84,7 @@ function* deleteNoteSaga(action) {
   });
   const apiCall = () => {
     return Axios.put(
-      `/api/users/${action.userId}/notes/${action.noteId}/delete`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/notes/${action.noteId}/delete`,
       body,
       TokenConfig()
     )
@@ -120,7 +124,7 @@ function* editNoteNameSaga(action) {
   });
   const apiCall = () => {
     return Axios.put(
-      `/api/users/${action.userId}/notes/${action.noteId}/modifyName`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/notes/${action.noteId}/modifyName`,
       body,
       TokenConfig()
     )
@@ -161,7 +165,7 @@ function* saveNoteSaga(action) {
 
   const apiCall = () => {
     return Axios.put(
-      `/api/users/${action.userId}/notes/${action.noteId}/edit`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/notes/${action.noteId}/edit`,
       body,
       TokenConfig()
     )

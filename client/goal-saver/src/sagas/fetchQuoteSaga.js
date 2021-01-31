@@ -4,11 +4,11 @@ import { LOAD_QUOTE } from "../constants";
 import { setQuotes } from "../actions";
 
 function* loadQuoteSaga(action) {
-  const requestURL = "http://quotes.stormconsultancy.co.uk/random.json";
+  const requestURL = "https://api.quotable.io/random";
   try {
     const uri = requestURL;
     const result = yield call(Axios.get, uri);
-    yield put(setQuotes(result));
+    yield put(setQuotes(result.data));
   } catch (error) {
     console.log(error);
   }

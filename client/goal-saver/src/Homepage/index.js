@@ -56,9 +56,9 @@ function HomePage({
         <FormWrapper>
           <QuotesWrapper>
             <QuoteHeading>Quote of the Moment!!!</QuoteHeading>
-            <P quote>{quote.data && quote.data.quote}</P>
+            <P quote>{quote && quote.content}</P>
             <P>
-              -- <span>{quote.data && quote.data.author}</span>
+              -- <span>{quote && quote.author}</span>
             </P>
           </QuotesWrapper>
           <GetStartedWrapper>

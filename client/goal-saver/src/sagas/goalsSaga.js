@@ -52,7 +52,7 @@ function* addMainGoalNameSaga(action) {
   });
   const apiCall = () => {
     return Axios.put(
-      `/api/users/${action.userId}/goal/goal-name`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/goal/goal-name`,
       body,
       TokenConfig()
     )
@@ -91,7 +91,7 @@ function* createGoalSaga(action) {
   });
   const apiCall = () => {
     return Axios.put(
-      `/api/users/${action.userId}/goal/:${action.goalId}/add-sub-goal`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/goal/:${action.goalId}/add-sub-goal`,
       body,
       TokenConfig()
     )
@@ -129,7 +129,7 @@ function* createChildGoalSaga(action) {
   });
   const apiCall = () => {
     return Axios.put(
-      `/api/users/${action.userId}/goal/:${action.goalId}/${action.subGoalId}/add-child-goal`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/goal/:${action.goalId}/${action.subGoalId}/add-child-goal`,
       body,
       TokenConfig()
     )
@@ -165,7 +165,7 @@ function* deleteEntireGoalSaga(action) {
   });
   const apiCall = () => {
     return Axios.put(
-      `/api/users/${action.userId}/goal/${action.goalId}/delete`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/goal/${action.goalId}/delete`,
       body,
       TokenConfig()
     )
@@ -203,7 +203,7 @@ function* deleteGoalSaga(action) {
   });
   const apiCall = () => {
     return Axios.put(
-      `/api/users/${action.userId}/goal/${action.goalId}/${action.subGoalId}/delete`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/goal/${action.goalId}/${action.subGoalId}/delete`,
       body,
       TokenConfig()
     )
@@ -242,7 +242,7 @@ function* deleteChildSaga(action) {
   });
   const apiCall = () => {
     return Axios.put(
-      `/api/users/${action.userId}/goal/${action.goalId}/child/delete`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/goal/${action.goalId}/child/delete`,
       body,
       TokenConfig()
     )
@@ -282,7 +282,7 @@ function* markGoalSaga(action) {
   });
   const apiCall = () => {
     return Axios.put(
-      `/api/users/${action.userId}/goal/${action.goalId}/${action.subGoalId}/${action.childId}/mark`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/goal/${action.goalId}/${action.subGoalId}/${action.childId}/mark`,
       body,
       TokenConfig()
     )

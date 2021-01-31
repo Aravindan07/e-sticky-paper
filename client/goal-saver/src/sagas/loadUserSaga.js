@@ -33,7 +33,10 @@ export const TokenConfig = () => {
 
 function* loadUserSaga() {
   const apiCall = () => {
-    return Axios.get("/api/users/user/", TokenConfig())
+    return Axios.get(
+      "https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/user/",
+      TokenConfig()
+    )
       .then((response) => {
         return response.data;
       })
