@@ -27,8 +27,6 @@ mongoose
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 
-const vapidKeys = webPush.generateVAPIDKeys();
-
 app.use("/api/users", newUsers);
 app.use("/api/users/login", loginUser);
 app.use("/api/users/:userId/goal", Goals);

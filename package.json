@@ -7,9 +7,10 @@
     "client-install": "npm install --prefix client/goal-saver",
     "start": "node server.js",
     "server": "nodemon server.js",
+    "prod": "PORT=80 node server.js",
     "client": "npm start --prefix client/goal-saver",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client/goal-saver && npm run build --prefix client/goal-saver"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "goals",
