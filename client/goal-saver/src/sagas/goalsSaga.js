@@ -240,9 +240,10 @@ function* deleteChildSaga(action) {
     subGoalId: action.subGoalId,
     childId: action.childId,
   });
+  console.log(action.userId, action.goalId, action.subGoalId, action.childId);
   const apiCall = () => {
     return Axios.put(
-      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/goal/${action.goalId}/child/delete`,
+      `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/goal/${action.goalId}/${action.childId}/child/delete`,
       body,
       TokenConfig()
     )

@@ -35,7 +35,6 @@ router.put("/:goalId/add-sub-goal", auth, (req, res, next) => {
       let findedGoal = user.goals.find((el) => {
         return String(el._id) === String(goalId);
       });
-      console.log(findedGoal);
       let data = {
         _id: new mongoose.Types.ObjectId(),
         goalName: goalName,
@@ -152,7 +151,7 @@ router.put("/:goalId/:subGoalId/delete", auth, (req, res, next) => {
 });
 
 //Delete a child-goal
-router.put("/:goalId/child/delete", auth, (req, res, next) => {
+router.put("/:goalId/:childId/child/delete", auth, (req, res, next) => {
   const { userId, goalId, subGoalId, childId } = req.body;
   User.findById(userId)
     .then((user) => {
@@ -160,12 +159,17 @@ router.put("/:goalId/child/delete", auth, (req, res, next) => {
         return String(el._id) === String(goalId);
       });
       console.log(findedGoal);
+      console.log(findedGoal.mainGoalName);
       let findedSubGoal = findedGoal.userGoals.find((el) => {
         return String(el._id) === String(subGoalId);
       });
+      console.log(findedSubGoal);
+      console.log(findedSubGoal.goalName);
       let modifiedChild = findedSubGoal.children.filter((el) => {
         return String(el._id) !== String(childId);
       });
+      console.log(modifiedChild);
+
       findedSubGoal.children = modifiedChild;
       user
         .save()

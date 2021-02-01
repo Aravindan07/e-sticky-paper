@@ -30,8 +30,8 @@ function Goals({ userGoals, userId, MarkGoal, Open, ...props }) {
 
   return (
     <>
-      <Header />
       <Wrapper>
+        <Header />
         <SubButtonDiv>
           <HeaderButton btnType="notes" onClick={freshGoalClicked}>
             Create a fresh goal

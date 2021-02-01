@@ -2,12 +2,27 @@ import styled from "styled-components";
 
 export const GoalWrapper = styled.div`
   width: 100%;
-  height: 100%;
-  position: fixed;
+  height: 100vh;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: #f9dc5c;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 15px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(108, 122, 137, 1);
+    border-radius: 15px;
+  }
 `;
 
 export const InputWrapper = styled.div`

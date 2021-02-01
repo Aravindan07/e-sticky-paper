@@ -29,8 +29,6 @@ function Message({
   userId,
   data,
 }) {
-  console.log(data);
-
   const deleteEntireGoalFn = (userId, goalId) => {
     console.log(userId, goalId);
     return deleteEntireGoal(userId, goalId);
@@ -141,8 +139,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(deleteEntireGoal(userId, goalId)),
   deleteGoal: (userId, goalId, subGoalId) =>
     dispatch(deleteGoal(userId, goalId, subGoalId)),
-  deleteChild: (userId, goalId, SubGoalId, childId) =>
-    dispatch(deleteChildGoal(userId, goalId, SubGoalId, childId)),
+  deleteChild: (userId, goalId, subGoalId, childId) =>
+    dispatch(deleteChildGoal(userId, goalId, subGoalId, childId)),
   DeleteNote: (userId, noteId) => dispatch(deleteNote(userId, noteId)),
 });
 

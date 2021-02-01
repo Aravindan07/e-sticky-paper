@@ -160,6 +160,7 @@ export const deleteGoal = (userId, goalId, subGoalId) => {
 };
 
 export const deleteChildGoal = (userId, goalId, subGoalId, childId) => {
+  console.log(userId, goalId, subGoalId, childId);
   return {
     type: DELETE_CHILD_GOAL,
     userId,

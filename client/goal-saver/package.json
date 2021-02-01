@@ -46,5 +46,6 @@
       "last 3 firefox version",
       "last 3 safari version"
     ]
-  }
+  },
+  "proxy": "https://e-sticky-paper-c58a25.asia1.kinto.io"
 }

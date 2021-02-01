@@ -6,8 +6,23 @@ export const Wrapper = styled.div`
   width: ${(props) => (props.divType === "sidepane" ? "80%" : "100%")};
   /* background: #f9dc5c; */
   background: #fcd34d;
-  position: ${(props) => (props.divType === "sidepane" ? "fixed" : "fixed")};
+  position: ${(props) => (props.divType === "sidepane" ? "fixed" : "relative")};
   left: ${(props) => (props.divType === "sidepane" ? "20%" : "0px")};
+  overflow-y: auto;
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 15px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(108, 122, 137, 1);
+    border-radius: 15px;
+  }
 
   @media ${devices.mobileL} {
     width: ${(props) => (props.divType === "sidepane" ? "100%" : "100%")};

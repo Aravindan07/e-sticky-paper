@@ -34,8 +34,8 @@ function GoalCreator({ userId, addMainGoalName }) {
 
   return (
     <>
-      <Header />
       <GoalWrapper>
+        <Header />
         <AnimationDiv>
           <InputWrapper>
             <H2>Let's get started !</H2>
