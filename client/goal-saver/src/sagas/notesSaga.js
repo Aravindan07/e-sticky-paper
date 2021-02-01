@@ -54,7 +54,6 @@ function* createNoteSaga(action) {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -72,7 +71,7 @@ function* createNoteSaga(action) {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage(error));
   }
 }
 
@@ -93,7 +92,6 @@ function* deleteNoteSaga(action) {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -111,7 +109,7 @@ function* deleteNoteSaga(action) {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage(error));
   }
 }
 
@@ -133,7 +131,6 @@ function* editNoteNameSaga(action) {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -151,7 +148,7 @@ function* editNoteNameSaga(action) {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage(error));
   }
 }
 
@@ -174,7 +171,6 @@ function* saveNoteSaga(action) {
       })
       .catch((error) => {
         if (error.response) {
-          console.log(error.response.data);
           return error;
         }
       });
@@ -190,7 +186,7 @@ function* saveNoteSaga(action) {
     yield put(ErrorMessage(result.message));
     return yield put(clearError());
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage(error));
   }
 }
 

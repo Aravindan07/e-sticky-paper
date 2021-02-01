@@ -22,7 +22,6 @@ router.put("/goal-name", auth, (req, res, next) => {
       });
     })
     .catch((error) => {
-      console.log(error);
       return res.json({ error: error, message: "An error occurred" });
     });
 });
@@ -47,7 +46,6 @@ router.put("/:goalId/add-sub-goal", auth, (req, res, next) => {
           return res.json({ status: 201, goals: result.goals });
         })
         .catch((error) => {
-          console.log("Error outside all the if statements");
           return res.json({ error: error });
         });
     })
@@ -64,11 +62,9 @@ router.put("/:goalId/:subGoalId/add-child-goal", auth, (req, res, next) => {
       let findedGoal = user.goals.find((el) => {
         return String(el._id) === String(goalId);
       });
-      console.log(findedGoal);
       let addChild = findedGoal.userGoals.find((el) => {
         return String(el._id) === subGoalId;
       });
-      console.log(addChild);
       addChild.children.push(children);
       user
         .save()
@@ -76,12 +72,10 @@ router.put("/:goalId/:subGoalId/add-child-goal", auth, (req, res, next) => {
           return res.json({ status: 201, goals: result.goals });
         })
         .catch((error) => {
-          console.log(error);
           return res.json({ error: error });
         });
     })
     .catch((error) => {
-      console.log(error);
       return res.json({ error: error, message: "An error occurred" });
     });
 });
@@ -89,7 +83,6 @@ router.put("/:goalId/:subGoalId/add-child-goal", auth, (req, res, next) => {
 //Delete a goal
 router.put("/:goalId/delete", auth, (req, res, next) => {
   const { userId, goalId } = req.body;
-  console.log(userId, goalId);
   User.findById(userId)
     .then((user) => {
       let modified = user.goals.filter((el) => {
@@ -106,12 +99,10 @@ router.put("/:goalId/delete", auth, (req, res, next) => {
           });
         })
         .catch((error) => {
-          console.log(error);
           return res.json({ error: error });
         });
     })
     .catch((error) => {
-      console.log(error);
       return res.json({ error: error });
     });
 });
@@ -124,7 +115,6 @@ router.put("/:goalId/:subGoalId/delete", auth, (req, res, next) => {
       let findedGoal = user.goals.find((el) => {
         return String(el._id) === String(goalId);
       });
-      console.log(findedGoal);
       let filteredSubGoals = findedGoal.userGoals.filter((el) => {
         return String(el._id) !== String(subGoalId);
       });
@@ -140,12 +130,10 @@ router.put("/:goalId/:subGoalId/delete", auth, (req, res, next) => {
           });
         })
         .catch((error) => {
-          console.log(error);
           return res.json({ error: error });
         });
     })
     .catch((error) => {
-      console.log(error);
       return res.json({ error: error });
     });
 });
@@ -158,17 +146,14 @@ router.put("/:goalId/:childId/child/delete", auth, (req, res, next) => {
       let findedGoal = user.goals.find((el) => {
         return String(el._id) === String(goalId);
       });
-      console.log(findedGoal);
-      console.log(findedGoal.mainGoalName);
+
       let findedSubGoal = findedGoal.userGoals.find((el) => {
         return String(el._id) === String(subGoalId);
       });
-      console.log(findedSubGoal);
-      console.log(findedSubGoal.goalName);
+
       let modifiedChild = findedSubGoal.children.filter((el) => {
         return String(el._id) !== String(childId);
       });
-      console.log(modifiedChild);
 
       findedSubGoal.children = modifiedChild;
       user
@@ -181,12 +166,10 @@ router.put("/:goalId/:childId/child/delete", auth, (req, res, next) => {
           });
         })
         .catch((error) => {
-          console.log(error);
           return res.json({ error: error });
         });
     })
     .catch((error) => {
-      console.log(error);
       return res.json({ error: error });
     });
 });
@@ -216,12 +199,10 @@ router.put("/:goalId/:subGoalId/:childId/mark", auth, (req, res, next) => {
           });
         })
         .catch((error) => {
-          console.log(error);
           return res.json({ error: error });
         });
     })
     .catch((error) => {
-      console.log(error);
       return res.json({ error: error });
     });
 });

@@ -49,7 +49,6 @@ function* signinSaga({ email, password }) {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -68,7 +67,7 @@ function* signinSaga({ email, password }) {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage(error));
   }
 }
 

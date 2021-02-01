@@ -13,10 +13,8 @@ function auth(req, res, next) {
     // Verify token
     const jwtSecretKey = process.env.JwtSecret || config.get("JwtSecretKey");
     const decoded = jwt.verify(token, jwtSecretKey);
-    console.log(decoded);
     //Add user from payload
     req.user = decoded;
-    console.log(req.user);
     next();
   } catch (error) {
     res.status(400).json({ message: "Token is not valid" });

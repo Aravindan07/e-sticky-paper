@@ -25,12 +25,10 @@ router.post("/", auth, (req, res, next) => {
           });
         })
         .catch((error) => {
-          console.log(error);
           return res.json({ error: error });
         });
     })
     .catch((error) => {
-      console.log(error);
       return res.json({ error: error });
     });
 });
@@ -54,12 +52,10 @@ router.put("/:notesId/delete", auth, (req, res, next) => {
           });
         })
         .catch((error) => {
-          console.log(error);
           return res.json({ error: error });
         });
     })
     .catch((error) => {
-      console.log(error);
       return res.json({ error: error });
     });
 });
@@ -67,16 +63,13 @@ router.put("/:notesId/delete", auth, (req, res, next) => {
 //Change the note name
 router.put("/:notesId/modifyName", auth, (req, res, next) => {
   const { userId, noteId, noteName } = req.body;
-  console.log(noteName);
   User.findById(userId)
     .then((user) => {
       if (noteName.length > 0) {
-        console.log("Inside NoteName");
         let findedNote = user.notes.find((el) => {
           return String(el._id) === String(noteId);
         });
         findedNote.NoteName = noteName;
-        console.log(findedNote);
         user
           .save()
           .then((result) => {
@@ -87,7 +80,6 @@ router.put("/:notesId/modifyName", auth, (req, res, next) => {
             });
           })
           .catch((error) => {
-            console.log(error);
             return res.json({ error: error });
           });
       } else {
@@ -95,7 +87,6 @@ router.put("/:notesId/modifyName", auth, (req, res, next) => {
       }
     })
     .catch((error) => {
-      console.log(error);
       return res.json({ error: error });
     });
 });
@@ -103,7 +94,6 @@ router.put("/:notesId/modifyName", auth, (req, res, next) => {
 //Edit Individual notes
 router.put("/:notesId/edit", auth, (req, res, next) => {
   const { userId, noteId, newNotes } = req.body;
-  console.log(userId, noteId, newNotes);
   User.findById(userId)
     .then((user) => {
       let findedNote = user.notes.find((el) => {
@@ -120,12 +110,10 @@ router.put("/:notesId/edit", auth, (req, res, next) => {
           });
         })
         .catch((error) => {
-          console.log(error);
           return res.json({ error: error });
         });
     })
     .catch((error) => {
-      console.log(error);
       return res.json({ error: error });
     });
 });

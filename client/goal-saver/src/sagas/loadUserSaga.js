@@ -42,7 +42,6 @@ function* loadUserSaga() {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -61,7 +60,7 @@ function* loadUserSaga() {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage("Please Signin to continue"));
   }
 }
 

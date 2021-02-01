@@ -61,7 +61,6 @@ function* addMainGoalNameSaga(action) {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -78,7 +77,6 @@ function* addMainGoalNameSaga(action) {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
     yield put(ErrorMessage(error));
   }
 }
@@ -100,7 +98,6 @@ function* createGoalSaga(action) {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -116,7 +113,7 @@ function* createGoalSaga(action) {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage(error));
   }
 }
 
@@ -174,7 +171,6 @@ function* deleteEntireGoalSaga(action) {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -191,7 +187,7 @@ function* deleteEntireGoalSaga(action) {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage(error));
   }
 }
 
@@ -212,7 +208,6 @@ function* deleteGoalSaga(action) {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -229,7 +224,7 @@ function* deleteGoalSaga(action) {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage(error));
   }
 }
 
@@ -240,7 +235,6 @@ function* deleteChildSaga(action) {
     subGoalId: action.subGoalId,
     childId: action.childId,
   });
-  console.log(action.userId, action.goalId, action.subGoalId, action.childId);
   const apiCall = () => {
     return Axios.put(
       `https://e-sticky-paper-c58a25.asia1.kinto.io/api/users/${action.userId}/goal/${action.goalId}/${action.childId}/child/delete`,
@@ -252,7 +246,6 @@ function* deleteChildSaga(action) {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -270,7 +263,7 @@ function* deleteChildSaga(action) {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage(error));
   }
 }
 
@@ -292,7 +285,6 @@ function* markGoalSaga(action) {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           return err;
         }
       });
@@ -309,7 +301,7 @@ function* markGoalSaga(action) {
     yield put(clearError());
     return;
   } catch (error) {
-    console.log(error);
+    yield put(ErrorMessage(error));
   }
 }
 
