@@ -226,5 +226,3 @@ export const saveNote = (userId, noteId, newNote) => {
     newNote,
   };
 };
-
-// End of actions
